@@ -1,1 +1,1 @@
-# lab2-SPOC
+# Practica
