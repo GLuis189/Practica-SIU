@@ -5,11 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>El Corte Ingles: vista de dependiente</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
 </head>
 <body>
-    <header>
-        <img src="../imgs/logo.png" alt="Logo">
-    </header>
+    <section id="menu_dependiente">
+        <div class="contenedor">
+            <img class="logo" src="/imgs/logo_corte_ingles.png" alt="Logo">
+        </div>
+        <h2>Introduzca la contraseña</h2>
+        <div class="contenedor-campos">
+            <label for="contrasena" class="campo">Contraseña:</label>
+            <input id="contrasena" type="password" class="input-campo" placeholder="Introduce tu contraseña" required>
+        </div> 
+        <div class="contenedor-flex">
+            <div class="contenedor-boton">
+                <button id="boton-log"class="boton-inicio-sesion">Acceder</button>
+            </div>
+        </div>
+    </section>    
     <script src="script.js"></script>
 </body>
 </html>
