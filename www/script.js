@@ -10,5 +10,6 @@ cliente.addEventListener('click', () => {
     console.log('Cliente');
 });
 empleado.addEventListener('click', () => {
+    window.open('dependiente/home.html');
     console.log('Empleado');
 });
