@@ -30,11 +30,11 @@ botonHome.addEventListener('click', function() {
 });
 
 document.getElementById('boton-home').addEventListener('click', function() {
-    var checkbox = document.getElementById('check');
-    var nombre = document.getElementById('nombre').value;
-    var email = document.getElementById('email').value;
-    var usuario = document.getElementById('usuario').value;
-    var contraseña = document.getElementById('contraseña').value;
+    let checkbox = document.getElementById('check');
+    let nombre = document.getElementById('nombre').value;
+    let email = document.getElementById('email').value;
+    let usuario = document.getElementById('usuario').value;
+    let contraseña = document.getElementById('contraseña').value;
     
     if (!checkbox.checked) {
         alert('Debes aceptar las condiciones de uso para poder registrarte.');
