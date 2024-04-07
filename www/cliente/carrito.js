@@ -38,21 +38,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Convertir los productos a formato de texto
-        var textoProductos = JSON.stringify(productosQR);
+        let textoProductos = JSON.stringify(productosQR);
 
         // Generar el código QR
-        var qr = qrcode(0, 'L');
+        let qr = qrcode(0, 'L');
         qr.addData(textoProductos);
         qr.make();
 
         // Obtener el elemento contenedor del código QR
-        var qrCodeContainer = document.getElementById('qrCodeContainer');
+        let qrCodeContainer = document.getElementById('qrCodeContainer');
 
         // Eliminar cualquier código QR anterior
         qrCodeContainer.innerHTML = '';
 
         // Insertar el código QR en el contenedor
-        var qrImg = document.createElement('img');
+        let qrImg = document.createElement('img');
         qrImg.src = qr.createDataURL(10); // Cambia el tamaño del código QR según lo necesites
         qrCodeContainer.appendChild(qrImg);
     }

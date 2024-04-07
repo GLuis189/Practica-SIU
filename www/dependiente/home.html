@@ -6,8 +6,12 @@
     <title>El Corte Ingles: vista de dependiente</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script>
+    <!-- Incluye la biblioteca jsQR -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
 </head>
 <body>
+    <!-- Tu contenido HTML -->
     <section id="menu_dependiente">
         <div class="contenedor">
             <img class="logo" src="/imgs/logo_corte_ingles.png" alt="Logo">
@@ -23,7 +27,8 @@
             </div>
         </div>
     </section> 
-    <video id="video" autoplay></video>   
+    <video id="video" autoplay></video> 
+    <button id="boton-escanear">Escanear</button>  
     <script src="script.js"></script>
 </body>
 </html>

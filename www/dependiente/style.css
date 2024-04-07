@@ -63,6 +63,10 @@ button {
   width: 160px;
 }
 
+#boton-escanear{
+  display: none;
+}
+
 .contenedor-flex {
   margin-top: 30px;
   display: flex;

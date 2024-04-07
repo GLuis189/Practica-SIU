@@ -4,6 +4,7 @@ document.getElementById('boton-log').addEventListener('click', async function() 
         await openCamera();
         document.getElementById('menu_dependiente').style.display = 'none';
         document.getElementById('video').style.display = 'block';
+        document.getElementById('boton-escanear').style.display = 'block'; // Mostrar el botón de escaneo
         iniciarEscaneoQR();
     } else {
         alert('Contraseña incorrecta. Por favor, inténtalo de nuevo.');
@@ -11,13 +12,19 @@ document.getElementById('boton-log').addEventListener('click', async function() 
     }
 });
 
+// Función para iniciar el escaneo del código QR
+document.getElementById('boton-escanear').addEventListener('click', function() {
+    iniciarEscaneoQR();
+});
+
 async function openCamera() {
     const video = document.getElementById("video");
 
     try {
-        const stream = await navigator.mediaDevices?.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices?.getUserMedia({ video: { facingMode: { exact: "environment" } } });
         if (stream) {
             video.srcObject = stream;
+            await new Promise(resolve => video.onloadedmetadata = resolve); // Esperar a que la cámara esté completamente cargada
         } else {
             console.error("No se pudo obtener acceso a la cámara.");
         }
@@ -31,12 +38,12 @@ function iniciarEscaneoQR() {
     const canvas = document.createElement("canvas");
     const context = canvas.getContext("2d");
 
-    const width = video.videoWidth;
-    const height = video.videoHeight;
-    canvas.width = width;
-    canvas.height = height;
-
     const escanearQR = () => {
+        const width = video.videoWidth;
+        const height = video.videoHeight;
+        canvas.width = width;
+        canvas.height = height;
+
         context.drawImage(video, 0, 0, width, height);
         const imageData = context.getImageData(0, 0, width, height);
         const code = jsQR(imageData.data, imageData.width, imageData.height);
@@ -44,15 +51,18 @@ function iniciarEscaneoQR() {
         if (code) {
             mostrarInfoCarrito(code.data);
         } else {
-            requestAnimationFrame(escanearQR); // Continuar escaneando en tiempo real
+            console.log("No se detectó ningún código QR.");
         }
+
+        requestAnimationFrame(escanearQR); // Continuar escaneando en tiempo real
     };
 
     escanearQR();
 }
 
 function mostrarInfoCarrito(data) {
-    // Aquí puedes cargar la información del carrito en el HTML carrito_cliente.html
-    // Puedes hacerlo mediante redirección o mediante AJAX para cargar dinámicamente el contenido
-    window.location.href = "carrito_cliente.html?data=" + encodeURIComponent(data);
+    // Aquí puedes cargar la información del carrito en la página actual para verificar que se esté leyendo correctamente
+    const carritoInfoHTML = `<h2>Información del carrito:</h2>
+                              <p>${data}</p>`;
+    document.body.innerHTML = carritoInfoHTML;
 }
