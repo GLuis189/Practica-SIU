@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="carrito.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script> <!-- Agrega esta línea -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -21,13 +24,27 @@
         </div>
     </header>
     <section class="carrito">
-        <h2>Tú carrito</h2>
+        <h2>Tu carrito</h2>
         <div class="contenedor_productos">
-            <div class="contenedor-producto">
+            <div class="linea"></div>
+            <div class="producto1">                        
+                <img src="../imgs/camisa_copia.jpg" alt="Producto 1">
+                <div class="info-producto">
+                    <span class="nombre_producto">Camisa Hombre</span>
+                    <div class="cantidad-contenedor">
+                        <span class="cantidad">Cantidad: <span id="cantidadProducto">1</span></span>
+                        <button class="boton-mas">+</button>
+                        <button class="boton-menos">-</button>
+                    </div>
+                </div>
                 
             </div>
+            <div class="linea"></div>   
         </div>
+        <button id="boton-pagar">Pagar</button>
+        <div id="qrCodeContainer"></div>
     </section>
+    
     <script src="carrito.js"></script>
 </body>
 </html>

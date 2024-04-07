@@ -1,5 +1,6 @@
 body{
     background-color: #44b159;
+    font-family: 'Montserrat', sans-serif;
 }
 .contenedor {
     display: flex;
@@ -41,7 +42,7 @@ body{
     font-size: 25px; 
     width: 100%;
     color: #23A33C;
-    font-family: 'Didot', serif;
+    font-family: 'Montserrat', serif;
   }
 
   button#boton-registro {

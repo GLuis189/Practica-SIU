@@ -1,20 +1,35 @@
 const express = require('express');
+const fs = require('fs');
 const app = express();
 const server = require("http").Server(app);
-
 const io = require("socket.io")(server);
 
-app.use(express.static('www'));
+let carrito = []; // Inicializar el carrito vacío
+
+// Middleware para el análisis del cuerpo de la solicitud
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
-io.on("connection", function(socket){
-  console.log("nuevo cliente");
 
-  socket.on("message_evt", function(message){
-    console.log(socket.id, message);
-    socket.broadcast.emit("message_evt", message);
+// Manejar la conexión del cliente
+io.on('connection', (socket) => {
+    console.log('Nuevo cliente conectado');
+
+    // Recibir el contenido del carrito desde el cliente y actualizarlo en el servidor
+    socket.on('guardar-carrito', (nuevoCarrito) => {
+        carrito = nuevoCarrito.carrito;
+        console.log('Carrito actualizado:', carrito);
+         // Guardar el contenido del carrito en el archivo tasks.json
+         fs.writeFile('tasks.json', JSON.stringify(carrito), (err) => {
+          if (err) {
+              console.error(err);
+              return;
+          }
+          console.log('Carrito guardado en tasks.json');
+      });
   });
-  
 });
-
-server.listen(3000, () => console.log('server started'));
+    
+app.use(express.static('www'));
+server.listen(3000, () => console.log('Servidor iniciado en el puerto 3000'));
