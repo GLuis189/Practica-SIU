@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="carrito_dependiente.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <title>Información del Carrito</title>
     <style>
         /* Estilos CSS aquí */
@@ -10,48 +13,23 @@
     </style>
 </head>
 <body>
+    <header>
+        <div class="contenedor">
+            <img class="logo_lupa" src="/imgs/lupa.png" alt="Lupa">
+        </div>
+        <div class="contenedor">
+            <img class="logo_letras" src="/imgs/letra_verde.png" alt="Letras">
+        </div>
+        <div class="contenedor">
+            <img class="logo_menu" src="/imgs/menu.png" alt="Menu">
+        </div>
+    </header>
     <h2>Información del Carrito</h2>
-    <div id="infoCarrito">
-        <!-- Aquí se mostrará la información del carrito -->
+    <div class="contenedor_productos" id="productosContainer">
+        <!-- Aquí se mostrarán los productos -->
     </div>
 
-    <script>
-        // Obtener el parámetro 'data' de la URL
-        const params = new URLSearchParams(window.location.search);
-        const data = params.get('data');
-
-        // Convertir el JSON recibido en un objeto JavaScript
-        const carrito = JSON.parse(data);
-
-        // Crear elementos HTML para mostrar la información del carrito
-        const infoCarritoDiv = document.getElementById('infoCarrito');
-
-        carrito.forEach(producto => {
-            const nombreProducto = producto.nombre;
-            const cantidad = producto.cantidad;
-            const imagen = producto.imagen;
-
-            // Crear elementos HTML para mostrar la información del producto
-            const productoDiv = document.createElement('div');
-            productoDiv.classList.add('producto');
-
-            const nombreProductoElement = document.createElement('h3');
-            nombreProductoElement.textContent = nombreProducto;
-
-            const cantidadElement = document.createElement('p');
-            cantidadElement.textContent = `Cantidad: ${cantidad}`;
-
-            const imagenElement = document.createElement('img');
-            imagenElement.src = imagen;
-            imagenElement.alt = nombreProducto;
-
-            // Agregar elementos al contenedor principal
-            productoDiv.appendChild(nombreProductoElement);
-            productoDiv.appendChild(cantidadElement);
-            productoDiv.appendChild(imagenElement);
-
-            infoCarritoDiv.appendChild(productoDiv);
-        });
-    </script>
+    <script src="script.js"></script>
+    
 </body>
 </html>

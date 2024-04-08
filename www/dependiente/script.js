@@ -1,12 +1,21 @@
 document.getElementById('boton-log').addEventListener('click', async function() {
     let contrasena = document.getElementById('contrasena').value;
     if (contrasena === '2222') {
-        await openCamera();
-        document.getElementById('menu_dependiente').style.display = 'none';
-        document.getElementById('video').style.display = 'block';
-        document.getElementById('boton-escanear').style.display = 'block'; // Mostrar el botón de escaneo
-        iniciarEscaneoQR();
-    } else {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment" } } });
+            const video = document.getElementById("video");
+            video.srcObject = stream;
+            video.onloadedmetadata = function() {
+                document.getElementById('menu_dependiente').style.display = 'none';
+                document.getElementById('video').style.display = 'block';
+                document.getElementById('boton-escanear').style.display = 'block'; // Mostrar el botón de escaneo
+                iniciarEscaneoQR();
+            };
+        } catch (error) {
+            console.error("Error al acceder a la cámara:", error);
+            alert('No se pudo acceder a la cámara. Asegúrate de permitir el acceso y vuelve a intentarlo.');
+        }
+    }else {
         alert('Contraseña incorrecta. Por favor, inténtalo de nuevo.');
         window.location.href = "../index.html";
     }
@@ -59,10 +68,42 @@ function iniciarEscaneoQR() {
 
     escanearQR();
 }
-
+/*
 function mostrarInfoCarrito(data) {
     // Aquí puedes cargar la información del carrito en la página actual para verificar que se esté leyendo correctamente
     const carritoInfoHTML = `<h2>Información del carrito:</h2>
                               <p>${data}</p>`;
     document.body.innerHTML = carritoInfoHTML;
+}*/
+
+function mostrarInfoCarrito(data) {
+    // Guardar la información del carrito en el local storage para recuperarla en carrito_dependiente.js
+    localStorage.setItem('carrito', JSON.stringify(data));
+
+    // Redirigir a carrito_dependiente.html
+    window.location.href = 'carrito_dependiente.html';
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Recuperar la información del carrito del local storage
+    const carrito = JSON.parse(localStorage.getItem('carrito'));
+    const productosContainer = document.getElementById('productosContainer');
+
+    // Construir la estructura HTML para cada producto
+    carrito.forEach(producto => {
+        const productoHTML = `
+            <div class="producto1">                        
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <div class="info-producto">
+                    <span class="nombre_producto">${producto.nombre}</span>
+                    <div class="cantidad-contenedor">
+                        <span class="cantidad">Cantidad: ${producto.cantidad}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="linea"></div>
+        `;
+        productosContainer.innerHTML += productoHTML;
+    });
+});
+
