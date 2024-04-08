@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', serif;
+}
+.contenedor-header {
+    background-color: #ffffff; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; 
+}
+.logo_lupa,
+.logo_menu {
+    max-height: 30px; 
+}
+.logo_letras{
+    max-height: 40px; 
+}
+h2{
+    margin-left: 20px;
+    font-size: 30px;
+    color: #000000;
+    margin-top: 10px;
+}
+#contenedor-microfono {
+    display: flex;
+    background-color: aqua;
+    justify-content: center; /* Centrar horizontalmente */
+    align-items: center; /* Centrar verticalmente */
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+}
+
+.contenedor-buscador{
+    display: none;
+}
+
+.icono-microfono {
+    max-width: 50px; /* Máximo ancho de la imagen */
+    max-height: 50px; /* Máxima altura de la imagen */
+}

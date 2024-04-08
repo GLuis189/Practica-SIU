@@ -1,5 +1,31 @@
 const socket = io();
+document.addEventListener('DOMContentLoaded', function () {
+    const contenedorLupa = document.getElementById('contenedor-lupa');
+    const contenedorBuscador = document.querySelector('.contenedor-buscador');
+    const logoLetras = document.querySelector('.logo_letras');
+    const logoMenu = document.querySelector('.logo_menu');
 
+    contenedorLupa.addEventListener('touchstart', function (event) {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado del touch
+        // Toggle para mostrar u ocultar el contenedor de búsqueda
+        if (contenedorBuscador.style.display === 'none') {
+            logoLetras.style.display = 'none';
+            logoMenu.style.display = 'none';
+            contenedorBuscador.style.display = 'flex'; // Mostrar el contenedor de búsqueda
+            
+        } else {
+            contenedorBuscador.style.display = 'none'; // Ocultar el contenedor de búsqueda
+            logoLetras.style.display = 'block';
+            logoMenu.style.display = 'block';
+        }
+    });
+
+    const microfono = document.getElementById('microfono');
+
+    microfono.addEventListener('touchstart', function () {
+        window.location.href = 'microfono.html'; // Redireccionar al usuario a microfono.html
+    });
+});
 // Función para enviar el contenido del carrito al servidor
 function enviarCarritoAlServidor() {
     var productos = document.querySelectorAll('.producto1');
@@ -62,3 +88,4 @@ document.addEventListener('DOMContentLoaded', function() {
         generarCodigoQR(); // Llamar a la función para generar el código QR cuando se hace clic en el botón de pagar
     });
 });
+
