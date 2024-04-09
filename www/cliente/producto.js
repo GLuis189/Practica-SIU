@@ -81,6 +81,7 @@ function mostrarProductoEnHTML(producto) {
                 <span class="cantidad">Cantidad: ${producto.tallas}</span>
                 <span class="stock">Stock: ${producto.stock}</span>
                 <span class="precio">Precio: ${producto.precio}</span>
+                <span class="precio">Puntuación:</span>
                 <div class="valoracion">${estrellasHTML}</div> <!-- Mostrar las estrellas -->
             </div>
         `;
