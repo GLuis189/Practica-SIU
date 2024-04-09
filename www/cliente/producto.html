@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>El Corte Ingles: Home Page</title>
-    <link rel="stylesheet" href="microfono.css">
+    <link rel="stylesheet" href="producto.css">
+    <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -19,7 +20,7 @@
                 <a href="home.html">
                     <img class="logo_letras" src="/imgs/letra_verde.png" alt="Letras">
                 </a>
-            </div> 
+            </div>            
             <div class="contenedor">
                 <img class="logo_menu" src="/imgs/menu.png" alt="Menu">
             </div>
@@ -34,10 +35,7 @@
             <img id="microfono" class="icono-microfono" src="/imgs/microfono.png" alt="Micrófono">
         </div>
     </header>
-    <div id="contenedor-microfono">
-        <img id="ono-microfono" src="/imgs/microfono.png" alt="Micrófono">
-    </div>
-    <div id="status-message"></div>
-    <script src="microfono.js"></script>
+    <section id="tarjeta"></section>
 </body>
+<script src="producto.js"></script>
 </html>

@@ -1,9 +1,10 @@
 var socket = io();
+let json = {"nombre":"Camisa sdaadasda","imagen":"../imgs/camisa_copia.jpg", };
+
 
 document.getElementById('write').addEventListener('click', async function() {
     if ('NDEFReader' in window || 'NDEFWriter' in window) {
         const ndef = new NDEFReader();
-        let json = {"nombre":"Camisa Hombre","cantidad":"1","imagen":"../imgs/camisa_copia.jpg"};
 
         try {
             await ndef.write(JSON.stringify(json));

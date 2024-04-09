@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Establecer la altura mínima del cuerpo para que ocupe todo el alto de la ventana */
+}
+h2{
+    margin-left: 20px;
+    font-size: 27px;
+    color: #000000;
+    margin-top: 10px;
+}
+.contenedor-header {
+    background-color: #ffffff; 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px; 
+}
+.logo_lupa,
+.logo_menu {
+    max-height: 30px; 
+}
+.logo_letras{
+    max-height: 40px; 
+}
+
+.contenedor-buscador {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+}
+
+#input-buscador {
+    border: none; 
+    margin-left: 4px;
+    outline: none; 
+}
+
+.contenedor-buscador .busqueda {
+    display: flex;
+}
+
+h3{
+    font-size: 20px;
+    color: #000000;
+    margin-top: 10px;
+    color: #44b159;
+}
+.contenedor-acept-no {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+
+
+
+.busqueda span {
+    margin-left: 5px; /* Margen a la izquierda del texto "Buscar..." */
+}
+
+.icono-microfono {
+    width: 30px; /* Ancho de la imagen */
+    height: auto; /* Altura automática */
+    margin-left: 10px; /* Margen a la izquierda de la imagen del micrófono */
+}
+.producto {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center; 
+}
+
+.producto img {
+    width: 60%; 
+    height: auto; 
+    margin-bottom: 20px;
+}
+
+.info-producto {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.contenedor-acept-no img {
+    width: 30px;
+    height: 30px; 
+}
+
+.info-producto span {
+    margin-bottom: 10px; 
+    font-weight: bold; 
+}

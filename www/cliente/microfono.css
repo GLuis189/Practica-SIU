@@ -24,19 +24,55 @@ h2{
     margin-top: 10px;
 }
 #contenedor-microfono {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    border: 10px solid black;
+    border-radius: 50%;
+    overflow: hidden;
     display: flex;
-    background-color: aqua;
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    width: 100%; /* Ancho completo */
-    height: 100%; /* Altura completa */
+    justify-content: center; 
+    align-items: center; 
 }
 
-.contenedor-buscador{
-    display: none;
+#icono-microfono {
+    width: 170px; 
+    height: 170px;
+    align-self: center;
+}
+
+
+.contenedor-buscador {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+}
+
+#input-buscador {
+    border: none; 
+    margin-left: 4px;
+    outline: none; 
+}
+
+.contenedor-buscador .busqueda {
+    display: flex;
+}
+
+
+.busqueda span {
+    margin-left: 5px; /* Margen a la izquierda del texto "Buscar..." */
 }
 
 .icono-microfono {
-    max-width: 50px; /* Máximo ancho de la imagen */
-    max-height: 50px; /* Máxima altura de la imagen */
+    width: 30px; /* Ancho de la imagen */
+    height: auto; /* Altura automática */
+    margin-left: 10px; /* Margen a la izquierda de la imagen del micrófono */
 }
+

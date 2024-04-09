@@ -25,72 +25,7 @@ h2{
     margin-top: 10px;
     
 }
-.linea {
-    height: 1px;
-    background-color: #000;
-    margin: 10px 0;
-}
 
-.producto1{
-    display: flex;
-    align-items: center;
-}
-.producto1 img{
-    height: 70px;
-    width: 70px;
-    margin-left:  10px;
-    border-radius: 10%;
-    
-}
-
-.info-producto {
-    margin-left: 20px; 
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-}
-
-.nombre_producto,
-.cantidad {
-    font-size: 17px;
-    font-weight: bold;
-}
-
-
-.boton-mas{
-    margin-left: 90px;
-    background-color: #44b159;
-    font-size: 20px;
-    border-radius: 10%;
-    border: none;
-    color: white;
-    width: 30px;
-    margin-top: -20px;
-    height:60px;
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
-.boton-menos {
-    margin-left: 10px;
-    background-color: #44b159;
-    font-size: 20px;
-    border-radius: 10%;
-    border: none;
-    margin-top: -20px;
-    color: white;
-    width: 10px;
-    height:60px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-}
-
-/* Estilos para la cantidad */
-.cantidad-contenedor {
-    display: flex;
-    align-items: center;
-}
 .contenedor-buscador {
     display: flex;
     align-items: center;
@@ -111,6 +46,9 @@ h2{
     display: flex;
 }
 
+#escaneando{
+    width: 300px;
+}
 
 .busqueda span {
     margin-left: 5px; 
@@ -129,7 +67,6 @@ footer {
     position: absolute;
     width: 100%;
     bottom: 0;
-    padding:0px;
     text-align: center; 
 }
 
@@ -167,7 +104,6 @@ footer {
 #escaneo{
     width: 70px;
     height: 70px;
-    padding: 0px;
 }
 
 .nav1{

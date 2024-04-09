@@ -1,0 +1,43 @@
+[{
+    "id": 1,
+    "tipo" : "ropa",
+    "nombre" : "Camisa Hombre", 
+    "imagen" : "../imgs/camisa_copia.jpg",
+    "tallas" : "S, M, L, XL",
+    "stock" : 15,
+    "precio" : 19.99,
+    "valoracion" : 4,
+    "txt" : ""
+},
+{
+    "id": 2,
+    "tipo" : "ropa",
+    "nombre" : "Calcetines de colores", 
+    "imagen" : "../imgs/calcetines.jpg",
+    "tallas" : "S, M, L, XL",
+    "stock" : 15,
+    "precio" : 11.99,
+    "valoracion" : 2,
+    "txt" : ""
+},
+{
+    "id": 3,
+    "tipo" : "electronica",
+    "nombre" : "PlayStation 5",
+    "imagen" : "../imgs/play.jpg",
+    "stock" : 15,
+    "precio" : 450.50,
+    "valoracion" : 5,
+    "txt" : ""
+},
+{
+    "id" : 4,
+    "tipo" : "hogar",
+    "nombre" : "Velas",
+    "imagen" : "../imgs/velas.js",
+    "stock" : 10,
+    "precio" : 9.99,
+    "valoracion" : 3,
+    "txt" : ""
+}
+]

@@ -3,7 +3,7 @@ body {
     padding: 0;
     font-family: 'Montserrat', serif;
 }
-header {
+.contenedor-header {
     background-color: #ffffff; 
     display: flex;
     justify-content: space-between;
@@ -61,3 +61,39 @@ h2{
     display: flex;
     align-items: center;
 }
+
+
+
+
+.contenedor-buscador {
+    display: flex;
+    align-items: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+}
+
+#input-buscador {
+    border: none; 
+    margin-left: 4px;
+    outline: none; 
+}
+
+.contenedor-buscador .busqueda {
+    display: flex;
+}
+
+
+.busqueda span {
+    margin-left: 5px; /* Margen a la izquierda del texto "Buscar..." */
+}
+
+.icono-microfono {
+    width: 30px; /* Ancho de la imagen */
+    height: auto; /* Altura automática */
+    margin-left: 10px; /* Margen a la izquierda de la imagen del micrófono */
+}
+
+

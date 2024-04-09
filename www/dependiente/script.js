@@ -1,3 +1,5 @@
+
+
 document.getElementById('boton-log').addEventListener('click', async function() {
     let contrasena = document.getElementById('contrasena').value;
     if (contrasena === '2222') {
