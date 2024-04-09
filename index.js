@@ -29,6 +29,17 @@ io.on('connection', (socket) => {
           console.log('Carrito guardado en tasks.json');
       });
   });
+  socket.on('nfcWritten', function (message) {
+    console.log(message);
+});
+
+socket.on('nfcRead', function(data) {
+    console.log('Datos leídos de la tarjeta NFC:', data);
+});
+
+socket.on('nfcError', function (error) {
+    console.error(error);
+});
 });
     
 app.use(express.static('www'));
