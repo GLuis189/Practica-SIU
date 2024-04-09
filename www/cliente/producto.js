@@ -20,6 +20,21 @@ socket.on('producto-no-encontrado', function(mensaje) {
     console.log('Producto no encontrado:', mensaje);
     mostrarMensajeErrorEnHTML(mensaje);
 });
+// Crear una variable para almacenar las imágenes de estrellas
+let estrellasHTML = '';
+
+// Bucle para agregar las imágenes de estrellas según la valoración del producto
+for (let i = 0; i < producto.valoracion; i++) {
+    estrellasHTML += '<img src="../imgs/estrella.png" alt="Estrella">';
+}
+
+// Calcular el número de estrellas en blanco (5 - valoración)
+const estrellasBlancas = 5 - producto.valoracion;
+
+// Agregar las imágenes de estrellas blancas
+for (let i = 0; i < estrellasBlancas; i++) {
+    estrellasHTML += '<img src="../imgs/estrella_blanca.png" alt="Estrella blanca">';
+}
 
 // Esta es una función de ejemplo para mostrar el producto en el HTML
 function mostrarProductoEnHTML(producto) {
@@ -45,6 +60,7 @@ function mostrarProductoEnHTML(producto) {
                         <span class="cantidad">Cantidad: ${producto.tallas}</span>
                         <span class="stock">Stock: ${producto.stock}</span>
                         <span class="precio">Precio: ${producto.precio}</span>
+                        <div class="valoracion">${estrellasHTML}</div> 
                 </div>
             `;
         contenedorProducto .innerHTML += productoHTML;
