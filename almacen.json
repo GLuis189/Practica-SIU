@@ -23,7 +23,7 @@
 {
     "id": 3,
     "tipo" : "electronica",
-    "nombre" : "PlayStation 5",
+    "nombre" : "playStation 5",
     "imagen" : "../imgs/play.jpg",
     "stock" : 15,
     "precio" : 450.50,
@@ -33,7 +33,7 @@
 {
     "id" : 4,
     "tipo" : "hogar",
-    "nombre" : "Velas",
+    "nombre" : "velas",
     "imagen" : "../imgs/velas.js",
     "stock" : 10,
     "precio" : 9.99,

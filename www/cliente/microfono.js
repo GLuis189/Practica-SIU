@@ -72,7 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
     recognition.lang = 'es-ES'; 
 
     const keywords = {
-        'calcetines de colores': '../imgs/calcetines_colores.jpg'
+        'calcetines de colores': '../imgs/calcetines_colores.jpg',
+        'camisa hombre' : '../imgs/camisa_copia.jpg',
+        'play station cinco':'../imgs/play.jpg',
+        'velas':'../imgs/velas.js'
         // Agregar más palabras clave y sus imágenes aquí
     };
 
