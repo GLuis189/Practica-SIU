@@ -1,7 +1,7 @@
 [{
     "id": 1,
     "tipo" : "ropa",
-    "nombre" : "Camisa Hombre", 
+    "nombre" : "camisa hombre", 
     "imagen" : "../imgs/camisa_copia.jpg",
     "tallas" : "S, M, L, XL",
     "stock" : 15,
@@ -12,7 +12,7 @@
 {
     "id": 2,
     "tipo" : "ropa",
-    "nombre" : "Calcetines de colores", 
+    "nombre" : "calcetines de colores", 
     "imagen" : "../imgs/calcetines.jpg",
     "tallas" : "S, M, L, XL",
     "stock" : 15,

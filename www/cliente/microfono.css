@@ -76,3 +76,18 @@ h2{
     margin-left: 10px; /* Margen a la izquierda de la imagen del micrófono */
 }
 
+#contenedor-botones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh; 
+}
+
+/* Estilos adicionales para los botones si es necesario */
+#producto-info, #plano-info {
+    width: 200px; 
+    height: 50px;
+    margin-bottom: 20px; 
+}
+

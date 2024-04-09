@@ -12,6 +12,11 @@ h2{
     color: #000000;
     margin-top: 10px;
 }
+.estrella {
+    width: 20px; 
+    height: auto; 
+    margin-right: 5px; 
+}
 .contenedor-header {
     background-color: #ffffff; 
     display: flex;

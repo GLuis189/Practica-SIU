@@ -44,6 +44,22 @@ io.on('connection', (socket) => {
         }
     });
 
+    socket.on('producto-anadir', (product) => {
+        console.log(typeof product);
+        const producto = almacen.find(item => item.nombre === product);
+
+        if (producto) {
+            // Si se encontró el producto, enviar toda su información de vuelta al cliente
+            //socket.emit('producto-encontrado', producto);
+            console.log('Producto enviado al cliente:', producto);
+            socket.emit('producto-micro-encontrado', producto);
+        } else {
+            // Si no se encuentra el producto, enviar un mensaje de error al cliente
+            //socket.emit('producto-no-encontrado', `No se encontró ningún producto con el ID: ${id}`);
+            console.log('Producto no encontrado para el ID:', product);
+        }
+    });
+
     
     // Recibir el contenido del carrito desde el cliente y actualizarlo en el servidor
     socket.on('guardar-carrito', (nuevoCarrito) => {

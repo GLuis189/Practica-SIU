@@ -1,4 +1,17 @@
-document.addEventListener('DOMContentLoaded', function () {
+const microSection = document.getElementById('micro');
+const botonSection = document.getElementById('boton');
+const socket = io();
+let producto;
+
+socket.on('producto-micro-encontrado', function(producto) {
+    console.log('Producto encontrado:', producto);
+
+    localStorage.setItem('productoEncontrado', JSON.stringify(producto));
+
+    window.location.href = 'producto.html';
+});
+
+document.addEventListener('DOMContentLoaded', function() {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
     const contenedorBuscador = document.querySelector('.contenedor-buscador');
@@ -19,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
             contenedorLupa.style.display = 'block';
         }
     });
+
     Lupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
         if (Lupa.style.display === 'block') {
@@ -39,7 +53,18 @@ document.addEventListener('DOMContentLoaded', function () {
     microfono.addEventListener('touchstart', function () {
         window.location.href = 'microfono.html'; // Redireccionar al usuario a microfono.html
     });
+
+    // Event listener para el botón producto-info
+    document.getElementById('producto-info').addEventListener('touchstart', function() {
+        console.log("Buscando información...");
+        if(producto){
+        socket.emit('producto-anadir', producto);}
+        else{
+            console.log("producto no esxiste")
+        }
+    });
 });
+
 document.addEventListener('DOMContentLoaded', function() {
     const micIcon = document.getElementById('contenedor-microfono');
     const statusMessage = document.getElementById('status-message');
@@ -47,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     recognition.lang = 'es-ES'; 
 
     const keywords = {
-        'calcetines': '../imgs/calcetines.jpg',
+        'calcetines de colores': '../imgs/calcetines_colores.jpg'
         // Agregar más palabras clave y sus imágenes aquí
     };
 
@@ -59,13 +84,22 @@ document.addEventListener('DOMContentLoaded', function() {
     recognition.onresult = function(event) {
         statusMessage.innerText = ''; 
         const speechResult = event.results[0][0].transcript.trim().toLowerCase();
-        if (keywords.hasOwnProperty(speechResult)) {
-            const imgSrc = keywords[speechResult];
-            const imgElement = document.createElement('img');
-            imgElement.src = imgSrc;
-            imgElement.classList.add('resultado-imagen');
-            document.body.appendChild(imgElement);
-        } else {
+        let matchFound = false;
+
+        for (const keyword in keywords) {
+            if (speechResult.includes(keyword)) {
+                matchFound = true;
+                const confirmar = confirm(`¿Has dicho ${keyword}?`);
+                if (confirmar) {
+                    microSection.style.display = 'none';
+                    botonSection.style.display = 'block';
+                    producto = keyword;
+                    break;
+                }
+            }
+        }
+
+        if (!matchFound) {
             alert('Palabra clave no reconocida.');
         }
     };
