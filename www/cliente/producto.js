@@ -82,10 +82,33 @@ function mostrarProductoEnHTML(producto) {
                 <span class="stock">Stock: ${producto.stock}</span>
                 <span class="precio">Precio: ${producto.precio}</span>
                 <span class="precio">Puntuación:</span>
-                <div class="valoracion">${estrellasHTML}</div> <!-- Mostrar las estrellas -->
+                <div class="valoracion">${estrellasHTML}</div> 
             </div>
         `;
         contenedorProducto.innerHTML += productoHTML;
+    }
+    if (producto.tipo=="hogar" || producto.tipo=="electronica"){
+        const estrellasHTML = generarEstrellas(producto.valoracion); // Generar las estrellas
+        const productoHTML = `
+            <div class="producto">  
+                <h2>${producto.nombre}</h2>
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <div class="contenedor-acept-no">
+                    <h3>Cancelar</h3>
+                    <div class="flechas">
+                        <img src="../imgs/flecha_izq.png">
+                        <img src="../imgs/flecha_dcha.png">
+                    </div>
+                    <h3>Agregar al carrito</h3>
+                </div>
+            </div>
+            <div class="info-producto">
+                <span class="stock">Stock: ${producto.stock}</span>
+                <span class="precio">Precio: ${producto.precio}</span>
+                <span class="precio">Puntuación:</span>
+                <div class="valoracion">${estrellasHTML}</div> 
+            </div>
+        `;
     }
 }
 
