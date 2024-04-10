@@ -76,15 +76,29 @@ h2{
     margin-left: 10px; 
 }
 
-.zona_plano{
-    margin-top:20px;
+.zona_plano {
+    margin-top: 20px;
 }
-
-
-#plano{
+#plano {
     margin-left: 2.5%;
     width: 95%;
-    height:auto;
+    height: auto;
+}
+#contenedor-plano {
+    position: relative;
+}
+.contenedor-img {
+    position: relative;
+    width: 100%; /* Ajusta el ancho según tus necesidades */
+}
+#usuario img {
+    width: 40px; /* Ajusta el tamaño de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+#usuario {
+    left: 48%;
+    width: 20px; /* Ajusta el tamaño de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
 }
 
 footer {
