@@ -19,7 +19,7 @@ document.getElementById('boton-log').addEventListener('click', async function() 
         }
     }else {
         alert('Contraseña incorrecta. Por favor, inténtalo de nuevo.');
-        window.location.href = "../index.html";
+        window.location.href = "../../index.html";
     }
 });
 
@@ -83,7 +83,7 @@ function mostrarInfoCarrito(data) {
     localStorage.setItem('carrito', JSON.stringify(data));
 
     // Redirigir a carrito_dependiente.html
-    window.location.href = 'carrito_dependiente.html';
+    window.location.href = '../html/carrito_dependiente.html';
 }
 
 

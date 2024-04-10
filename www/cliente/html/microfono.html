@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>El Corte Ingles: Home Page</title>
-    <link rel="stylesheet" href="producto.css">
-    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="../css/microfono.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
+    <script src="/socket.io/socket.io.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -20,7 +20,7 @@
                 <a href="home.html">
                     <img class="logo_letras" src="/imgs/letra_verde.png" alt="Letras">
                 </a>
-            </div>            
+            </div> 
             <div class="contenedor">
                 <img class="logo_menu" src="/imgs/menu.png" alt="Menu">
             </div>
@@ -35,8 +35,18 @@
             <img id="microfono" class="icono-microfono" src="/imgs/microfono.png" alt="Micrófono">
         </div>
     </header>
-    <section id="tarjeta"></section>
-    <div id="mensaje"></div>
+    <section id="micro">
+        <div id="contenedor-microfono">
+            <img id="icono-microfono" src="/imgs/microfono.png" alt="Micrófono">
+        </div>
+        <div id="status-message"></div>
+    </section>
+    <section id="boton" style="display: none;" >
+        <div id="contenedor-botones" >
+            <button id="producto-info" title="Info">Información producto</button>
+            <button id="plano-info" title="Plano-Info">Plano producto</button>
+        </div>
+    </section>
+    <script src="../js/microfono.js"></script>
 </body>
-<script src="producto.js"></script>
 </html>

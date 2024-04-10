@@ -3,17 +3,11 @@ const socket = io();
 addEventListener("load", function(){
     const mensajeDiv = document.getElementById('mensaje');
     const productoEncontrado = JSON.parse(localStorage.getItem('productoEncontrado'));
-
     if (productoEncontrado) {
         console.log('Tipo de producto encontrado:', typeof productoEncontrado);
         console.log('Producto encontrado en producto.html:', productoEncontrado);
-
         mostrarProductoEnHTML(productoEncontrado);
-    } else {
-        // Mostrar un mensaje si no se ha encontrado ningún producto
-        mensajeDiv.innerText = 'No se ha encontrado ningún producto';
-    }
-
+    } 
     // Eliminar la información del producto del almacenamiento local después de usarla
     localStorage.removeItem('productoEncontrado');
 });
@@ -21,6 +15,7 @@ addEventListener("load", function(){
 addEventListener("load", function(){
     const nfc = localStorage.getItem("nfc");
     enviarIDAlServidor(nfc);
+    localStorage.removeItem("nfc");
 })
 
 function enviarIDAlServidor(id) {
@@ -47,11 +42,11 @@ function generarEstrellas(valoracion) {
     let estrellasHTML = '';
     // Generar estrellas según la valoración
     for (let i = 0; i < valoracion; i++) {
-        estrellasHTML += '<img class="estrella" src="../imgs/estrella.png" alt="Estrella">';
+        estrellasHTML += '<img class="estrella" src="../../imgs/estrella.png" alt="Estrella">';
     }
     // Generar estrellas blancas para completar hasta llegar a 5
     for (let i = valoracion; i < 5; i++) {
-        estrellasHTML += '<img class="estrella" src="../imgs/estrella_blanca.png" alt="Estrella blanca">';
+        estrellasHTML += '<img class="estrella" src="../../imgs/estrella_blanca.png" alt="Estrella blanca">';
     }
     return estrellasHTML;
 }
@@ -71,8 +66,8 @@ function mostrarProductoEnHTML(producto) {
                 <div class="contenedor-acept-no">
                     <h3>Cancelar</h3>
                     <div class="flechas">
-                        <img class="flecha_izq" src="../imgs/flecha_izq.png">
-                        <img src="../imgs/flecha_dcha.png">
+                        <img src="../../imgs/flecha_izq.png">
+                        <img src="../../imgs/flecha_dcha.png">
                     </div>
                     <h3>Agregar al carrito</h3>
                 </div>
@@ -85,7 +80,7 @@ function mostrarProductoEnHTML(producto) {
                 <div class="valoracion">${estrellasHTML}</div> 
             </div>
         `;
-        contenedorProducto.innerHTML += productoHTML;
+        contenedorProducto.innerHTML = productoHTML;
     }
     if (producto.tipo=="hogar" || producto.tipo=="electronica"){
         const estrellasHTML = generarEstrellas(producto.valoracion); // Generar las estrellas
@@ -96,8 +91,8 @@ function mostrarProductoEnHTML(producto) {
                 <div class="contenedor-acept-no">
                     <h3>Cancelar</h3>
                     <div class="flechas">
-                        <img src="../imgs/flecha_izq.png">
-                        <img src="../imgs/flecha_dcha.png">
+                        <img src="../../imgs/flecha_izq.png">
+                        <img src="../../imgs/flecha_dcha.png">
                     </div>
                     <h3>Agregar al carrito</h3>
                 </div>
@@ -109,6 +104,7 @@ function mostrarProductoEnHTML(producto) {
                 <div class="valoracion">${estrellasHTML}</div> 
             </div>
         `;
+        contenedorProducto.innerHTML = productoHTML;
     }
 }
 
@@ -157,6 +153,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('touchstart', function () {
-        window.location.href = 'microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
     });
 });

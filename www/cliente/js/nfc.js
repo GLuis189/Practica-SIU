@@ -1,29 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Recuperar la información del carrito del local storage
-    let carrito = JSON.parse(localStorage.getItem('carrito'));
-    if (carrito) {
-        // document.getElementById('productosContainer').innerText = carrito;
-        console.log('Información del carrito:', carrito);
-        console.log('Tipo de dato:', typeof carrito);
-        carrito = JSON.parse(carrito);
-        carrito.forEach(producto => {
-            const productoHTML = `
-                <div class="producto1">                        
-                    <img src="${producto.imagen}" alt="${producto.nombre}">
-                    <div class="info-producto">
-                        <span class="nombre_producto">${producto.nombre}</span>
-                        <div class="cantidad-contenedor">
-                            <span class="cantidad">Cantidad: ${producto.cantidad}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="linea"></div>
-            `;
-            productosContainer.innerHTML += productoHTML;
-        });
-    }
-});
-
+const socket = io();
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
@@ -50,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (Lupa.style.display === 'block') {
             logoLetras.style.display = 'block';
             logoMenu.style.display = 'block';
-            contenedorLupa.style.display = 'block';
+            contenedorLupa.style.display = '';
             contenedorBuscador.style.display = 'none';
         } else {
             Lupa.style.display = 'block';
@@ -63,7 +38,48 @@ document.addEventListener('DOMContentLoaded', function () {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('touchstart', function () {
-        window.location.href = '../cliente/microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
     });
 });
 
+async function leerNFC(){
+    if ('NDEFReader' in window) {
+        const ndef = new NDEFReader();
+        try {
+            await ndef.scan();
+            console.log('Escaneo iniciado exitosamente.');
+            ndef.onreading = event => {
+                const decoder = new TextDecoder();
+                for (const record of event.message.records) {
+                    let data = decoder.decode(record.data);
+                    setTimeout(() => {
+                        document.getElementsByClassName("escaneando").style.display = "none";
+                        document.getElementsByClassName("escaneado").style.display = "block";
+
+                    }, 2000);
+                    localStorage.setItem("nfc", data);
+                    window.location = "../html/producto.html"
+                }
+            };
+        } catch (error) {
+            console.error('Error al iniciar el escaneo NFC', error);
+            socket.emit('nfcError', 'Error al iniciar el escaneo NFC');
+        }
+    } else {
+        console.log('La API Web NFC no está soportada en este navegador');
+    }
+}
+
+leerNFC()
+
+var nav = document.querySelector("#nav1");
+var abrir = document.querySelector("#abrir");
+var cerrar = document.querySelector("#cerrar");
+
+abrir.addEventListener("click", () => {
+    nav.classList.add("visible");
+})
+
+cerrar.addEventListener("click", () => {
+    nav.classList.remove("visible");
+})

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>El Corte Ingles: plano</title>
-    <link rel="stylesheet" href="plano.css">
+    <title>El Corte Ingles: Favoritos</title>
+    <link rel="stylesheet" href="../css/carrito.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script> 
@@ -23,10 +23,11 @@
                 </a>
             </div> 
             <div class="contenedor-menu">
-                <button class="abrir" id="abrir">
+                <button id="abrir" class="abrir" title="menu">
                     <ion-icon name="menu-outline"></ion-icon>
                 </button>
             </div>
+            
         </div>
         <div class="contenedor-buscador" style="display: none;">
             <div class="busqueda">
@@ -39,37 +40,32 @@
         </div>
     </header>
     <div class="nav1" id="nav1">
-        <button class="cerrar" id="cerrar">
+        <button class="cerrar" id="cerrar" title="cerrar">
             <ion-icon name="close-outline"></ion-icon>    
         </button>
         <ul class="nav-list1">
             <li><a href="#texto1">Favoritos</a></li>
             <li><a href="./home.html">Inicio</a></li>
             <li><a href="./plano.html">Plano</a></li>
-            <li><a href="./nfc.html">Escanear</a></li>
+            <li><a href="./producto.html">Escanear</a></li>
         </ul>
     </div>
-
-    <section class="zona_plano">
-        <h2 >Plano</h2>
-        <div class="contenedor_productos">
-            <div class="linea"></div>
-                <img id="plano" src="/imgs/plano.jpg" alt="plano">               
-            <div class="linea"></div>   
-        </div>
-        
-        
+    <section id="qr" style="display: none;">
+        <div id="qrCodeContainer" class="qr-container"></div>
+        <h3>Para confirmar el pago de tus productos acercate a una caja de pago y escanea este QR</h3>
     </section>
     <footer>
         <div class="footer-icons">
             <div>
                 <span class="pagar">Pagar</span>
                 
-                <img id="boton-pagar" src="../imgs/blanco1.png" alt="pagar">
+                <img id="boton-pagar" src="../../imgs/blanco1.png" alt="pagar">
             </div>
 
             <div>
-                <img id="escaneo" src="../imgs/blanco2.png" alt="escaneo">
+                <a href="nfc.html">
+                    <img id="escaneo" src="../../imgs/blanco2.png" alt="escaneo">
+                </a>
             </div>
             
             <div>
@@ -78,10 +74,9 @@
             </div>
             
         </div>
-        
     </footer>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="plano.js"></script>
+    <script src="../js/carrito.js"></script>
 </body>
 </html>

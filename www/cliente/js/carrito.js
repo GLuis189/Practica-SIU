@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('touchstart', function () {
-        window.location.href = 'microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
     });
 });
 // Función para enviar el contenido del carrito al servidor
@@ -118,4 +118,85 @@ abrir.addEventListener("click", () => {
 cerrar.addEventListener("click", () => {
     nav.classList.remove("visible");
 })
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Obtiene una referencia al contenedor de productos
+    const contenedorProductos = document.querySelector('.contenedor_productos');
+
+    let xInicial; // Variable para almacenar la posición inicial del toque
+
+    // Variable para almacenar si se está eliminando el producto
+    let eliminandoProducto = false;
+
+    // Variable para almacenar el desplazamiento actual del producto
+    let desplazamientoActual = 0;
+
+    // Agrega un evento de escucha para el inicio del toque en el contenedor de productos
+    contenedorProductos.addEventListener('touchstart', function(event) {
+        // Si ya se está eliminando un producto, no hacer nada
+        if (eliminandoProducto) return;
+
+        // Obtén la posición inicial del toque
+        xInicial = event.touches[0].clientX;
+
+        // Almacenar el desplazamiento actual del producto
+        desplazamientoActual = 0;
+    });
+
+    // Agrega un evento de escucha para el movimiento del toque en el contenedor de productos
+    contenedorProductos.addEventListener('touchmove', function(event) {
+        // Si ya se está eliminando un producto, no hacer nada
+        if (eliminandoProducto) return;
+
+        // Calcular el desplazamiento actual
+        const desplazamiento = event.touches[0].clientX - xInicial;
+
+        // Actualizar el desplazamiento actual del producto
+        desplazamientoActual = desplazamiento;
+
+        // Aplicar transformación para el deslizamiento parcial
+        event.target.style.transform = `translateX(${desplazamiento}px)`;
+    });
+
+    // Agrega un evento de escucha para el final del toque en el contenedor de productos
+    contenedorProductos.addEventListener('touchend', function(event) {
+        // Si ya se está eliminando un producto, no hacer nada
+        if (eliminandoProducto) return;
+
+        // Si el desplazamiento actual es suficiente para considerarse un deslizamiento hacia la izquierda
+        if (desplazamientoActual < -50) {
+            // Encuentra el contenedor del producto correspondiente al deslizamiento
+            const producto = event.target.closest('.producto1');
+
+            if (producto) {
+                // Preguntar al usuario si quiere eliminar el producto
+                if (confirm("¿Seguro que deseas eliminar este producto?")) {
+                    // Marcar que se está eliminando el producto
+                    eliminandoProducto = true;
+
+                    // Aplicar las clases CSS para la animación de deslizamiento
+                    producto.style.transition = 'transform 0.3s ease';
+                    producto.style.transform = 'translateX(-100%)';
+
+                    // Esperar a que termine la animación antes de eliminar el producto
+                    setTimeout(function() {
+                        // Eliminar el producto del DOM después de la animación
+                        producto.remove();
+                        // Restablecer la eliminación del producto y el estilo de transformación
+                        eliminandoProducto = false;
+                        producto.style.transition = '';
+                    }, 300); // Tiempo de la animación en milisegundos
+                } else {
+                    // Si el usuario cancela, volver al estado inicial
+                    event.target.style.transform = 'translateX(0)';
+                }
+            }
+        } else {
+            // Si el desplazamiento no fue suficiente, volver al estado inicial
+            event.target.style.transform = 'translateX(0)';
+        }
+    });
+});
+
+
 
