@@ -85,7 +85,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let qr = qrcode(0, 'L');
         qr.addData(textoProductos);
         qr.make();
-
+        let qrSection =  document.getElementById('qr');
+        let carritoSection =  document.getElementById('carrito');
+        qrSection.style.display = 'block';
+        carritoSection.style.display = 'none';
         // Obtener el elemento contenedor del código QR
         let qrCodeContainer = document.getElementById('qrCodeContainer');
 

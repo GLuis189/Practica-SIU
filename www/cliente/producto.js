@@ -71,7 +71,7 @@ function mostrarProductoEnHTML(producto) {
                 <div class="contenedor-acept-no">
                     <h3>Cancelar</h3>
                     <div class="flechas">
-                        <img src="../imgs/flecha_izq.png">
+                        <img class="flecha_izq" src="../imgs/flecha_izq.png">
                         <img src="../imgs/flecha_dcha.png">
                     </div>
                     <h3>Agregar al carrito</h3>
