@@ -108,7 +108,6 @@ function mostrarProductoEnHTML(producto) {
     }
 }
 
-
 // Esta es una función de ejemplo para mostrar el mensaje de error en el HTML
 function mostrarMensajeErrorEnHTML(mensaje) {
     console.log('Error al enviar el producto.')

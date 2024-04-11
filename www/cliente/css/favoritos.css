@@ -62,37 +62,6 @@ h2 {
     font-weight: bold;
 }
 
-
-.boton-mas {
-    margin-left: 90px;
-    background-color: #44b159;
-    font-size: 20px;
-    border-radius: 10%;
-    border: none;
-    color: white;
-    width: 30px;
-    margin-top: -20px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.boton-menos {
-    margin-left: 10px;
-    background-color: #44b159;
-    font-size: 20px;
-    border-radius: 10%;
-    border: none;
-    margin-top: -20px;
-    color: white;
-    width: 30px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #qr {
     flex-direction: column;
     display: flex;
