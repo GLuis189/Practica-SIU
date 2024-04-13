@@ -14,6 +14,13 @@ abrir.addEventListener("click", () => {
 cerrar.addEventListener("click", () => {
     nav.classList.remove("visible");
 })
+socket.on('producto-plano-encontrado', function(producto) {
+    console.log('Producto encontrado:', producto);
+
+    localStorage.setItem('productoEncontrado', JSON.stringify(producto));
+
+    window.location.href = 'producto.html';
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
@@ -160,21 +167,52 @@ document.addEventListener('DOMContentLoaded', function () {
     // Obtener referencias a los marcadores de productos
     const productos = document.querySelectorAll('[id^="producto"]');
 
-    // Agregarevento de clic a cada marcador de producto
-    productos.forEach(function(producto) {
-        producto.addEventListener('touchstart', function() {
-            // Obtener el nombre del producto
-            const nombreProducto = this.textContent;
-            // Mostrar el popup con el nombre del producto
-            const popup = document.getElementById('popup');
-            const nombreProductoSpan = document.getElementById('nombreProducto');
-            nombreProductoSpan.textContent = nombreProducto;
-            popup.style.display = 'block';
+    // Función para mostrar el popup durante 5 segundos
+    function mostrarPopup(nombreProducto, left, top) {
+        const popup = document.getElementById('popup');
+        const nombreProductoSpan = document.getElementById('nombreProducto');
+        nombreProductoSpan.textContent = nombreProducto;
+        popup.style.left = `${left}px`;
+        popup.style.top = `${top - popup.offsetHeight}px`;
+        popup.style.display = 'block';
 
-            // Ocultar el popup después de 3 segundos
-            setTimeout(function() {
-                popup.style.display = 'none';
-            }, 7000);
+        setTimeout(function() {
+            popup.style.display = 'none';
+        }, 5000);
+    }
+
+    // Agregar eventos de touchstart, touchend y touchhold a cada marcador de producto
+    productos.forEach(function(producto) {
+        let startTime; // Variable para almacenar el tiempo de inicio del toque
+
+        producto.addEventListener('touchstart', function(event) {
+            event.stopPropagation(); // Evitar que el toque se propague al contenedor padre
+            event.preventDefault(); // Evitar el menú contextual predeterminado
+            const nombreProducto = this.alt; // Obtener el nombre del producto del atributo alt
+
+            const rect = this.getBoundingClientRect();
+            const left = rect.left + window.scrollX;
+            const top = rect.top + window.scrollY;
+
+            // Mostrar el popup durante 5 segundos
+            mostrarPopup(nombreProducto, left, top);
+
+            // Guardar el tiempo de inicio del toque
+            startTime = new Date().getTime();
+
+        });
+
+        // Cancelar el temporizador si se levanta el dedo antes de 5 segundos
+        producto.addEventListener('touchend', function() {
+            const endTime = new Date().getTime();
+            const touchDuration = endTime - startTime;
+
+            // Si la duración del toque es mayor a 5 segundos, redirigir a producto.html
+            if (touchDuration >= 5000) {
+                console.log("Se mantuvo pulsado durante más de 5 segundos.");
+                const nombreProducto = producto.alt;
+                socket.emit('producto-plano', nombreProducto);
+            }
         });
     });
 });

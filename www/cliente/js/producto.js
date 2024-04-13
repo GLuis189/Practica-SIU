@@ -3,6 +3,7 @@ const socket = io();
 addEventListener("load", function(){
     const mensajeDiv = document.getElementById('mensaje');
     const productoEncontrado = JSON.parse(localStorage.getItem('productoEncontrado'));
+    console.log(productoEncontrado);
     if (productoEncontrado) {
         console.log('Tipo de producto encontrado:', typeof productoEncontrado);
         console.log('Producto encontrado en producto.html:', productoEncontrado);
@@ -27,16 +28,7 @@ socket.on('producto-micro-producto-encontrado', function(producto) {
     mostrarProductoEnHTML(producto);
 });
 // Escuchar evento 'producto-encontrado' del servidor
-socket.on('producto-encontrado', function(producto) {
-    console.log('Producto encontrado:', producto);
-    mostrarProductoEnHTML(producto);
-});
 
-// Escuchar evento 'producto-no-encontrado' del servidor(ERROR)
-socket.on('producto-no-encontrado', function(mensaje) {
-    console.log('Producto no encontrado:', mensaje);
-    mostrarMensajeErrorEnHTML(mensaje);
-});
 
 function generarEstrellas(valoracion) {
     let estrellasHTML = '';

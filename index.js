@@ -28,21 +28,6 @@ fs.readFile('almacen.json', 'utf8', (err, data) => {
 io.on('connection', (socket) => {
     console.log('Nuevo cliente conectado');
 
-    socket.on('id', (id) => {
-        const idNumero = parseInt(id);
-
-        const producto = almacen.find(item => item.id === idNumero);
-
-        if (producto) {
-            // Si se encontró el producto, enviar toda su información de vuelta al cliente
-            socket.emit('producto-encontrado', producto);
-            console.log('Producto enviado al cliente:', producto);
-        } else {
-            // Si no se encuentra el producto, enviar un mensaje de error al cliente
-            socket.emit('producto-no-encontrado', `No se encontró ningún producto con el ID: ${id}`);
-            console.log('Producto no encontrado para el ID:', id);
-        }
-    });
 
     socket.on('producto-anadir', (product) => {
         console.log(typeof product);
@@ -53,6 +38,21 @@ io.on('connection', (socket) => {
             //socket.emit('producto-encontrado', producto);
             console.log('Producto enviado al cliente:', producto);
             socket.emit('producto-micro-encontrado', producto);
+        } else {
+            // Si no se encuentra el producto, enviar un mensaje de error al cliente
+            //socket.emit('producto-no-encontrado', `No se encontró ningún producto con el ID: ${id}`);
+            console.log('Producto no encontrado para el ID:', product);
+        }
+    });
+    socket.on('producto-plano', (product) => {
+        console.log(typeof product);
+        const producto = almacen.find(item => item.nombre === product);
+
+        if (producto) {
+            // Si se encontró el producto, enviar toda su información de vuelta al cliente
+            //socket.emit('producto-encontrado', producto);
+            console.log('Producto enviado al cliente:', producto);
+            socket.emit('producto-plano-encontrado', producto);
         } else {
             // Si no se encuentra el producto, enviar un mensaje de error al cliente
             //socket.emit('producto-no-encontrado', `No se encontró ningún producto con el ID: ${id}`);
