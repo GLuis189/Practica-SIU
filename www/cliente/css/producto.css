@@ -4,7 +4,7 @@ body {
     font-family: 'Montserrat', serif;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Establecer la altura mínima del cuerpo para que ocupe todo el alto de la ventana */
+    min-height: 80vh; /* Establecer la altura mínima del cuerpo para que ocupe todo el alto de la ventana */
 }
 h2{
     margin-left: 20px;
@@ -75,12 +75,14 @@ h3{
     flex-direction: column;
     align-items: center; 
     text-align: center; 
+   
 }
 
 .producto img {
     width: 60%; 
     height: auto; 
     margin-bottom: 20px;
+    border-radius: 10%;
 }
 
 .info-producto {
@@ -89,6 +91,7 @@ h3{
     align-items: flex-start; 
     margin-left: 20px;
     margin-top: 20px;
+   
 }
 .contenedor-acept-no img {
     width: 30px;
@@ -123,4 +126,76 @@ h3{
 .flecha_izq{
     margin-right: 5px;
 }
+
+footer {
+    background-color: #44b159;
+    color: white;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 0px;
+    text-align: center;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-icons div {
+    text-align: center;
+}
+
+.footer-icons img {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+}
+
+.footer-icons span {
+    display: block;
+    font-weight: bolder;
+    font-size: 20px;
+    padding-top: 3px;
+}
+
+.total {
+    color: black;
+    font-weight: bolder;
+}
+
+.pagar {
+    color: black;
+    font-weight: bolder;
+}
+
+img{
+
+    &.go-left{
+        transform: translateX(-200%) rotate(-20deg) !important;
+    }
+
+    &.go-right{
+        transform: translateX(200%) rotate(20deg) !important;
+    }
+
+    &.go-left, &.go-right{
+        transition: transform .3s ease, rotate .3s ease;
+    }
+    &.reset{
+        transition: transform .3s ease ;
+        transform: translateX(0) !important;
+    }
+}
+#escaneo {
+    width: 70px;
+    height: 70px;
+    padding: 0px;
+}
+.mensaje-agregado {
+    width: 300px;
+    text-align: center;
+}
+
 

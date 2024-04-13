@@ -124,77 +124,39 @@ cerrar.addEventListener("click", () => {
 document.addEventListener('DOMContentLoaded', function() {
     
     const contenedorProductos = document.querySelector('.contenedor_productos');
-
     let xInicial; 
-    let contenedorProducto; 
-
-    
-    let eliminandoProducto = false;
-
-    
-    let desplazamientoActual = 0;
-
-    
-    contenedorProductos.addEventListener('touchstart', function(event) {
-        
-        if (eliminandoProducto) return;
-
-        
-        xInicial = event.touches[0].clientX;
-
-        
-        contenedorProducto = event.target.closest('.producto1');
-
-        
+    let contenedorProducto;   
+    let eliminandoProducto = false;  
+    let desplazamientoActual = 0;  
+    contenedorProductos.addEventListener('touchstart', function(event) {      
+        if (eliminandoProducto) return;      
+        xInicial = event.touches[0].clientX;    
+        contenedorProducto = event.target.closest('.producto1');     
         desplazamientoActual = 0;
-    });
-
-    
-    contenedorProductos.addEventListener('touchmove', function(event) {
-        
-        if (eliminandoProducto || !contenedorProducto) return;
-
-        
-        const desplazamiento = event.touches[0].clientX - xInicial;
-
-       
-        desplazamientoActual = desplazamiento;
-
-        
+    }); 
+    contenedorProductos.addEventListener('touchmove', function(event) {    
+        if (eliminandoProducto || !contenedorProducto) return;   
+        const desplazamiento = event.touches[0].clientX - xInicial;   
+        desplazamientoActual = desplazamiento;     
         contenedorProducto.style.transition = 'none'; 
         contenedorProducto.style.transform = `translateX(${desplazamiento}px)`;
     });
-
-
     contenedorProductos.addEventListener('touchend', function(event) {
-
-        if (eliminandoProducto || !contenedorProducto) return;
-
-        
+        if (eliminandoProducto || !contenedorProducto) return;     
         if (desplazamientoActual < -50) {
-
             if (confirm("¿Seguro que deseas eliminar este producto?")) {
-
                 eliminandoProducto = true;
-
-                
                 contenedorProducto.style.transition = 'transform 0.3s ease'; 
                 contenedorProducto.style.transform = 'translateX(-100%)';
-
-                
-                contenedorProducto.addEventListener('transitionend', function() {
-                    
-                    contenedorProducto.remove();
-                    
+                contenedorProducto.addEventListener('transitionend', function() {            
+                    contenedorProducto.remove();           
                     eliminandoProducto = false;
                 }, { once: true }); 
             } else {
-
                 contenedorProducto.style.transition = 'transform 0.3s ease';
                 contenedorProducto.style.transform = 'translateX(0)';
             }
-        } else {
-            
+        } else {       
             contenedorProducto.style.transition = 'transform 0.3s ease'; 
             contenedorProducto.style.transform = 'translateX(0)';
         }

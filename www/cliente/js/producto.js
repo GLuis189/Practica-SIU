@@ -1,6 +1,6 @@
 const socket = io();
 
-addEventListener("load", function(){
+addEventListener("load", function () {
     const mensajeDiv = document.getElementById('mensaje');
     const productoEncontrado = JSON.parse(localStorage.getItem('productoEncontrado'));
     console.log(productoEncontrado);
@@ -8,22 +8,22 @@ addEventListener("load", function(){
         console.log('Tipo de producto encontrado:', typeof productoEncontrado);
         console.log('Producto encontrado en producto.html:', productoEncontrado);
         mostrarProductoEnHTML(productoEncontrado);
-    } 
+    }
     // Eliminar la información del producto del almacenamiento local después de usarla
     localStorage.removeItem('productoEncontrado');
 });
 
-addEventListener("load", function(){
+addEventListener("load", function () {
     const nfc = localStorage.getItem("nfc");
     enviarIDAlServidor(nfc);
     localStorage.removeItem("nfc");
 })
 
 function enviarIDAlServidor(id) {
-    console.log('ID producto:', id); 
-    socket.emit('id', id); 
+    console.log('ID producto:', id);
+    socket.emit('id', id);
 }
-socket.on('producto-micro-producto-encontrado', function(producto) {
+socket.on('producto-micro-producto-encontrado', function (producto) {
     console.log('Producto encontrado:', producto);
     mostrarProductoEnHTML(producto);
 });
@@ -74,7 +74,7 @@ function mostrarProductoEnHTML(producto) {
         `;
         contenedorProducto.innerHTML = productoHTML;
     }
-    if (producto.tipo=="hogar" || producto.tipo=="electronica"){
+    if (producto.tipo == "hogar" || producto.tipo == "electronica") {
         const estrellasHTML = generarEstrellas(producto.valoracion); // Generar las estrellas
         const productoHTML = `
             <div class="producto">  
@@ -147,3 +147,159 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
     });
 });
+
+
+
+const DECISION_THRESHOLD = 75
+
+let isAnimating = false
+let pullDeltaX = 0 // distance from the card being dragged
+
+function startDrag(event) {
+    if (isAnimating) return
+
+    // get the first article element
+    const actualCard = event.target.closest('img')
+    
+    if (!actualCard) return
+
+    // get initial position of mouse or finger
+    const startX = event.pageX ?? event.touches[0].pageX
+
+    // listen the mouse and touch movements
+    document.addEventListener('mousemove', onMove)
+    document.addEventListener('mouseup', onEnd)
+
+    document.addEventListener('touchmove', onMove, { passive: true })
+    document.addEventListener('touchend', onEnd, { passive: true })
+
+    function onMove(event) {
+        // current position of mouse or finger
+        const currentX = event.pageX ?? event.touches[0].pageX
+
+        // the distance between the initial and current position
+        pullDeltaX = currentX - startX
+
+        if (pullDeltaX === 0) return
+
+        isAnimating = true;
+        const deg = pullDeltaX / 10
+        actualCard.style.transform = `translateX(${pullDeltaX}px) rotate(${deg}deg)`
+
+        // change the cursor to grabbing
+        actualCard.style.cursor = 'grabbing'
+        
+    }
+
+    function onEnd(event) {
+        document.removeEventListener('mousemove', onMove)
+        document.removeEventListener('mouseup', onEnd)
+
+        document.removeEventListener('touchmove', onMove)
+        document.removeEventListener('touchend', onEnd)
+
+        const decisionMade = Math.abs(pullDeltaX) >= DECISION_THRESHOLD
+
+        if(decisionMade){
+            const goRight = pullDeltaX >= 0
+            const goLeft = pullDeltaX <= 0
+
+            if(goRight){
+                actualCard.classList.add(goRight ? 'go-right' : 'go-left')
+                actualCard.addEventListener('transitionend', () =>{
+                actualCard.remove()
+                ocultarDivs();
+                mostrarMensajeAgregado()
+                })
+            }
+
+            if (goLeft){
+                actualCard.classList.add(goRight ? 'go-right' : 'go-left')
+                actualCard.addEventListener('transitionend', () =>{
+                actualCard.remove()
+                ocultarDivs();
+                window.location.href = 'home.html';
+                })
+            }
+            
+            console.log('desicion hecha')
+            
+        }else{
+            actualCard.classList.add('reset')
+            actualCard.classList.remove('go-right', 'go-left')
+        }
+
+        actualCard.addEventListener('transitionend', () =>{
+            actualCard.removeAttribute('style')
+            actualCard.classList.remove('reset')
+            
+            pullDeltaX = 0
+            isAnimating = false
+        })
+    }
+
+
+
+}
+const header = document.querySelector('header');
+const footer = document.querySelector('footer');
+document.addEventListener('mousedown', startDrag)
+document.addEventListener('touchstart', startDrag, { passive: true })
+
+function ocultarDivs() {
+    const divs = document.querySelectorAll('div');
+    divs.forEach(div => {
+        const tagName = div.tagName.toLowerCase();
+        if (tagName !== 'header' && tagName !== 'footer' && !isDescendant(header, div) && !isDescendant(footer, div)) {
+            div.style.display = 'none';
+        }
+    });
+}
+
+function isDescendant(parent, child) {
+    let node = child.parentNode;
+    while (node != null) {
+        if (node === parent) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
+}
+
+function mostrarMensajeAgregado() {
+    
+    const mensajeAgregado = document.createElement('div');
+    mensajeAgregado.classList.add('mensaje-agregado'); 
+
+    mensajeAgregado.style.backgroundColor = 'white';
+    mensajeAgregado.style.border = 'solid 4px #44b159';
+    mensajeAgregado.style.position = 'fixed';
+    mensajeAgregado.style.top = '50%';
+    mensajeAgregado.style.left = '50%';
+    mensajeAgregado.style.transform = 'translate(-50%, -50%)';
+    mensajeAgregado.style.padding = '20px';
+    mensajeAgregado.style.borderRadius = '10px';
+    mensajeAgregado.style.zIndex = '9999'; 
+
+   
+    const mensajeTexto = document.createElement('p');
+    mensajeTexto.textContent = 'Este producto ha sido añadido a tu carrito';
+    mensajeAgregado.appendChild(mensajeTexto);
+
+   
+    const botonOK = document.createElement('button');
+    botonOK.textContent = 'OK';
+    botonOK.style.marginTop = '10px';
+    botonOK.style.padding = '5px 10px';
+    botonOK.style.backgroundColor = 'white';
+    botonOK.style.border = '1px solid black';
+    botonOK.style.borderRadius = '5px';
+    botonOK.style.cursor = 'pointer';
+    botonOK.addEventListener('click', function() {
+        window.location.href = 'carrito.html'; 
+    });
+    mensajeAgregado.appendChild(botonOK);
+
+    document.body.appendChild(mensajeAgregado);
+}
