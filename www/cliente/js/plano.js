@@ -1,4 +1,6 @@
 const socket = io();
+let marcadorProducto=0;
+let marcadorProductoEncontrado;
 let posicionInicial = null; // Almacena la posición inicial del usuario
 let ultimaLatitud = null; // Almacena la última latitud conocida
 let ultimaLongitud = null; // Almacena la última longitud conocida
@@ -21,6 +23,7 @@ socket.on('producto-plano-encontrado', function(producto) {
 
     window.location.href = 'producto.html';
 });
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
@@ -66,6 +69,30 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 window.onload = function()  {
+    const productoEnPlano = localStorage.getItem('productoEnPlano');
+
+    // Obtener todos los elementos img que representan marcadores de productos
+    const marcadoresProductos = document.querySelectorAll('[id^="producto"]');
+
+    // Iterar sobre cada marcador de producto
+    marcadoresProductos.forEach(function(marcador) {
+        // Obtener el nombre del producto del atributo alt
+        const nombreProducto = marcador.getAttribute('alt');
+
+        // Verificar si el nombre del producto coincide con el nombre del producto almacenado en localStorage
+        if (nombreProducto === productoEnPlano) {
+            // Mostrar el marcador correspondiente
+            marcador.style.display = 'block';
+            marcadorProductoEncontrado = marcador.id;
+            console.log(`Ancho del plano: ${marcadorProductoEncontrado}`);
+            // Eliminar el producto del localStorage después de mostrar el marcador
+            localStorage.removeItem('productoEnPlano');
+            marcadorProducto = 1;
+
+            // Salir del bucle forEach una vez que se encuentra el marcador correspondiente
+            return;
+        }
+    });
     const plano = document.getElementById("plano");
     const usuario = document.getElementById("usuario");
     const posicion = document.getElementById("posicion");
@@ -248,45 +275,87 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                 return;
             }
             posicionDiv.innerText = `Latitud: ${latitud}, Longitud: ${longitud}`;
-            for (let i = 1; i <= 4; i++) {
-                const idProducto = `producto${i}`;
-                const producto = document.getElementById(idProducto);
-                
-                if (!producto) {
-                    console.log(`Elemento "${idProducto}" no encontrado`);
-                    continue; // Saltar a la siguiente iteración si el elemento no se encuentra
+            if (marcadorProducto === 0) {
+                for (let i = 1; i <= 4; i++) {
+                    const idProducto = `producto${i}`;
+                    const producto = document.getElementById(idProducto);
+                    
+                    if (!producto) {
+                        console.log(`Elemento "${idProducto}" no encontrado`);
+                        continue; // Saltar a la siguiente iteración si el elemento no se encuentra
+                    }
+                    if ("producto1"===idProducto){
+                        // Establecer los estilos del producto
+                        producto.style.left = `${posicionInicial - 40}px`; 
+                        producto.style.bottom = "340px";
+                        producto.style.position = "absolute";
+                        producto.style.display = 'block';
+                        producto.style.width = "50px"; }
+                    if ("producto2"===idProducto){
+                        // Establecer los estilos del producto
+                        producto.style.left = `${posicionInicial }px`; 
+                        producto.style.bottom = "140px";
+                        producto.style.position = "absolute";
+                        producto.style.display = 'block';
+                        producto.style.width = "50px"; }
+                    if ("producto3"===idProducto){
+                        // Establecer los estilos del producto
+                        producto.style.left = `${posicionInicial - 130}px`; 
+                        producto.style.bottom = "110px";
+                        producto.style.position = "absolute";
+                        producto.style.display = 'block';
+                        producto.style.width = "50px"; }
+                    if ("producto4"===idProducto){
+                        // Establecer los estilos del producto
+                        producto.style.left = `${posicionInicial + 110}px`; 
+                        producto.style.bottom = "220px";
+                        producto.style.position = "absolute";
+                        producto.style.display = 'block';
+                        producto.style.width = "50px"; 
+                    }
                 }
-                if ("producto1"===idProducto){
-                    // Establecer los estilos del producto
-                    producto.style.left = `${posicionInicial - 40}px`; 
-                    producto.style.bottom = "340px";
-                    producto.style.position = "absolute";
-                    producto.style.display = 'block';
-                    producto.style.width = "50px"; }
-                if ("producto2"===idProducto){
-                    // Establecer los estilos del producto
-                    producto.style.left = `${posicionInicial }px`; 
-                    producto.style.bottom = "140px";
-                    producto.style.position = "absolute";
-                    producto.style.display = 'block';
-                    producto.style.width = "50px"; }
-                if ("producto3"===idProducto){
-                    // Establecer los estilos del producto
-                    producto.style.left = `${posicionInicial - 130}px`; 
-                    producto.style.bottom = "110px";
-                    producto.style.position = "absolute";
-                    producto.style.display = 'block';
-                    producto.style.width = "50px"; }
-                if ("producto4"===idProducto){
-                    // Establecer los estilos del producto
-                    producto.style.left = `${posicionInicial + 110}px`; 
-                    producto.style.bottom = "220px";
-                    producto.style.position = "absolute";
-                    producto.style.display = 'block';
-                    producto.style.width = "50px"; }
-            }
-            
-            
+            }  
+            console.log(`Ancho del plano: ${marcadorProducto}`);  
+            if (marcadorProducto===1){
+                for (let i = 1; i <= 4; i++) {
+                    const idProducto = `producto${i}`;
+                    const producto = document.getElementById(idProducto);
+                    
+                    if (!producto) {
+                        console.log(`Elemento "${idProducto}" no encontrado`);
+                        continue; // Saltar a la siguiente iteración si el elemento no se encuentra
+                    }
+                    console.log(`Ancho del plano: ${marcadorProductoEncontrado}`);
+                    if (marcadorProductoEncontrado==="producto1"){
+                        // Establecer los estilos del producto
+                        producto.style.left = `${posicionInicial - 40}px`; 
+                        producto.style.bottom = "340px";
+                        producto.style.position = "absolute";
+                        producto.style.display = 'block';
+                        producto.style.width = "50px"; }
+                    if (marcadorProductoEncontrado==="producto2"){
+                        // Establecer los estilos del producto
+                        producto.style.left = `${posicionInicial }px`; 
+                        producto.style.bottom = "140px";
+                        producto.style.position = "absolute";
+                        producto.style.display = 'block';
+                        producto.style.width = "50px"; }
+                    if (marcadorProductoEncontrado==="producto3"){
+                        // Establecer los estilos del producto
+                        producto.style.left = `${posicionInicial - 130}px`; 
+                        producto.style.bottom = "110px";
+                        producto.style.position = "absolute";
+                        producto.style.display = 'block';
+                        producto.style.width = "50px"; }
+                    if (marcadorProductoEncontrado==="producto4"){
+                        // Establecer los estilos del producto
+                        producto.style.left = `${posicionInicial + 110}px`; 
+                        producto.style.bottom = "220px";
+                        producto.style.position = "absolute";
+                        producto.style.display = 'block';
+                        producto.style.width = "50px"; }
+            }  
+        }       
         }, function (error) {
             console.error("Error al obtener la ubicación:", error);
         });
@@ -294,3 +363,4 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
         alert("Geolocalización no es compatible en este navegador.");
     }
 }
+         

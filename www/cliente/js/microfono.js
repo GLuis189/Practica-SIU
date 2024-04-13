@@ -63,6 +63,16 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("producto no esxiste")
         }
     });
+    document.getElementById('plano-info').addEventListener('touchstart', function() {
+        console.log("Accediendo al plano...");
+        if(producto){
+            localStorage.setItem('productoEnPlano', producto);
+        }
+            else{
+                console.log("producto no esxiste")
+            }
+        window.location.href = 'plano.html';
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function() {
