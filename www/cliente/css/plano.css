@@ -90,13 +90,22 @@ h2{
 .contenedor-img {
     position: relative;
     width: 100%; /* Ajusta el ancho según tus necesidades */
+    height: 100%;
+}
+.popup {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 2px solid black;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
 }
 #usuario img {
     width: 40px; /* Ajusta el tamaño de la imagen */
     height: auto; /* Mantiene la proporción de la imagen */
 }
 #usuario {
-    left: 48%;
     width: 20px; /* Ajusta el tamaño de la imagen */
     height: auto; /* Mantiene la proporción de la imagen */
 }
