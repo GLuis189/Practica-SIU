@@ -153,20 +153,21 @@ document.addEventListener('DOMContentLoaded', function () {
 const DECISION_THRESHOLD = 75
 
 let isAnimating = false
-let pullDeltaX = 0 // distance from the card being dragged
+let pullDeltaX = 0 
 
+// movimiento tarjetas
 function startDrag(event) {
     if (isAnimating) return
 
-    // get the first article element
+    
     const actualCard = event.target.closest('img')
     
     if (!actualCard) return
 
-    // get initial position of mouse or finger
+    
     const startX = event.pageX ?? event.touches[0].pageX
 
-    // listen the mouse and touch movements
+    
     document.addEventListener('mousemove', onMove)
     document.addEventListener('mouseup', onEnd)
 
@@ -174,10 +175,10 @@ function startDrag(event) {
     document.addEventListener('touchend', onEnd, { passive: true })
 
     function onMove(event) {
-        // current position of mouse or finger
+        
         const currentX = event.pageX ?? event.touches[0].pageX
 
-        // the distance between the initial and current position
+        
         pullDeltaX = currentX - startX
 
         if (pullDeltaX === 0) return
@@ -186,7 +187,7 @@ function startDrag(event) {
         const deg = pullDeltaX / 10
         actualCard.style.transform = `translateX(${pullDeltaX}px) rotate(${deg}deg)`
 
-        // change the cursor to grabbing
+        
         actualCard.style.cursor = 'grabbing'
         
     }
