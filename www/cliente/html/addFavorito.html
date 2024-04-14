@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>El Corte Ingles: Home Page</title>
-    <link rel="stylesheet" href="../css/carrito.css">
+    <link rel="stylesheet" href="../css/addFavorito.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script> 
@@ -52,10 +52,21 @@
             <li><a href="./addFavorito.html">addFavorito</a></li>
         </ul>
     </div>
-    <section id="carrito">
-        <h2>Tu carrito</h2>
-        <div id="contenedor_productos"></div>
+    <section id="producto">
+        <h2>Producto</h2>
+        <div class = "contenedor-img">
+            <img class = "producto-img" src="/imgs/camisa_copia.jpg" alt="">
+            <img class = "corazon-img" src="/imgs/corazon (1) 1.png" alt="Corazón">
+        </div>
+        <h3 class="pregunta">¿Quieres añadir este producto a favoritos?</h3>
+        
+        
     </section>
+    <div class="botones">
+        <button class="boton-no">No</button>
+        <button class="boton-si">Si</button>
+    </div>
+    
     <section id="qr" style="display: none;">
         <div id="qrCodeContainer" class="qr-container"></div>
         <h3>Para confirmar el pago de tus productos acercate a una caja de pago y escanea este QR</h3>

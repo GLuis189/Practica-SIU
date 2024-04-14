@@ -211,7 +211,9 @@ function startDrag(event) {
                 actualCard.addEventListener('transitionend', () =>{
                 actualCard.remove()
                 ocultarDivs();
-                window.location.href = 'home.html';
+                mostrarMensajeAgregado()
+                enviarProductoAlServidor(productoAnadido);
+                
                 })
             }
 
@@ -220,8 +222,7 @@ function startDrag(event) {
                 actualCard.addEventListener('transitionend', () =>{
                 actualCard.remove()
                 ocultarDivs();
-                mostrarMensajeAgregado()
-                enviarProductoAlServidor(productoAnadido);
+                window.location.href = 'home.html';
                 })
             }
             

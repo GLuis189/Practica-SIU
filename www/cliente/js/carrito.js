@@ -1,6 +1,6 @@
 const socket = io();
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log("llamando a función");
     comprobarCarrito();
 });
@@ -52,10 +52,17 @@ function comprobarCarrito() {
 
     if (productoString) {
         // Convertir la cadena JSON de vuelta a un objeto JavaScript
-        const producto = JSON.parse(productoString);
-        console.log("holaaa",producto);
-        // Mostrar el producto en HTML
-        mostrarProductoEnHTML(producto);
+        const productos = JSON.parse(productoString);
+        console.log("holaaa", productos);
+        const contenedorProductos = document.getElementById('contenedor_productos');
+
+        // Limpiar el contenedor antes de mostrar los nuevos productos
+        contenedorProductos.innerHTML = '';
+
+        // Iterar sobre el array de productos y mostrar cada uno
+        productos.forEach(producto => {
+            mostrarProductoEnHTML(producto);
+        });
     } else {
         console.log('No se encontró ningún producto en el localStorage.');
     }
@@ -91,7 +98,7 @@ function mostrarProductoEnHTML(producto) {
     const cantidadSpan = document.createElement('span');
     cantidadSpan.classList.add("cantidad");
     cantidadSpan.textContent = "Cantidad: ";
-    
+
     // Crear el span para la cantidad específica del producto
     const cantidadProducto = document.createElement('span');
     cantidadProducto.id = "cantidadProducto";
@@ -116,18 +123,19 @@ function mostrarProductoEnHTML(producto) {
     nuevoProducto.appendChild(imagenProducto);
     nuevoProducto.appendChild(infoProducto);
     contenedorProductos.appendChild(nuevoProducto);
+    return;
 }
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Función para generar el código QR
     function generarCodigoQR() {
         // Obtener los productos del carrito
         var productos = document.querySelectorAll('.producto');
         var productosQR = [];
 
-        productos.forEach(function(producto) {
+        productos.forEach(function (producto) {
             var nombre = producto.querySelector('.nombre_producto').textContent;
             var cantidad = producto.querySelector('.cantidad').textContent.replace('Cantidad: ', '');
             var imagen = producto.querySelector('img').getAttribute('src');
@@ -142,8 +150,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let qr = qrcode(0, 'L');
         qr.addData(textoProductos);
         qr.make();
-        let qrSection =  document.getElementById('qr');
-        let carritoSection =  document.getElementById('carrito');
+        let qrSection = document.getElementById('qr');
+        let carritoSection = document.getElementById('carrito');
         qrSection.style.display = 'block';
         carritoSection.style.display = 'none';
         // Obtener el elemento contenedor del código QR
@@ -159,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Escuchar el evento clic del botón de pagar
-    document.getElementById('boton-pagar').addEventListener('click', function() {
+    document.getElementById('boton-pagar').addEventListener('click', function () {
         generarCodigoQR(); // Llamar a la función para generar el código QR cuando se hace clic en el botón de pagar
     });
 });
@@ -178,44 +186,80 @@ cerrar.addEventListener("click", () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    
+document.addEventListener('DOMContentLoaded', function () {
+
     const contenedorProductos = document.getElementById('contenedor_productos');
-    let xInicial; 
-    let contenedorProducto;   
-    let eliminandoProducto = false;  
-    let desplazamientoActual = 0;  
-    contenedorProductos.addEventListener('touchstart', function(event) {      
-        if (eliminandoProducto) return;      
-        xInicial = event.touches[0].clientX;    
-        contenedorProducto = event.target.closest('.producto');     
+    let xInicial;
+    let contenedorProducto;
+    let eliminandoProducto = false;
+    let desplazamientoActual = 0;
+    contenedorProductos.addEventListener('touchstart', function (event) {
+        if (eliminandoProducto) return;
+        xInicial = event.touches[0].clientX;
+        contenedorProducto = event.target.closest('.producto');
         desplazamientoActual = 0;
-    }); 
-    contenedorProductos.addEventListener('touchmove', function(event) {    
-        if (eliminandoProducto || !contenedorProducto) return;   
-        const desplazamiento = event.touches[0].clientX - xInicial;   
-        desplazamientoActual = desplazamiento;     
-        contenedorProducto.style.transition = 'none'; 
+    });
+    contenedorProductos.addEventListener('touchmove', function (event) {
+        if (eliminandoProducto || !contenedorProducto) return;
+        const desplazamiento = event.touches[0].clientX - xInicial;
+        desplazamientoActual = desplazamiento;
+        contenedorProducto.style.transition = 'none';
         contenedorProducto.style.transform = `translateX(${desplazamiento}px)`;
     });
-    contenedorProductos.addEventListener('touchend', function(event) {
-        if (eliminandoProducto || !contenedorProducto) return;     
+    contenedorProductos.addEventListener('touchend', function (event) {
+        if (eliminandoProducto || !contenedorProducto) return;
+        const nombreProducto = contenedorProducto.querySelector('.nombre_producto').textContent;
         if (desplazamientoActual < -50) {
             if (confirm("¿Seguro que deseas eliminar este producto?")) {
                 eliminandoProducto = true;
-                contenedorProducto.style.transition = 'transform 0.3s ease'; 
+                contenedorProducto.style.transition = 'transform 0.3s ease';
                 contenedorProducto.style.transform = 'translateX(-100%)';
-                contenedorProducto.addEventListener('transitionend', function() {            
-                    contenedorProducto.remove();           
+                contenedorProducto.addEventListener('transitionend', function () {
+                    contenedorProducto.remove();
                     eliminandoProducto = false;
-                }, { once: true }); 
+
+                }, { once: true });
+                socket.emit('eliminar-carrito', nombreProducto);
+                socket.on('producto-eliminado', (carrito) => {
+                    // Aquí puedes manejar el carrito actualizado recibido desde el servidor
+                    console.log('Carrito actualizado recibido:', carrito);
+                    contenedorProductos.innerHTML = '';
+                    // Iterar sobre el array de productos y mostrar cada uno
+                    console.log(typeof (carrito));
+                    const carritoString = JSON.stringify(carrito);
+
+                    // Guardar 'carritoString' en localStorage con la clave 'producto'
+                    localStorage.setItem('producto', carritoString);
+
+                    if (typeof carrito === 'object' && carrito !== null) {
+                        // Recorrer el objeto 'carrito' utilizando un bucle for...in
+                        for (const key in carrito) {
+                            if (carrito.hasOwnProperty(key)) {
+                                const producto = carrito[key];
+                                // Mostrar el producto en la consola
+                                console.log('Nombre del producto:', producto.nombre);
+                                console.log('Cantidad:', producto.cantidad);
+
+                                // Mostrar el producto en la interfaz de usuario
+                                mostrarProductoEnHTML(producto);
+                                eliminandoProducto = false;
+                            }
+
+                        }
+                    } else {
+                        console.log('El carrito recibido no es un objeto válido.');
+                        eliminandoProducto = false;
+                    }
+                });
             } else {
                 contenedorProducto.style.transition = 'transform 0.3s ease';
                 contenedorProducto.style.transform = 'translateX(0)';
+                eliminandoProducto = false;
             }
-        } else {       
-            contenedorProducto.style.transition = 'transform 0.3s ease'; 
+        } else {
+            contenedorProducto.style.transition = 'transform 0.3s ease';
             contenedorProducto.style.transform = 'translateX(0)';
+            eliminandoProducto = false;
         }
     });
 });
