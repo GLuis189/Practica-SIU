@@ -1,5 +1,5 @@
 const socket = io();
-
+let productoAnadido;
 addEventListener("load", function () {
     const mensajeDiv = document.getElementById('mensaje');
     const productoEncontrado = JSON.parse(localStorage.getItem('productoEncontrado'));
@@ -7,6 +7,7 @@ addEventListener("load", function () {
     if (productoEncontrado) {
         console.log('Tipo de producto encontrado:', typeof productoEncontrado);
         console.log('Producto encontrado en producto.html:', productoEncontrado);
+        productoAnadido = productoEncontrado;
         mostrarProductoEnHTML(productoEncontrado);
     }
     // Eliminar la información del producto del almacenamiento local después de usarla
@@ -210,7 +211,7 @@ function startDrag(event) {
                 actualCard.addEventListener('transitionend', () =>{
                 actualCard.remove()
                 ocultarDivs();
-                mostrarMensajeAgregado()
+                window.location.href = 'home.html';
                 })
             }
 
@@ -219,7 +220,8 @@ function startDrag(event) {
                 actualCard.addEventListener('transitionend', () =>{
                 actualCard.remove()
                 ocultarDivs();
-                window.location.href = 'home.html';
+                mostrarMensajeAgregado()
+                enviarProductoAlServidor(productoAnadido);
                 })
             }
             
@@ -242,6 +244,18 @@ function startDrag(event) {
 
 
 }
+function enviarProductoAlServidor(productoAnadido){
+    console.log('Datos del carrito a enviar al servidor:', productoAnadido);
+    socket.emit('guardar-carrito',productoAnadido ); 
+    socket.on('producto-carrito', function (producto) {
+        console.log('Producto encontrado:', producto);
+        console.log(typeof producto );
+        const productoString = JSON.stringify(producto);
+        // Guardar el producto en el localStorage
+        localStorage.setItem('producto', productoString);
+    });
+}
+
 const header = document.querySelector('header');
 const footer = document.querySelector('footer');
 document.addEventListener('mousedown', startDrag)

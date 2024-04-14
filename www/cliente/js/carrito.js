@@ -1,4 +1,9 @@
 const socket = io();
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("llamando a función");
+    comprobarCarrito();
+});
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
@@ -41,33 +46,85 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
     });
 });
-// Función para enviar el contenido del carrito al servidor
-function enviarCarritoAlServidor() {
-    var productos = document.querySelectorAll('.producto1');
-    var carrito = [];
 
-    productos.forEach(function(producto) {
-        var nombre = producto.querySelector('.nombre_producto').textContent;
-        var cantidad = producto.querySelector('.cantidad').textContent.replace('Cantidad: ', '');
-        var imagen = producto.querySelector('img').getAttribute('src');
+function comprobarCarrito() {
+    const productoString = localStorage.getItem('producto');
 
-        carrito.push({nombre: nombre, cantidad: cantidad, imagen: imagen});
-    });
-
-    console.log('Datos del carrito a enviar al servidor:', carrito); // Agregar este console.log()
-    socket.emit('guardar-carrito', { carrito: carrito }); // Enviar el carrito al servidor
+    if (productoString) {
+        // Convertir la cadena JSON de vuelta a un objeto JavaScript
+        const producto = JSON.parse(productoString);
+        console.log("holaaa",producto);
+        // Mostrar el producto en HTML
+        mostrarProductoEnHTML(producto);
+    } else {
+        console.log('No se encontró ningún producto en el localStorage.');
+    }
 }
 
-// Llamar a la función para enviar el carrito al servidor cada vez que cambie
-document.addEventListener('DOMContentLoaded', function() {
-    enviarCarritoAlServidor();
-});
+function mostrarProductoEnHTML(producto) {
+    const contenedorProductos = document.getElementById('contenedor_productos');
+
+    // Crear un nuevo elemento div para el producto
+    const nuevoProducto = document.createElement('div');
+    nuevoProducto.id = "producto" + producto.id;
+    nuevoProducto.classList.add("producto");
+
+    // Crear el elemento img y establecer su src y alt
+    const imagenProducto = document.createElement('img');
+    imagenProducto.src = producto.imagen;
+    imagenProducto.alt = "Producto " + producto.id;
+
+    // Crear el div para la información del producto
+    const infoProducto = document.createElement('div');
+    infoProducto.classList.add("info-producto");
+
+    // Crear el span para el nombre del producto
+    const nombreProducto = document.createElement('span');
+    nombreProducto.classList.add("nombre_producto");
+    nombreProducto.textContent = producto.nombre;
+
+    // Crear el div para la cantidad del producto
+    const cantidadContenedor = document.createElement('div');
+    cantidadContenedor.classList.add("cantidad-contenedor");
+
+    // Crear el span para mostrar la cantidad del producto
+    const cantidadSpan = document.createElement('span');
+    cantidadSpan.classList.add("cantidad");
+    cantidadSpan.textContent = "Cantidad: ";
+    
+    // Crear el span para la cantidad específica del producto
+    const cantidadProducto = document.createElement('span');
+    cantidadProducto.id = "cantidadProducto";
+    cantidadProducto.textContent = producto.cantidad;
+
+    // Crear botones para aumentar y disminuir la cantidad
+    const botonMas = document.createElement('button');
+    botonMas.classList.add("boton-mas");
+    botonMas.textContent = "+";
+
+    const botonMenos = document.createElement('button');
+    botonMenos.classList.add("boton-menos");
+    botonMenos.textContent = "-";
+
+    // Agregar los elementos creados al DOM
+    cantidadContenedor.appendChild(cantidadSpan);
+    cantidadContenedor.appendChild(cantidadProducto);
+    cantidadContenedor.appendChild(botonMas);
+    cantidadContenedor.appendChild(botonMenos);
+    infoProducto.appendChild(nombreProducto);
+    infoProducto.appendChild(cantidadContenedor);
+    nuevoProducto.appendChild(imagenProducto);
+    nuevoProducto.appendChild(infoProducto);
+    contenedorProductos.appendChild(nuevoProducto);
+}
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // Función para generar el código QR
     function generarCodigoQR() {
         // Obtener los productos del carrito
-        var productos = document.querySelectorAll('.producto1');
+        var productos = document.querySelectorAll('.producto');
         var productosQR = [];
 
         productos.forEach(function(producto) {
@@ -123,7 +180,7 @@ cerrar.addEventListener("click", () => {
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    const contenedorProductos = document.querySelector('.contenedor_productos');
+    const contenedorProductos = document.getElementById('contenedor_productos');
     let xInicial; 
     let contenedorProducto;   
     let eliminandoProducto = false;  
@@ -131,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
     contenedorProductos.addEventListener('touchstart', function(event) {      
         if (eliminandoProducto) return;      
         xInicial = event.touches[0].clientX;    
-        contenedorProducto = event.target.closest('.producto1');     
+        contenedorProducto = event.target.closest('.producto');     
         desplazamientoActual = 0;
     }); 
     contenedorProductos.addEventListener('touchmove', function(event) {    

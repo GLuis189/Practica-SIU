@@ -61,19 +61,35 @@ io.on('connection', (socket) => {
     });
 
     
-    // Recibir el contenido del carrito desde el cliente y actualizarlo en el servidor
     socket.on('guardar-carrito', (nuevoCarrito) => {
-        carrito = nuevoCarrito.carrito;
+        carrito = nuevoCarrito;
         console.log('Carrito actualizado:', carrito);
-         // Guardar el contenido del carrito en el archivo tasks.json
-         fs.writeFile('tasks.json', JSON.stringify(carrito), (err) => {
-          if (err) {
-              console.error(err);
-              return;
-          }
-          console.log('Carrito guardado en tasks.json');
-      });   
-  });
+        nuevoCarrito.cantidad = 1;
+    
+        // Guardar el contenido del carrito en el archivo tasks.json
+        fs.writeFile('tasks.json', JSON.stringify(carrito), (err) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log('Carrito guardado en tasks.json');
+    
+            // Leer el contenido del archivo tasks.json y enviarlo a través del socket
+            fs.readFile('tasks.json', 'utf8', (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+    
+                // Parsear el contenido del archivo JSON
+                const carrito = JSON.parse(data);
+                console.log("Enviandooo");
+                // Enviar el contenido del carrito a través del socket
+                socket.emit('producto-carrito', carrito);
+            });
+        });
+    });
+    
   socket.on('nfcWritten', function (message) {
     console.log(message);
 });
