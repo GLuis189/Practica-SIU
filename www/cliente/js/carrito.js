@@ -58,11 +58,12 @@ function comprobarCarrito() {
 
         // Limpiar el contenedor antes de mostrar los nuevos productos
         contenedorProductos.innerHTML = '';
-
-        // Iterar sobre el array de productos y mostrar cada uno
-        productos.forEach(producto => {
+        if (productos != null){
+            // Iterar sobre el array de productos y mostrar cada uno
+            productos.forEach(producto => {
             mostrarProductoEnHTML(producto);
         });
+        }
     } else {
         console.log('No se encontró ningún producto en el localStorage.');
     }

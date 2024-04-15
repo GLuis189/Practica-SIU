@@ -8,6 +8,8 @@ const factorPxPorMetro = 5; // Factor de conversión de metros a píxeles
 let nav = document.querySelector("#nav1");
 let abrir = document.querySelector("#abrir");
 let cerrar = document.querySelector("#cerrar");
+let puntoPartidaLatitud ; 
+let puntoPartidaLongitud; 
 
 abrir.addEventListener("click", () => {
     nav.classList.add("visible");
@@ -68,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
 window.onload = function()  {
     const productoEnPlano = localStorage.getItem('productoEnPlano');
 
@@ -109,7 +112,7 @@ window.onload = function()  {
         const altoUsuario = usuario.clientHeight;
 
         // Mostrar la información de ancho y alto en el div de posición
-        posicion.innerText = `Ancho del plano: ${anchoPlano}, Ancho del usuario: ${anchoUsuario}, Alto del plano: ${altoPlano}, Alto del usuario: ${altoUsuario}`;
+        console.log( `Ancho del plano: ${anchoPlano}, Ancho del usuario: ${anchoUsuario}, Alto del plano: ${altoPlano}, Alto del usuario: ${altoUsuario}`);
 
         // Mostrar la ubicación inicial
         mostrarUbicacionInicial(anchoPlano, anchoUsuario);
@@ -138,54 +141,58 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
     let latitud;
     let longitud;
     latitud = position.coords.latitude;
-    longitud = position.coords.longitud;
+    longitud = position.coords.longitude;
 
-    // Simular movimiento. 
-    //latitud += 10;
-    //longitud -= 10;
+    // Definir el rango permitido en longitud y latitud
+    const rangoLongitud = 0.001; // 0.001 grados de longitud
+    const rangoLatitud = 0.001; // 0.001 grados de latitud
 
-    // Restricción para la latitud dentro del rango válido
-    latitud = Math.min(180, Math.max(-180, latitud));
-    longitud = Math.min(180, Math.max(-180, longitud));
-    calcularPosicion(longitud,latitud,altoPlano, anchoPlano);
+    // Ajustar la longitud y latitud dentro del rango permitido
+    longitud = Math.min(longitud + rangoLongitud, longitud); // Aumentar la longitud dentro del rango
+    longitud = Math.max(longitud - rangoLongitud, longitud); // Disminuir la longitud dentro del rango
+    latitud = Math.min(latitud + rangoLatitud, latitud); // Aumentar la latitud dentro del rango
+    latitud = Math.max(latitud - rangoLatitud, latitud); // Disminuir la latitud dentro del rango
+    console.log(longitud);
+    console.log(latitud);
+    calcularPosicion(longitud, latitud, altoPlano, anchoPlano,puntoPartidaLongitud,puntoPartidaLatitud);
 
-    function calcularPosicion(longitud,latitud, altoContenedor,anchoContenedor) {
-        // Calcular la posición vertical del marcador
-        const porcentajeV = (latitud + 90) / 180 * 100;
-        // Calcular la nueva posición del marcador en el eje x
-        const porcentajeH = (longitud + 180) / 360 * 100;
-        let posicionUsuarioH = (porcentajeH / 100) * anchoContenedor;
-        console.log("Posición horizontal del marcador:", posicionUsuarioH);
-        const porcentajeHorizontal = (longitud + 180) / 360 * 100;
-        let posicionUsuarioHorizontal = (porcentajeHorizontal / 100) * anchoContenedor;
-
-        // Comprobar si el marcador está dentro de los límites de la imagen
-        if (posicionUsuarioHorizontal < 0) {
-            posicionUsuarioHorizontal = 0; // Si está fuera del límite izquierdo, fijar en el borde izquierdo
-        } else if (posicionUsuarioHorizontal > anchoContenedor - 25) {
-            posicionUsuarioHorizontal = anchoContenedor - 25; // Si está fuera del límite derecho, fijar en el borde derecho
+    function calcularPosicion(longitud, latitud, altoContenedor, anchoContenedor, puntoPartidaLongitud, puntoPartidaLatitud) {
+        // Calcular la diferencia entre la posición actual y el punto de partida
+        const diferenciaLongitud = longitud - puntoPartidaLongitud;
+        const diferenciaLatitud = latitud - puntoPartidaLatitud;
+    
+        // Convertir la diferencia a porcentajes dentro del rango permitido
+        const porcentajeLongitud = ((diferenciaLongitud + 0.001) / 0.002) * 100;
+        const porcentajeLatitud = ((diferenciaLatitud + 0.001) / 0.002) * 100;
+    
+        // Calcular la posición horizontal del marcador dentro del rango permitido
+        let posicionHorizontal = (porcentajeLongitud / 100) * anchoContenedor;
+    
+        // Ajustar la posición horizontal para que esté dentro del rango permitido
+        if (posicionHorizontal < 0) {
+            posicionHorizontal = 0; // Si está fuera del límite izquierdo, fijar en el borde izquierdo
+        } else if (posicionHorizontal > anchoContenedor - 25) {
+            posicionHorizontal = anchoContenedor - 25; // Si está fuera del límite derecho, fijar en el borde derecho
         }
-        let posicionUsuarioVertical = ((porcentajeV / 100) * altoContenedor)-230;
-        // Verificar que la posición vertical esté dentro del rango del contenedor
-        if (posicionUsuarioVertical < 0 || posicionUsuarioVertical > altoContenedor) {
-            console.log("La posición vertical del marcador está fuera del rango del contenedor de la imagen.");
-            return; // Detener la ejecución si la posición está fuera del rango
+    
+        // Calcular la posición vertical del marcador dentro del rango permitido
+        let posicionVertical = (porcentajeLatitud / 100) * altoContenedor;
+    
+        // Ajustar la posición vertical para que esté dentro del rango permitido
+        if (posicionVertical < 0) {
+            posicionVertical = 0; // Si está fuera del límite inferior, fijar en el borde inferior
+        } else if (posicionVertical > altoContenedor - 25) {
+            posicionVertical = altoContenedor - 25; // Si está fuera del límite superior, fijar en el borde superior
         }
-        // Actualizar la posición del marcador en la imagen
+    
         const usuario = document.getElementById("usuario");
-        usuario.style.bottom = `${posicionUsuarioVertical}px`;
-        usuario.style.left = `${posicionUsuarioHorizontal}px`;
-        // Actualizar las últimas coordenadas conocidas
-        ultimaLatitud = latitud;
-        ultimaLongitud = longitud;
-        // Mostrar la posición actualizada en el HTML
-        const posicionDiv = document.getElementById("posicion");
-        posicionDiv.innerText = `Latitud: ${latitud} Longitud ${longitud}`;
-
-        console.log(`Latitud: ${latitud}`);
-        console.log(`Longitud: ${longitud}`)
-    }
+        usuario.style.left = `${posicionHorizontal}px`;
+        usuario.style.bottom = `${posicionVertical}px`;
+    }    
 }
+    
+       
+    
 document.addEventListener('DOMContentLoaded', function () {
     // Obtener referencias a los marcadores de productos
     const productos = document.querySelectorAll('[id^="producto"]');
@@ -246,6 +253,8 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
             console.log('Geolocalización obtenida');
             const latitud = position.coords.latitude;
             const longitud = position.coords.longitude;
+            puntoPartidaLatitud = latitud; // Latitud del punto de partida
+            puntoPartidaLongitud = longitud; 
             ultimaLatitud = latitud;
             ultimaLongitud = longitud;
 
@@ -311,7 +320,7 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                     }
                 }
             }  
-            console.log(`Ancho del plano: ${marcadorProducto}`);  
+            //console.log(`Ancho del plano: ${marcadorProducto}`);  
             if (marcadorProducto===1){
                 for (let i = 1; i <= 4; i++) {
                     const idProducto = `producto${i}`;
@@ -359,4 +368,3 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
         alert("Geolocalización no es compatible en este navegador.");
     }
 }
-         
