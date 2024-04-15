@@ -148,10 +148,10 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
     const rangoLatitud = 0.001; // 0.001 grados de latitud
 
     // Ajustar la longitud y latitud dentro del rango permitido
-    longitud = Math.min(longitud + rangoLongitud, longitud); // Aumentar la longitud dentro del rango
-    longitud = Math.max(longitud - rangoLongitud, longitud); // Disminuir la longitud dentro del rango
-    latitud = Math.min(latitud + rangoLatitud, latitud); // Aumentar la latitud dentro del rango
-    latitud = Math.max(latitud - rangoLatitud, latitud); // Disminuir la latitud dentro del rango
+    longitud = Math.min(longitud + rangoLongitud, longitud); 
+    longitud = Math.max(longitud - rangoLongitud, longitud); 
+    latitud = Math.min(latitud + rangoLatitud, latitud); 
+    latitud = Math.max(latitud - rangoLatitud, latitud); 
     console.log(longitud);
     console.log(latitud);
     calcularPosicion(longitud, latitud, altoPlano, anchoPlano,puntoPartidaLongitud,puntoPartidaLatitud);

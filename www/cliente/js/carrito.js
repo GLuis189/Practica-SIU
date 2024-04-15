@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Escuchar el evento clic del botón de pagar
-    document.getElementById('boton-pagar').addEventListener('click', function () {
+    document.getElementById('boton-pagar').addEventListener('touch', function () {
         generarCodigoQR(); // Llamar a la función para generar el código QR cuando se hace clic en el botón de pagar
     });
 });
@@ -178,11 +178,11 @@ var nav = document.querySelector("#nav1");
 var abrir = document.querySelector("#abrir");
 var cerrar = document.querySelector("#cerrar");
 
-abrir.addEventListener("click", () => {
+abrir.addEventListener("touch", () => {
     nav.classList.add("visible");
 });
 
-cerrar.addEventListener("click", () => {
+cerrar.addEventListener("touch", () => {
     nav.classList.remove("visible");
 });
 
@@ -194,6 +194,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let contenedorProducto;
     let eliminandoProducto = false;
     let desplazamientoActual = 0;
+    const contenedores = contenedorProductos.querySelectorAll('.producto');
+
+    contenedores.forEach(contenedor => {
+        // Obtener el nombre del producto del contenedor actual
+        const nombreProducto = contenedor.querySelector('.nombre_producto').textContent;
+        console.log('Nombre del producto:', nombreProducto);
+    });
     contenedorProductos.addEventListener('touchstart', function (event) {
         if (eliminandoProducto) return;
         xInicial = event.touches[0].clientX;
