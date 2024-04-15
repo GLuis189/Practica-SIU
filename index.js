@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
     });
     socket.on('id', (product) => {
         console.log(typeof product);
-        const producto = almacen.find(item => item.nombre === product);
+        const producto = almacen.find(item => item.id == product);
 
         if (producto) {
             // Si se encontró el producto, enviar toda su información de vuelta al cliente
