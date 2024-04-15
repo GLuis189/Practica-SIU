@@ -44,6 +44,21 @@ io.on('connection', (socket) => {
             console.log('Producto no encontrado para el ID:', product);
         }
     });
+    socket.on('id', (product) => {
+        console.log(typeof product);
+        const producto = almacen.find(item => item.nombre === product);
+
+        if (producto) {
+            // Si se encontró el producto, enviar toda su información de vuelta al cliente
+            //socket.emit('producto-encontrado', producto);
+            console.log('Producto enviado al cliente:', producto);
+            socket.emit('producto-encontrado', producto);
+        } else {
+            // Si no se encuentra el producto, enviar un mensaje de error al cliente
+            //socket.emit('producto-no-encontrado', `No se encontró ningún producto con el ID: ${id}`);
+            console.log('Producto no encontrado para el ID:', product);
+        }
+    });
     socket.on('producto-plano', (product) => {
         console.log(typeof product);
         const producto = almacen.find(item => item.nombre === product);

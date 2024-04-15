@@ -28,6 +28,10 @@ socket.on('producto-micro-producto-encontrado', function (producto) {
     console.log('Producto encontrado:', producto);
     mostrarProductoEnHTML(producto);
 });
+socket.on('producto-encontrado', function (producto) {
+    console.log('Producto encontrado:', producto);
+    mostrarProductoEnHTML(producto);
+});
 // Escuchar evento 'producto-encontrado' del servidor
 
 
