@@ -137,17 +137,12 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
     console.log("Actualizar");
     let latitud;
     let longitud;
-    if (ultimaLongitud) {
-        latitud = ultimaLatitud;
-        longitud = ultimaLongitud;
-    } else {
-        latitud = position.coords.latitude;
-        longitud = position.coords.longitud;
-    }
+    latitud = position.coords.latitude;
+    longitud = position.coords.longitud;
 
     // Simular movimiento. 
     //latitud += 10;
-    longitud -= 10;
+    //longitud -= 10;
 
     // Restricción para la latitud dentro del rango válido
     latitud = Math.min(180, Math.max(-180, latitud));
@@ -185,9 +180,10 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
         ultimaLongitud = longitud;
         // Mostrar la posición actualizada en el HTML
         const posicionDiv = document.getElementById("posicion");
-        posicionDiv.innerText = `Latitud: ${latitud}`;
+        posicionDiv.innerText = `Latitud: ${latitud} Longitud ${longitud}`;
 
         console.log(`Latitud: ${latitud}`);
+        console.log(`Longitud: ${longitud}`)
     }
 }
 document.addEventListener('DOMContentLoaded', function () {
