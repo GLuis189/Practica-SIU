@@ -1,1 +1,1 @@
-[{"id":2,"tipo":"ropa","nombre":"calcetines de colores","imagen":"../../imgs/calcetines.jpg","tallas":"S, M, L, XL","stock":15,"precio":11.99,"valoracion":2,"txt":"","cantidad":1},{"id":3,"tipo":"electronica","nombre":"consola","imagen":"../../imgs/play.jpg","stock":15,"precio":450.5,"valoracion":5,"txt":"","cantidad":1}]
+[{"id":2,"tipo":"ropa","nombre":"calcetines de colores","imagen":"../../imgs/calcetines.jpg","tallas":"S, M, L, XL","stock":15,"precio":11.99,"valoracion":2,"txt":"","cantidad":1}]
