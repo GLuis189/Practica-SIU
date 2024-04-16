@@ -186,6 +186,23 @@ cerrar.addEventListener("click", () => {
     nav.classList.remove("visible");
 });
 
+function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
+    const nombreProductoMovido = contenedorMovido.querySelector('.nombre_producto').textContent;
+    const indexMovido = lista.indexOf(nombreProductoMovido);
+    let indexTarget = indexMovido + direccionMovimiento;
+    console.log(indexTarget);
+    console.log(indexMovido);
+    if (indexTarget >= 0 && indexTarget < lista.length) {
+        // Eliminamos el elemento movido de la lista
+        lista.splice(indexMovido, 1);
+        // Insertamos el elemento movido en el nuevo índice
+        lista.splice(indexTarget, 0, nombreProductoMovido);
+        console.log("Lista de nombres reordenada:", lista);
+    } else {
+        console.log("No se puede mover más allá de los límites de la lista.");
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -194,11 +211,16 @@ document.addEventListener('DOMContentLoaded', function () {
     let contenedorProducto;
     let eliminandoProducto = false;
     let desplazamientoActual = 0;
+    let touchStartY;
+    let touchStartTime;
+    let currentTouchMoveY;
+    let touchMoveStarted = false;
     const contenedores = contenedorProductos.querySelectorAll('.producto');
-
+    let lista = [];
     contenedores.forEach(contenedor => {
         // Obtener el nombre del producto del contenedor actual
         const nombreProducto = contenedor.querySelector('.nombre_producto').textContent;
+        lista.push(nombreProducto);
         console.log('Nombre del producto:', nombreProducto);
     });
     contenedorProductos.addEventListener('touchstart', function (event) {
@@ -206,6 +228,10 @@ document.addEventListener('DOMContentLoaded', function () {
         xInicial = event.touches[0].clientX;
         contenedorProducto = event.target.closest('.producto');
         desplazamientoActual = 0;
+        touchStartY = event.touches[0].clientY;
+        touchStartTime = new Date().getTime();
+        currentTouchMoveY = touchStartY;
+        touchMoveStarted = false;
     });
     contenedorProductos.addEventListener('touchmove', function (event) {
         if (eliminandoProducto || !contenedorProducto) return;
@@ -213,10 +239,22 @@ document.addEventListener('DOMContentLoaded', function () {
         desplazamientoActual = desplazamiento;
         contenedorProducto.style.transition = 'none';
         contenedorProducto.style.transform = `translateX(${desplazamiento}px)`;
+        currentTouchMoveY = event.touches[0].clientY;
+        touchMoveStarted = true;
     });
     contenedorProductos.addEventListener('touchend', function (event) {
+        const touchEndTime = new Date().getTime();
+        const touchDuration = touchEndTime - touchStartTime;
+        const touchDistance = currentTouchMoveY - touchStartY;
         if (eliminandoProducto || !contenedorProducto) return;
         const nombreProducto = contenedorProducto.querySelector('.nombre_producto').textContent;
+        if (touchDuration >= 3000 && touchMoveStarted) {
+            console.log("Mantenido pulsado durante 3 segundos");
+            const contenedorMovido = event.target.closest('.producto');
+            console.log(contenedorMovido);
+            const direccionMovimiento = touchDistance > 0 ? 1 : -1;
+            reordenarContenedores(lista, contenedorMovido, direccionMovimiento);
+        }
         if (desplazamientoActual < -50) {
             if (confirm("¿Seguro que deseas eliminar este producto?")) {
                 eliminandoProducto = true;
