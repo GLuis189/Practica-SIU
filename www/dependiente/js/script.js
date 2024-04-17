@@ -17,7 +17,11 @@ document.getElementById('boton-log').addEventListener('click', async function() 
             console.error("Error al acceder a la cámara:", error);
             alert('No se pudo acceder a la cámara. Asegúrate de permitir el acceso y vuelve a intentarlo.');
         }
-    }else {
+    }else if (contrasena === '333'){
+        // Redirigir al almacen
+        window.location.href = '../html/dependiente_almacen.html';
+    }
+    else {
         alert('Contraseña incorrecta. Por favor, inténtalo de nuevo.');
         window.location.href = "../../index.html";
     }

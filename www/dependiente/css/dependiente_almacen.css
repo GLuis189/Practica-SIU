@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', serif;
+  background-color: #44b159;
+}
+
+.logo-inicio {
+
+  width: 33.3%; 
+  margin-left: 33.3%;
+  margin-top: 50px;
+}
+
+.logo_lupa,
+.logo_menu {
+  max-height: 30px; 
+}
+.logo_letras{
+  max-height: 40px; 
+}
+h2{
+  display: grid ;
+  place-items: center;
+  font-size: 30px;
+  color: #000000;
+  margin-top: 10px;
+  
+}
+
+.linea {
+  height: 1px;
+  background-color: #000;
+  margin: 10px 0;
+}
+
+.producto1 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.producto1 img {
+  height: 70px;
+  width: 70px;
+  margin-left: 10px;
+  border-radius: 10%;
+}
+
+.info-producto {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.nombre_producto,
+.cantidad {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.cantidad-contenedor {
+  display: flex;
+  align-items: center;
+}
+.contenedor-img {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  margin-top: -50px;
+}

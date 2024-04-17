@@ -46,8 +46,27 @@ h2{
     display: flex;
 }
 
+#btn-nfc{
+    display: inline-block;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    background-color: white; /* Cambia esto al color que prefieras */
+    color: white; /* Cambia esto al color que prefieras */
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
 #escaneando{
     width: 300px;
+}
+
+#escaneado{
+    width: 300px;
+    display: none;
 }
 
 .busqueda span {

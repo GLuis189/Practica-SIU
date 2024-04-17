@@ -42,7 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-async function leerNFC(){d
+
+const escaneando = document.getElementById("btn-nfc");
+escaneando.addEventListener("click", async function(){
+    document.getElementById("escaneando").style.display = "none";
+    document.getElementById("escaneado").style.display = "block";
     if ('NDEFReader' in window) {
         const ndef = new NDEFReader();
         try {
@@ -52,11 +56,6 @@ async function leerNFC(){d
                 const decoder = new TextDecoder();
                 for (const record of event.message.records) {
                     let data = decoder.decode(record.data);
-                    setTimeout(() => {
-                        document.getElementsByClassName("escaneando").style.display = "none";
-                        document.getElementsByClassName("escaneado").style.display = "block";
-
-                    }, 2000);
                     localStorage.setItem("nfc", data);
                     window.location = "../html/producto.html"
                 }
@@ -68,26 +67,27 @@ async function leerNFC(){d
     } else {
         console.log('La API Web NFC no está soportada en este navegador');
     }
-}
-async function askForPermissionAndStartScanning(){
-    const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
-    if (nfcPermissionStatus.state === "granted") {
-        console.log("permissions granted");
-        // NFC access was previously granted, so we can start NFC scanning now.
-        leerNFC();
-    }else{
-        console.log("permissions not granted");
-        // NFC access was not granted, so we need to ask the user for permission.
-        nfcPopup.style.display = "flex";
-        document.getElementById("allow-nfc").addEventListener("click", async function(){
-            // await navigator.permissions.request({ name: "nfc" });
-            leerNFC();
-            nfcPopup.style.display = "none";
-    });
-    }
-}
+})
 
-askForPermissionAndStartScanning();
+// async function askForPermissionAndStartScanning(){
+//     const nfcPermissionStatus = await navigator.permissions.query({ name: "nfc" });
+//     if (nfcPermissionStatus.state === "granted") {
+//         console.log("permissions granted");
+//         // NFC access was previously granted, so we can start NFC scanning now.
+//         leerNFC();
+//     }else{
+//         console.log("permissions not granted");
+//         // NFC access was not granted, so we need to ask the user for permission.
+//         nfcPopup.style.display = "flex";
+//         document.getElementById("allow-nfc").addEventListener("click", async function(){
+//             // await navigator.permissions.request({ name: "nfc" });
+//             leerNFC();
+//             nfcPopup.style.display = "none";
+//     });
+//     }
+// }
+
+// askForPermissionAndStartScanning();
 
 var nav = document.querySelector("#nav1");
 var abrir = document.querySelector("#abrir");

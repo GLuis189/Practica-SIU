@@ -11,7 +11,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-
 // Cargar el almacén desde el archivo JSON
 let almacen = [];
 
@@ -173,6 +172,8 @@ io.on('connection', (socket) => {
     
 
     socket.on('guardar-carrito', (nuevoCarrito) => {
+        console.log('Carrito actualizasdasdado:', nuevoCarrito);
+
         // Leer el contenido actual del archivo tasks.json
         fs.readFile('tasks.json', 'utf8', (err, data) => {
             if (err) {
@@ -188,6 +189,7 @@ io.on('connection', (socket) => {
                 nuevoCarrito.cantidad = 1;
                 // Si el carrito está vacío, crear una lista con el nuevo producto
                 carritoExistente = [nuevoCarrito];
+                console.log('Carrito actualizado:', carritoExistente);
             } else {
                 // Buscar si existe un producto con el mismo título en el carrito
                 const productoExistenteIndex = carritoExistente.findIndex(producto => producto.nombre === nuevoCarrito.nombre);

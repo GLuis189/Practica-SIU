@@ -1,24 +1,30 @@
-const socket = io();
 let productoAnadido;
-addEventListener("load", function () {
-    const mensajeDiv = document.getElementById('mensaje');
-    const productoEncontrado = JSON.parse(localStorage.getItem('productoEncontrado'));
-    console.log(productoEncontrado);
-    if (productoEncontrado) {
-        console.log('Tipo de producto encontrado:', typeof productoEncontrado);
-        console.log('Producto encontrado en producto.html:', productoEncontrado);
-        productoAnadido = productoEncontrado;
-        mostrarProductoEnHTML(productoEncontrado);
-    }
-    // Eliminar la información del producto del almacenamiento local después de usarla
-    localStorage.removeItem('productoEncontrado');
-});
+
+const socket = io();
 
 addEventListener("load", function () {
     const nfc = localStorage.getItem("nfc");
     enviarIDAlServidor(nfc);
     localStorage.removeItem("nfc");
 })
+
+addEventListener("load", function () {
+    const mensajeDiv = document.getElementById('mensaje');
+    const productoEncontrado = JSON.parse(localStorage.getItem('productoEncontrado'));
+    console.log(productoEncontrado);
+    if (productoEncontrado != null) {
+        console.log('Tipo de producto encontrado:', typeof productoEncontrado);
+        console.log('Producto encontrado en producto.html:', productoEncontrado);
+        productoAnadido = productoEncontrado;
+        console.log('Producto añadido:', productoAnadido);
+        mostrarProductoEnHTML(productoEncontrado);
+        
+    }
+    // Eliminar la información del producto del almacenamiento local después de usarla
+    localStorage.removeItem('productoEncontrado');
+});
+
+
 
 function enviarIDAlServidor(id) {
     console.log('ID producto:', id);
@@ -217,7 +223,6 @@ function startDrag(event) {
                 ocultarDivs();
                 mostrarMensajeAgregado()
                 enviarProductoAlServidor(productoAnadido);
-                
                 })
             }
 
@@ -343,8 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
             Math.pow(acceleration.z, 2)
         );
 
-        console.log('Magnitud del movimiento:', magnitude);
-
+    
         // Verificar si la magnitud supera el umbral de detección de movimiento
         if (magnitude > MOVEMENT_THRESHOLD) {
             console.log('¡Movimiento detectado!');

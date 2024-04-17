@@ -10,6 +10,7 @@ let abrir = document.querySelector("#abrir");
 let cerrar = document.querySelector("#cerrar");
 let puntoPartidaLatitud ; 
 let puntoPartidaLongitud; 
+let nombre;
 
 abrir.addEventListener("click", () => {
     nav.classList.add("visible");
@@ -201,7 +202,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function mostrarPopup(nombreProducto, left, top) {
         const popup = document.getElementById('popup');
         const nombreProductoSpan = document.getElementById('nombreProducto');
-        nombreProductoSpan.textContent = nombreProducto;
+        if (nombre){
+            nombreProductoSpan.textContent = nombre;
+        }
+        else{
+            nombreProductoSpan.textContent = nombreProducto;
+        }
         popup.style.left = `${left}px`;
         popup.style.top = `${top - popup.offsetHeight}px`;
         popup.style.display = 'block';
@@ -253,8 +259,7 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
             console.log('Geolocalización obtenida');
             const latitud = position.coords.latitude;
             const longitud = position.coords.longitude;
-            puntoPartidaLatitud = latitud; // Latitud del punto de partida
-            puntoPartidaLongitud = longitud; 
+
             ultimaLatitud = latitud;
             ultimaLongitud = longitud;
 
@@ -262,6 +267,8 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                 // Si es la primera vez, almacenamos la posición inicial
                 posicionInicial = (anchoPlano - anchoUsuario) / 2; // Centramos el marcador horizontalmente
             }
+            puntoPartidaLatitud = latitud+(0.00075); // Latitud del punto de partida
+            puntoPartidaLongitud =longitud; 
             
             const usuario = document.getElementById("usuario");
             if (!usuario) {
@@ -337,28 +344,32 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                         producto.style.bottom = "340px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
-                        producto.style.width = "50px"; }
+                        producto.style.width = "50px";
+                        nombre = "calcetines de colores"; }
                     if (marcadorProductoEncontrado==="producto2"){
                         // Establecer los estilos del producto
                         producto.style.left = `${posicionInicial }px`; 
                         producto.style.bottom = "140px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
-                        producto.style.width = "50px"; }
+                        producto.style.width = "50px";
+                        nombre = "consola"; }
                     if (marcadorProductoEncontrado==="producto3"){
                         // Establecer los estilos del producto
                         producto.style.left = `${posicionInicial - 130}px`; 
                         producto.style.bottom = "110px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
-                        producto.style.width = "50px"; }
+                        producto.style.width = "50px";
+                        nombre = "velas"; }
                     if (marcadorProductoEncontrado==="producto4"){
                         // Establecer los estilos del producto
                         producto.style.left = `${posicionInicial + 110}px`; 
                         producto.style.bottom = "220px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
-                        producto.style.width = "50px"; }
+                        producto.style.width = "50px";
+                        nombre = "camisa hombre"; }
             }  
         }       
         }, function (error) {
