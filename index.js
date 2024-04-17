@@ -59,6 +59,53 @@ io.on('connection', (socket) => {
             console.log('Producto no encontrado para el ID:', product);
         }
     });
+    socket.on('lista-nombres', (lista) => {
+        // Leer el archivo tasks.json
+        fs.readFile('tasks.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error('Error al leer el archivo tasks.json:', err);
+                // Enviar una respuesta al cliente indicando el error
+                socket.emit('respuesta-servidor', 'error');
+                return;
+            }
+
+            const tasks = JSON.parse(data);
+            const tasksOrdenados = [];
+            lista.forEach(nombre => {
+                const task = tasks.find(t => t.nombre === nombre);
+                if (task) {
+                    tasksOrdenados.push(task);
+                }
+            });
+    
+            // Escribir el archivo tasks.json con el nuevo orden
+            fs.writeFile('tasks.json', JSON.stringify(tasksOrdenados, null, 2), 'utf8', err => {
+                if (err) {
+                    console.error('Error al escribir el archivo tasks.json:', err);
+                    // Enviar una respuesta al cliente indicando el error
+                    socket.emit('respuesta-servidor', 'error');
+                    return;
+                }
+                console.log('tasks.json actualizado con éxito');
+                fs.readFile('tasks.json', 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+    
+                    // Parsear el contenido del archivo JSON
+                    const carrito = JSON.parse(data);
+                    const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
+    
+                    console.log("Enviandooo");
+                    // Emitir el carrito como un array a través del socket
+                    socket.emit('carrito-ordenado', carritoArray);
+                    });
+            });
+        });
+    });
+    
+    
     socket.on('producto-plano', (product) => {
         console.log(typeof product);
         const producto = almacen.find(item => item.nombre === product);

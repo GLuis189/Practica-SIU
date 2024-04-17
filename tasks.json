@@ -1,1 +1,48 @@
-[{"id":2,"tipo":"ropa","nombre":"calcetines de colores","imagen":"../../imgs/calcetines.jpg","tallas":"S, M, L, XL","stock":15,"precio":11.99,"valoracion":2,"txt":"","cantidad":3},{"id":3,"tipo":"electronica","nombre":"consola","imagen":"../../imgs/play.jpg","stock":15,"precio":450.5,"valoracion":5,"txt":"","cantidad":1},{"id":4,"tipo":"hogar","nombre":"velas","imagen":"../../imgs/velas.jpg","stock":10,"precio":9.99,"valoracion":3,"txt":"","cantidad":1}]
+[
+  {
+    "id": 2,
+    "tipo": "ropa",
+    "nombre": "calcetines de colores",
+    "imagen": "../../imgs/calcetines.jpg",
+    "tallas": "S, M, L, XL",
+    "stock": 15,
+    "precio": 11.99,
+    "valoracion": 2,
+    "txt": "",
+    "cantidad": 4
+  },
+  {
+    "id": 3,
+    "tipo": "electronica",
+    "nombre": "consola",
+    "imagen": "../../imgs/play.jpg",
+    "stock": 15,
+    "precio": 450.5,
+    "valoracion": 5,
+    "txt": "",
+    "cantidad": 2
+  },
+  {
+    "id": 4,
+    "tipo": "hogar",
+    "nombre": "velas",
+    "imagen": "../../imgs/velas.jpg",
+    "stock": 10,
+    "precio": 9.99,
+    "valoracion": 3,
+    "txt": "",
+    "cantidad": 1
+  },
+  {
+    "id": 1,
+    "tipo": "ropa",
+    "nombre": "camisa hombre",
+    "imagen": "../../imgs/camisa_copia.jpg",
+    "tallas": "S, M, L, XL",
+    "stock": 15,
+    "precio": 19.99,
+    "valoracion": 4,
+    "txt": "",
+    "cantidad": 1
+  }
+]

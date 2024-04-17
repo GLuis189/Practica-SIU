@@ -187,21 +187,51 @@ cerrar.addEventListener("click", () => {
 });
 
 function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
+    const contenedorProductos = document.getElementById('contenedor_productos');
     const nombreProductoMovido = contenedorMovido.querySelector('.nombre_producto').textContent;
     const indexMovido = lista.indexOf(nombreProductoMovido);
     let indexTarget = indexMovido + direccionMovimiento;
+    if (indexTarget < 0) {
+        indexTarget = 0;
+    }
+    if (indexTarget >= lista.length) {
+        indexTarget = lista.length - 1;
+    }
     console.log(indexTarget);
     console.log(indexMovido);
-    if (indexTarget >= 0 && indexTarget < lista.length) {
-        // Eliminamos el elemento movido de la lista
-        lista.splice(indexMovido, 1);
-        // Insertamos el elemento movido en el nuevo índice
-        lista.splice(indexTarget, 0, nombreProductoMovido);
-        console.log("Lista de nombres reordenada:", lista);
-    } else {
-        console.log("No se puede mover más allá de los límites de la lista.");
-    }
+    lista.splice(indexMovido, 1);
+    lista.splice(indexTarget, 0, nombreProductoMovido);
+    console.log("Lista de nombres reordenada:", lista);
+    socket.emit('lista-nombres', lista);
+    socket.on('carrito-ordenado', (carrito) => {
+        console.log('Carrito actualizado recibido:', carrito);
+        contenedorProductos.innerHTML = '';
+        // Iterar sobre el array de productos y mostrar cada uno
+        console.log(typeof (carrito));
+        const carritoString = JSON.stringify(carrito);
+
+        // Guardar 'carritoString' en localStorage con la clave 'producto'
+        localStorage.setItem('producto', carritoString);
+
+        if (typeof carrito === 'object' && carrito !== null) {
+            // Recorrer el objeto 'carrito' utilizando un bucle for...in
+            for (const key in carrito) {
+                if (carrito.hasOwnProperty(key)) {
+                    const producto = carrito[key];
+                    // Mostrar el producto en la consola
+                    console.log('Nombre del producto:', producto.nombre);
+                    console.log('Cantidad:', producto.cantidad);
+                    mostrarProductoEnHTML(producto);
+                }
+
+            }
+        } else {
+            console.log('El carrito recibido no es un objeto válido.');
+            eliminandoProducto = false;
+        }
+    });
 }
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -252,9 +282,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Mantenido pulsado durante 3 segundos");
             const contenedorMovido = event.target.closest('.producto');
             console.log(contenedorMovido);
-            const direccionMovimiento = touchDistance > 0 ? 1 : -1;
+            const alturaContenedor = contenedorMovido.offsetHeight;
+            const direccionMovimiento = Math.round(touchDistance / alturaContenedor);
             reordenarContenedores(lista, contenedorMovido, direccionMovimiento);
         }
+    
         if (desplazamientoActual < -50) {
             if (confirm("¿Seguro que deseas eliminar este producto?")) {
                 eliminandoProducto = true;
