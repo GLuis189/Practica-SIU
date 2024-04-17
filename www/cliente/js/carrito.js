@@ -168,7 +168,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Escuchar el evento clic del botón de pagar
-    document.getElementById('boton-pagar').addEventListener('touch', function () {
+    document.getElementById('boton-pagar').addEventListener('touchstart', function (event) {
+        event.preventDefault();
         generarCodigoQR(); // Llamar a la función para generar el código QR cuando se hace clic en el botón de pagar
     });
 });

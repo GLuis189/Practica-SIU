@@ -2,6 +2,17 @@ const microSection = document.getElementById('micro');
 const botonSection = document.getElementById('boton');
 const socket = io();
 let producto;
+let nav = document.querySelector("#nav1");
+let abrir = document.querySelector("#abrir");
+let cerrar = document.querySelector("#cerrar");
+
+abrir.addEventListener("click", () => {
+    nav.classList.add("visible");
+})
+
+cerrar.addEventListener("click", () => {
+    nav.classList.remove("visible");
+})
 
 socket.on('producto-micro-encontrado', function(producto) {
     console.log('Producto encontrado:', producto);

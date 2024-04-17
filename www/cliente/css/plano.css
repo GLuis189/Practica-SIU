@@ -5,7 +5,11 @@ body {
     font-family: 'Montserrat', serif;
     display: flex;
     flex-direction: column;
-    min-height: 80vh; /* Establecer la altura mínima del cuerpo para que ocupe todo el alto de la ventana */
+    max-height: 80 vh;
+
+
+
+    
 }
 .contenedor-header {
     background-color: #ffffff; 

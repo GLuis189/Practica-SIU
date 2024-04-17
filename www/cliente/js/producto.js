@@ -323,3 +323,38 @@ function mostrarMensajeAgregado() {
 
     document.body.appendChild(mensajeAgregado);
 }
+
+// Agitar para añadir a favs
+
+// Agregar listener para el evento 'devicemotion' cuando el documento se carga
+document.addEventListener('DOMContentLoaded', function () {
+    // Establecer el umbral de detección de movimiento
+    const MOVEMENT_THRESHOLD = 35; // Este valor puede variar según la sensibilidad deseada
+ 
+    // Función para manejar el evento 'devicemotion'
+    function handleMotion(event) {
+        // Obtener la aceleración en los ejes x, y, z
+        const acceleration = event.accelerationIncludingGravity;
+
+        // Calcular la magnitud del vector de aceleración
+        const magnitude = Math.sqrt(
+            Math.pow(acceleration.x, 2) +
+            Math.pow(acceleration.y, 2) +
+            Math.pow(acceleration.z, 2)
+        );
+
+        console.log('Magnitud del movimiento:', magnitude);
+
+        // Verificar si la magnitud supera el umbral de detección de movimiento
+        if (magnitude > MOVEMENT_THRESHOLD) {
+            console.log('¡Movimiento detectado!');
+            // Redireccionar a la página deseada
+            window.location.href = 'addFavorito.html';
+        }
+    }
+
+    // Agregar el listener para el evento 'devicemotion'
+    window.addEventListener('devicemotion', handleMotion);
+});
+
+
