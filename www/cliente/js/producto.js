@@ -3,12 +3,6 @@ let productoAnadido;
 const socket = io();
 
 addEventListener("load", function () {
-    const nfc = localStorage.getItem("nfc");
-    enviarIDAlServidor(nfc);
-    localStorage.removeItem("nfc");
-})
-
-addEventListener("load", function () {
     const mensajeDiv = document.getElementById('mensaje');
     const productoEncontrado = JSON.parse(localStorage.getItem('productoEncontrado'));
     console.log(productoEncontrado);
@@ -23,6 +17,12 @@ addEventListener("load", function () {
     // Eliminar la información del producto del almacenamiento local después de usarla
     localStorage.removeItem('productoEncontrado');
 });
+
+addEventListener("load", function () {
+    const nfc = localStorage.getItem("nfc");
+    enviarIDAlServidor(nfc);
+    localStorage.removeItem("nfc");
+})
 
 
 

@@ -108,18 +108,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (desplazamientoActual < -50) {
 
             if (confirm("¿Seguro que deseas eliminar este producto?")) {
-
                 eliminandoProducto = true;
-
-                
                 contenedorProducto.style.transition = 'transform 0.3s ease'; 
                 contenedorProducto.style.transform = 'translateX(-100%)';
-
-                
-                contenedorProducto.addEventListener('transitionend', function() {
-                    
-                    contenedorProducto.remove();
-                    
+                contenedorProducto.addEventListener('transitionend', function() {                   
+                    contenedorProducto.remove();          
                     eliminandoProducto = false;
                 }, { once: true }); 
             } else {

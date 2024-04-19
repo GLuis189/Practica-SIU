@@ -172,9 +172,8 @@ io.on('connection', (socket) => {
     
 
     socket.on('guardar-carrito', (nuevoCarrito) => {
-        console.log('Carrito actualizasdasdado:', nuevoCarrito);
-
         // Leer el contenido actual del archivo tasks.json
+        console.log("holaaa");
         fs.readFile('tasks.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
@@ -184,12 +183,13 @@ io.on('connection', (socket) => {
             if (data) {
                 carritoExistente = JSON.parse(data);
             }
+            console.log((carritoExistente.length));
             // Verificar si el carrito existente está vacío
-            if (carritoExistente.length === 0) {
+            if (!carritoExistente.length || carritoExistente.length === 0) {
+                console.log(carritoExistente.length);
                 nuevoCarrito.cantidad = 1;
                 // Si el carrito está vacío, crear una lista con el nuevo producto
                 carritoExistente = [nuevoCarrito];
-                console.log('Carrito actualizado:', carritoExistente);
             } else {
                 // Buscar si existe un producto con el mismo título en el carrito
                 const productoExistenteIndex = carritoExistente.findIndex(producto => producto.nombre === nuevoCarrito.nombre);
