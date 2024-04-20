@@ -210,6 +210,62 @@ io.on('connection', (socket) => {
         });
     });
     });
+    socket.on('favoritos-anadir', (nuevoCarrito) => {
+        // Leer el contenido actual del archivo tasks.json
+        console.log("holaaa");
+        console.log(nuevoCarrito);
+        fs.readFile('favoritos.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            let carritoExistente = [];
+            if (data) {
+                carritoExistente = JSON.parse(data);
+            }
+            console.log((carritoExistente.length));
+            // Verificar si el carrito existente está vacío
+            if (!carritoExistente.length || carritoExistente.length === 0) {
+                console.log(carritoExistente.length);
+                nuevoCarrito.cantidad = 1;
+                // Si el carrito está vacío, crear una lista con el nuevo producto
+                carritoExistente = [nuevoCarrito];
+            } else {
+                // Buscar si existe un producto con el mismo título en el carrito
+                const productoExistenteIndex = carritoExistente.findIndex(producto => producto.nombre === nuevoCarrito.nombre);
+                if (productoExistenteIndex !== -1) {
+                    // Si ya existe un producto con el mismo título, aumentar su cantidad en 1
+                    carritoExistente[productoExistenteIndex].cantidad++;
+                } else {
+                    // Si no existe un producto con el mismo título, agregar el nuevo producto al carrito
+                    nuevoCarrito.cantidad = 1;
+                    carritoExistente.push(nuevoCarrito);
+                }
+            } 
+            console.log('Carrito actualizado:', carritoExistente);
+            // Guardar el contenido del carrito actualizado en el archivo tasks.json
+            fs.writeFile('favoritos.json', JSON.stringify(carritoExistente), (err) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                // Leer el contenido del archivo tasks.json y enviarlo a través del socket
+                fs.readFile('favoritos.json', 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+    
+                    // Parsear el contenido del archivo JSON
+                    const carrito = JSON.parse(data);
+                    console.log("Enviandooo");
+                    // Enviar el contenido del carrito a través del socket
+                    socket.emit('favorito-carrito', carrito);
+                });
+            });
+        });
+    });
+    
 
     socket.on('guardar-carrito', (nuevoCarrito) => {
         // Leer el contenido actual del archivo tasks.json

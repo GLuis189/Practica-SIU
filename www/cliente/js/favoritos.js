@@ -8,10 +8,24 @@ document.addEventListener('DOMContentLoaded', function () {
     let totalRecuperado = localStorage.getItem('total');
 
     if (totalRecuperado !== null) {
-        // Actualizar el contenido de la etiqueta span con la clase "total"
         document.querySelector('.total').nextElementSibling.textContent = parseFloat(totalRecuperado).toFixed(2) + '€';
     } else {
         console.log('No se encontró ningún total en el localStorage.');
+    }
+    const productoString = localStorage.getItem('favoritos');
+
+    if (productoString) {
+        // Convertir la cadena JSON de vuelta a un objeto JavaScript
+        const productos = JSON.parse(productoString);
+        console.log("holaaa", productos);
+        const contenedorProductos = document.getElementById('contenedor_productos');
+        contenedorProductos.innerHTML = '';
+        if (productos != null){
+            // Iterar sobre el array de productos y mostrar cada uno
+            productos.forEach(producto => {
+            mostrarProductoEnHTML(producto);
+            });
+        }
     }
 
     contenedorLupa.addEventListener('touchstart', function (event) {
@@ -62,6 +76,39 @@ cerrar.addEventListener("click", () => {
     nav.classList.remove("visible");
 });
 
+function mostrarProductoHtml(producto) {
+    const contenedorProductos = document.getElementById('contenedor_productos');
+
+    // Crear elementos HTML para representar el producto
+    const divLinea = document.createElement('div');
+    divLinea.classList.add('linea');
+    contenedorProductos.appendChild(divLinea);
+
+    const divProducto = document.createElement('div');
+    divProducto.id = `producto${producto.id}`;
+    divProducto.classList.add('producto');
+    contenedorProductos.appendChild(divProducto);
+
+    const imgProducto = document.createElement('img');
+    imgProducto.src = producto.imagenUrl;
+    imgProducto.alt = producto.nombre;
+    divProducto.appendChild(imgProducto);
+
+    const divInfoProducto = document.createElement('div');
+    divInfoProducto.classList.add('info-producto');
+    divProducto.appendChild(divInfoProducto);
+
+    const spanNombreProducto = document.createElement('span');
+    spanNombreProducto.classList.add('nombre_producto');
+    spanNombreProducto.textContent = producto.nombre;
+    divInfoProducto.appendChild(spanNombreProducto);
+
+    const imgFavorito = document.createElement('img');
+    imgFavorito.classList.add('favorito');
+    imgFavorito.src = "../../imgs/corazon (1) 1.png";
+    imgFavorito.alt = "favorito";
+    divInfoProducto.appendChild(imgFavorito);
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     
