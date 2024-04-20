@@ -23,3 +23,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const contenedorLupa = document.getElementById('contenedor-lupa');
+    const Lupa = document.getElementById('lupa-barra');
+    const contenedorBuscador = document.querySelector('.contenedor-buscador');
+    const logoMenu = document.querySelector('.logo_menu');
+
+    contenedorLupa.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (contenedorBuscador.style.display === 'none') {
+            logoLetras.style.display = 'none';
+            logoMenu.style.display = 'none';
+            contenedorLupa.style.display = 'none';
+            contenedorBuscador.style.display = 'flex';
+        } else {
+            contenedorBuscador.style.display = 'none';
+            logoLetras.style.display = 'block';
+            logoMenu.style.display = 'block';
+            contenedorLupa.style.display = 'block';
+        }
+    });
+    Lupa.addEventListener('click', function (event) {
+        event.preventDefault();
+        if (Lupa.style.display === 'block') {
+            logoLetras.style.display = 'block';
+            logoMenu.style.display = 'block';
+            contenedorLupa.style.display = 'block';
+            contenedorBuscador.style.display = 'none';
+        } else {
+            Lupa.style.display = 'block';
+            logoLetras.style.display = 'none';
+            logoMenu.style.display = 'none';
+            contenedorLupa.style.display = 'none';
+        }
+    });
+
+    const microfono = document.getElementById('microfono');
+
+    microfono.addEventListener('click', function () {
+        window.location.href = '../../cliente/html/microfono.html'; // Redireccionar al usuario a microfono.html
+    });
+});
