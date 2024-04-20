@@ -9,27 +9,47 @@
     <title>Información del Carrito</title>
 </head>
 <body>
-    <header>    
-    </header>
-    <div class="contenedor-img">
-        <div class="contenedor-home-logo">
-            <img class="logo-inicio" src="/imgs/logo_corte_ingles.png" alt="Logo">
+    <header>
+        <div class = "contenedor-header">
+            <div id="contenedor-lupa" class="contenedor">
+                <img class="logo_lupa" src="/imgs/lupa.png" alt="Lupa">
+            </div>
+            <div class="contenedor">
+                <a href="home.html">
+                    <img class="logo_letras" src="/imgs/letra_verde.png" alt="Letras">
+                </a>
+            </div> 
+            
         </div>
-    </div>
+        <div class="contenedor-buscador" style="display: none;">
+            <div class="busqueda">
+                <div id="lupa-barra"  class="contenedor">
+                    <img class="logo_lupa" src="/imgs/lupa.png" alt="Lupa">
+                </div>
+                <input type="text" id="input-buscador" placeholder="Buscar tú producto">
+            </div>
+            <img id="microfono" class="icono-microfono" src="/imgs/microfono.png" alt="Micrófono">
+        </div>
+    </header>
     <section id="pedidos">
-        <h2>Pedidos a preparar</h2>
-        <div id="contenedor_productos"></div>
+        <h2>Pedidos a preparar:</h2>
+
     </section>
+    
+    
     
 
     <script src="../js/dependiente_almacen.js"></script>
     
 </body>
 <footer>
-    <div id="footer-imgs">
-    <a href="home.html">
-        <img id="procesado" src="" alt="completado">
-    </a>
+    <div class="footer-icons">
+        <div>
+            <a href="mapa_almacen.html">
+                <img id="mapa_almacen" src="../../imgs/plano.jpg" alt="mapa_almacen">
+            </a>
+        </div>
     </div>
+
 </footer>
 </html>
