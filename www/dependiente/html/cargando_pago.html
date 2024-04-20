@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="../css/cargando-pago.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -31,11 +32,13 @@
             <img id="microfono" class="icono-microfono" src="../../imgs/microfono.png" alt="Micrófono">
         </div>
     </header>
-        <h2>Cargando pago cliente</h2>
-        <img class="cargando-pago" src="../../imgs/cargando-pago.png" alt="cargando-pago">
+    <h2>Cargando pago cliente</h2>
+
+        <div id="centro">
+            <img class="cargando-pago" src="../../imgs/cargando-pago.png" alt="cargando-pago">
+        </div>
     <footer>
         <div class="footer-icons">
-            
             <div>
                 <span class="total">Total</span>
                 <span>0.00€</span>

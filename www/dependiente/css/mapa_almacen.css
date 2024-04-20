@@ -130,6 +130,10 @@ footer {
     z-index: 1; 
 }
 
+#posicion{
+    display: none;
+}
+
 .footer-icons {
     display: flex;
     justify-content: space-around; 

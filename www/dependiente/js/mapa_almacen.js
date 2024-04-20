@@ -34,16 +34,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const contenedorBuscador = document.querySelector('.contenedor-buscador');
     const logoLetras = document.querySelector('.logo_letras');
     const logoMenu = document.querySelector('.contenedor-menu');
-    let totalRecuperado = localStorage.getItem('total');
+    // let totalRecuperado = localStorage.getItem('total');
 
-    if (totalRecuperado !== null) {
-        // Actualizar el contenido de la etiqueta span con la clase "total"
-        document.querySelector('.total').nextElementSibling.textContent = parseFloat(totalRecuperado).toFixed(2) + '€';
-    } else {
-        console.log('No se encontró ningún total en el localStorage.');
-    }
+    // if (totalRecuperado !== null) {
+    //     // Actualizar el contenido de la etiqueta span con la clase "total"
+    //     document.querySelector('.total').nextElementSibling.textContent = parseFloat(totalRecuperado).toFixed(2) + '€';
+    // } else {
+    //     console.log('No se encontró ningún total en el localStorage.');
+    // }
 
-    contenedorLupa.addEventListener('touchstart', function (event) {
+    contenedorLupa.addEventListener('click', function (event) {
         event.preventDefault();
         if (contenedorBuscador.style.display === 'none') {
             logoLetras.style.display = 'none';
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
             contenedorLupa.style.display = 'block';
         }
     });
-    Lupa.addEventListener('touchstart', function (event) {
+    Lupa.addEventListener('click', function (event) {
         event.preventDefault();
         if (Lupa.style.display === 'block') {
             logoLetras.style.display = 'block';
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const microfono = document.getElementById('microfono');
 
-    microfono.addEventListener('touchstart', function () {
+    microfono.addEventListener('click', function () {
         window.location.href = 'microfono.html'; // Redireccionar al usuario a microfono.html
     });
 });
@@ -146,7 +146,7 @@ function obtenerGeolocalizacion(callback) {
 
 
 function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPlano, altoUsuario) {
-    console.log("Actualizar");
+    // console.log("Actualizar");
     let latitud;
     let longitud;
     latitud = position.coords.latitude;
@@ -161,8 +161,8 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
     longitud = Math.max(longitud - rangoLongitud, longitud); 
     latitud = Math.min(latitud + rangoLatitud, latitud); 
     latitud = Math.max(latitud - rangoLatitud, latitud); 
-    console.log(longitud);
-    console.log(latitud);
+    // console.log(longitud);
+    // console.log(latitud);
     calcularPosicion(longitud, latitud, altoPlano, anchoPlano,puntoPartidaLongitud,puntoPartidaLatitud);
 
     function calcularPosicion(longitud, latitud, altoContenedor, anchoContenedor, puntoPartidaLongitud, puntoPartidaLatitud) {

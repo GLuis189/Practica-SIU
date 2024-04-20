@@ -135,8 +135,14 @@ footer {
     font-weight: bolder;
 }
 
+#centro{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
 .cargando-pago{
-    width: 50%;
+    height: 70vh;
 }
 
 
