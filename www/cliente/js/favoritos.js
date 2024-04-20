@@ -5,6 +5,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const contenedorBuscador = document.querySelector('.contenedor-buscador');
     const logoLetras = document.querySelector('.logo_letras');
     const logoMenu = document.querySelector('.contenedor-menu');
+    let totalRecuperado = localStorage.getItem('total');
+
+    if (totalRecuperado !== null) {
+        // Actualizar el contenido de la etiqueta span con la clase "total"
+        document.querySelector('.total').nextElementSibling.textContent = parseFloat(totalRecuperado).toFixed(2) + '€';
+    } else {
+        console.log('No se encontró ningún total en el localStorage.');
+    }
 
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();

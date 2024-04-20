@@ -6,6 +6,14 @@ addEventListener("load", function () {
     const mensajeDiv = document.getElementById('mensaje');
     const productoEncontrado = JSON.parse(localStorage.getItem('productoEncontrado'));
     console.log(productoEncontrado);
+    let totalRecuperado = localStorage.getItem('total');
+
+    if (totalRecuperado !== null) {
+        // Actualizar el contenido de la etiqueta span con la clase "total"
+        document.querySelector('.total').nextElementSibling.textContent = parseFloat(totalRecuperado).toFixed(2) + '€';
+    } else {
+        console.log('No se encontró ningún total en el localStorage.');
+    }
     if (productoEncontrado != null) {
         console.log('Tipo de producto encontrado:', typeof productoEncontrado);
         console.log('Producto encontrado en producto.html:', productoEncontrado);

@@ -66,6 +66,7 @@ function comprobarCarrito() {
             mostrarProductoEnHTML(producto);
             // Actualiza el contenido de la etiqueta span con la clase "total"
             document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+            localStorage.setItem('total', total);
         });
         }
     } else {
@@ -154,6 +155,7 @@ function mostrarProductoEnHTML(producto) {
                 }
                 // Actualiza el contenido de la etiqueta span con la clase "total"
                 document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+                localStorage.setItem('total', total);
             }
         });
     });
@@ -192,6 +194,7 @@ function mostrarProductoEnHTML(producto) {
                 }
                 // Actualiza el contenido de la etiqueta span con la clase "total"
                 document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+                localStorage.setItem('total', total);
 
             } else {
                 console.log('El carrito recibido no es un objeto válido.');
@@ -317,6 +320,7 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
            
             // Actualiza el contenido de la etiqueta span con la clase "total"
             document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+            localStorage.setItem('total', total);
 
         } else {
             console.log('El carrito recibido no es un objeto válido.');
@@ -420,7 +424,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                         // Actualiza el contenido de la etiqueta span con la clase "total"
                         document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
-
+                        localStorage.setItem('total', total);
                     } else {
                         console.log('El carrito recibido no es un objeto válido.');
                         eliminandoProducto = false;
