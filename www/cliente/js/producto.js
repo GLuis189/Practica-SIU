@@ -45,6 +45,8 @@ socket.on('producto-micro-producto-encontrado', function (producto) {
 });
 socket.on('producto-encontrado', function (producto) {
     console.log('Producto encontrado:', producto);
+    // localStorage.setItem('productoEncontrado', JSON.stringify(producto));
+    productoAnadido = producto;
     mostrarProductoEnHTML(producto);
 });
 // Escuchar evento 'producto-encontrado' del servidor
