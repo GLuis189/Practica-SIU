@@ -14,6 +14,27 @@ app.use(express.urlencoded({ extended: true }));
 // Cargar el almacén desde el archivo JSON
 let almacen = [];
 
+let pago = false;
+let listo = false;
+
+io.on('pago', (message) => {
+    console.log('Pago:', message);
+    pago = true;
+    vibrarCliente();
+});
+
+io.on('listo', (message) => {
+    console.log('Listo:', message);
+    listo = true;
+    vibrarCliente();
+});
+
+function vibrarCliente() {
+    if (pago && listo) {
+        io.emit('vibrar', 'vibrar');
+    }
+}
+
 fs.readFile('almacen.json', 'utf8', (err, data) => {
     if (err) {
         console.error('Error al cargar el almacén:', err);

@@ -133,12 +133,7 @@ footer {
     color: black;
     font-weight: bolder;
 }
-#centro{
-    display: grid;
-    justify-content: center;
-    align-items: center;
-}
 
 .pago-listo{
-    width: 50%;
+    height: 50vh;
 }
