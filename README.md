@@ -14,9 +14,9 @@ Productos disponibles:
 *Consola
 *Velas
 
--Carrito: Carrito del cliente en el cual este podrá añadir los productos, este puede eliminarlos, ordenarlos u añadirlos a favoritos. (Puede ver la ficha de cada uno ellos si lo desea)
+-Carrito: Carrito del cliente en el cual este podrá añadir los productos, este puede eliminarlos(deslizar a la izquierda), ordenarlos u añadirlos a favoritos. (Puede ver la ficha de cada uno ellos si lo desea)
 
--Escanear NFC: Para escanear un producto el usuario tocará la pantalla y cuando esta pasa a verde ya podrá escanear un producto (NFC), se le mostrará la ficha del producto y lo podrá añadir a su carrito.
+-Escanear NFC: Para escanear un producto el usuario tocará la pantalla y cuando esta pasa a verde ya podrá escanear un producto (NFC), se le mostrará la ficha del producto y lo podrá añadir a su carrito (swipe a la derecha).
 
 -Favoritos: Para añadir un producto podemos agitar el movil en la ficha del mismo y nos permitirá añadirlo a esta lista, del mismo modo podemos ordenar y eliminar los productos de favoritos como queramos.
 
@@ -27,4 +27,4 @@ Este está separado por dos tipos el dependiente que procede con el pago en caja
 
 -Dependiente en caja: (Móvil/Contraseña:2222): El dependiente tras escanear el Qr del pedido del cliente y el carrito del mismo se muestra por pantalla  y se puede proceder con el pago.
 
--Dependiente en almacen (Ordenador/Contraseña: 333): Tiene una lista con los productos a preparar del cliente, este los irá seleccionando cuando los vaya preparando. Del mismo modo tiene como ayuda un mapa dondé podrá ver la localización de los productos en el almacén (buscador manual y por voz).
+-Dependiente en almacen (Ordenador/Contraseña: 333): Tiene una lista con los productos a preparar del cliente, este los irá seleccionando cuando los vaya preparando. Del mismo modo tiene como ayuda un mapa dondé podrá ver la localización de los productos en el almacén.

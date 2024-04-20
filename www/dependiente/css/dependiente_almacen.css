@@ -17,12 +17,11 @@ width: 100%;
 .contenedor-header {
   background-color: #ffffff;
   display: flex;
-  justify-content: space-between;
+  justify-content:center;
   align-items: center;
   padding: 10px 20px;
 }
 
-.logo_lupa,
 
 .logo_letras {
   max-height: 40px;
