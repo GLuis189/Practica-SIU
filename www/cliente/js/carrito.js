@@ -1,4 +1,5 @@
 const socket = io();
+let total=0;
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log("llamando a función");
@@ -59,9 +60,12 @@ function comprobarCarrito() {
         // Limpiar el contenedor antes de mostrar los nuevos productos
         contenedorProductos.innerHTML = '';
         if (productos != null){
+            total=0;
             // Iterar sobre el array de productos y mostrar cada uno
             productos.forEach(producto => {
             mostrarProductoEnHTML(producto);
+            // Actualiza el contenido de la etiqueta span con la clase "total"
+            document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
         });
         }
     } else {
@@ -104,6 +108,8 @@ function mostrarProductoEnHTML(producto) {
     const cantidadProducto = document.createElement('span');
     cantidadProducto.id = "cantidadProducto";
     cantidadProducto.textContent = producto.cantidad;
+    total += producto.cantidad * producto.precio;
+    console.log(total);
 
     // Crear botones para aumentar y disminuir la cantidad
     const botonMas = document.createElement('button');
@@ -131,6 +137,7 @@ function mostrarProductoEnHTML(producto) {
             localStorage.setItem('producto', carritoString);
 
             if (typeof carrito === 'object' && carrito !== null) {
+                total = 0;
                 // Recorrer el objeto 'carrito' utilizando un bucle for...in
                 for (const key in carrito) {
                     if (carrito.hasOwnProperty(key)) {
@@ -145,6 +152,8 @@ function mostrarProductoEnHTML(producto) {
                     }
 
                 }
+                // Actualiza el contenido de la etiqueta span con la clase "total"
+                document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
             }
         });
     });
@@ -166,6 +175,7 @@ function mostrarProductoEnHTML(producto) {
             localStorage.setItem('producto', carritoString);
 
             if (typeof carrito === 'object' && carrito !== null) {
+                total=0;
                 // Recorrer el objeto 'carrito' utilizando un bucle for...in
                 for (const key in carrito) {
                     if (carrito.hasOwnProperty(key)) {
@@ -180,6 +190,9 @@ function mostrarProductoEnHTML(producto) {
                     }
 
                 }
+                // Actualiza el contenido de la etiqueta span con la clase "total"
+                document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+
             } else {
                 console.log('El carrito recibido no es un objeto válido.');
                 eliminandoProducto = false;
@@ -290,6 +303,7 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
 
         if (typeof carrito === 'object' && carrito !== null) {
             // Recorrer el objeto 'carrito' utilizando un bucle for...in
+            total = 0;
             for (const key in carrito) {
                 if (carrito.hasOwnProperty(key)) {
                     const producto = carrito[key];
@@ -300,6 +314,10 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
                 }
 
             }
+           
+            // Actualiza el contenido de la etiqueta span con la clase "total"
+            document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+
         } else {
             console.log('El carrito recibido no es un objeto válido.');
             eliminandoProducto = false;
@@ -386,6 +404,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (typeof carrito === 'object' && carrito !== null) {
                         // Recorrer el objeto 'carrito' utilizando un bucle for...in
+                        total=0;
                         for (const key in carrito) {
                             if (carrito.hasOwnProperty(key)) {
                                 const producto = carrito[key];
@@ -399,6 +418,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
 
                         }
+                        // Actualiza el contenido de la etiqueta span con la clase "total"
+                        document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+
                     } else {
                         console.log('El carrito recibido no es un objeto válido.');
                         eliminandoProducto = false;
