@@ -195,8 +195,8 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
         }
     
         const usuario = document.getElementById("usuario");
-        usuario.style.left = `${posicionHorizontal + 500}px`;
-        usuario.style.bottom = `${posicionVertical}px`;
+        usuario.style.left = `${posicionHorizontal + 738}px`;
+        usuario.style.bottom = `${posicionVertical + 540}px`;
     }    
 }
     
@@ -306,29 +306,29 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                     }
                     if ("producto1"===idProducto){
                         // Establecer los estilos del producto
-                        producto.style.left = `${posicionInicial - 40}px`; 
+                        producto.style.left = `${posicionInicial + 540}px`; 
                         producto.style.bottom = "340px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
                         producto.style.width = "50px"; }
                     if ("producto2"===idProducto){
                         // Establecer los estilos del producto
-                        producto.style.left = `${posicionInicial }px`; 
+                        producto.style.left = `${posicionInicial + 300}px`; 
                         producto.style.bottom = "140px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
                         producto.style.width = "50px"; }
                     if ("producto3"===idProducto){
                         // Establecer los estilos del producto
-                        producto.style.left = `${posicionInicial - 130}px`; 
-                        producto.style.bottom = "110px";
+                        producto.style.left = `${posicionInicial + 425}px`; 
+                        producto.style.bottom = "490px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
                         producto.style.width = "50px"; }
                     if ("producto4"===idProducto){
                         // Establecer los estilos del producto
-                        producto.style.left = `${posicionInicial + 110}px`; 
-                        producto.style.bottom = "220px";
+                        producto.style.left = `${posicionInicial + 200}px`; 
+                        producto.style.bottom = "580px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
                         producto.style.width = "50px"; 
@@ -348,7 +348,7 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                     console.log(`Ancho del plano: ${marcadorProductoEncontrado}`);
                     if (marcadorProductoEncontrado==="producto1"){
                         // Establecer los estilos del producto
-                        producto.style.left = `${posicionInicial - 40}px`; 
+                        producto.style.left = `${posicionInicial + 540}px`; 
                         producto.style.bottom = "340px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
@@ -356,7 +356,7 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                         nombre = "calcetines de colores"; }
                     if (marcadorProductoEncontrado==="producto2"){
                         // Establecer los estilos del producto
-                        producto.style.left = `${posicionInicial }px`; 
+                        producto.style.left = `${posicionInicial + 300}px`; 
                         producto.style.bottom = "140px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
@@ -364,16 +364,16 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                         nombre = "consola"; }
                     if (marcadorProductoEncontrado==="producto3"){
                         // Establecer los estilos del producto
-                        producto.style.left = `${posicionInicial - 130}px`; 
-                        producto.style.bottom = "110px";
+                        producto.style.left = `${posicionInicial + 425}px`; 
+                        producto.style.bottom = "490px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
                         producto.style.width = "50px";
                         nombre = "velas"; }
                     if (marcadorProductoEncontrado==="producto4"){
                         // Establecer los estilos del producto
-                        producto.style.left = `${posicionInicial + 110}px`; 
-                        producto.style.bottom = "220px";
+                        producto.style.left = `${posicionInicial + 200}px`; 
+                        producto.style.bottom = "580px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
                         producto.style.width = "50px";
