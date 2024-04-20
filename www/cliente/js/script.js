@@ -1,7 +1,7 @@
 const socket = io();
 
 socket.on('vibrar', (message) => {
-    console.log(message);
+    console.log("Vibrando...");
     navigator.vibrate([200, 100, 200]);
 });
 
