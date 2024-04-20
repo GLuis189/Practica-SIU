@@ -1,4 +1,6 @@
 const socket = io();
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
@@ -12,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.log('No se encontró ningún total en el localStorage.');
     }
-    const productoString = localStorage.getItem('favoritos');
+    const productoString = localStorage.getItem('favCarrito');
 
     if (productoString) {
         // Convertir la cadena JSON de vuelta a un objeto JavaScript
@@ -23,11 +25,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (productos != null){
             // Iterar sobre el array de productos y mostrar cada uno
             productos.forEach(producto => {
-            mostrarProductoEnHTML(producto);
+            mostrarProductoHTML(producto);
             });
         }
     }
-
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
         if (contenedorBuscador.style.display === 'none') {
@@ -76,7 +77,56 @@ cerrar.addEventListener("click", () => {
     nav.classList.remove("visible");
 });
 
-function mostrarProductoHtml(producto) {
+function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
+    const contenedorProductos = document.getElementById('contenedor_productos');
+    const nombreProductoMovido = contenedorMovido.querySelector('.nombre_producto').textContent;
+    const indexMovido = lista.indexOf(nombreProductoMovido);
+    let indexTarget = indexMovido + direccionMovimiento;
+    if (indexTarget < 0) {
+        indexTarget = 0;
+    }
+    if (indexTarget >= lista.length) {
+        indexTarget = lista.length - 1;
+    }
+    console.log(indexTarget);
+    console.log(indexMovido);
+    lista.splice(indexMovido, 1);
+    lista.splice(indexTarget, 0, nombreProductoMovido);
+    console.log("Lista de nombres reordenada:", lista);
+    socket.emit('lista-nombres-fav', lista);
+    socket.on('carrito-ordenado-fav', (carrito) => {
+        console.log('Carrito actualizado recibido:', carrito);
+        contenedorProductos.innerHTML = '';
+        // Iterar sobre el array de productos y mostrar cada uno
+        console.log(typeof (carrito));
+        const carritoString = JSON.stringify(carrito);
+
+        // Guardar 'carritoString' en localStorage con la clave 'producto'
+        localStorage.setItem('favCarrito', carritoString);
+
+        if (typeof carrito === 'object' && carrito !== null) {
+            // Recorrer el objeto 'carrito' utilizando un bucle for...in
+            total = 0;
+            for (const key in carrito) {
+                if (carrito.hasOwnProperty(key)) {
+                    const producto = carrito[key];
+                    // Mostrar el producto en la consola
+                    console.log('Nombre del producto:', producto.nombre);
+                    console.log('Cantidad:', producto.cantidad);
+                    mostrarProductoHTML(producto);
+                }
+
+            }
+
+        } else {
+            console.log('El carrito recibido no es un objeto válido.');
+            eliminandoProducto = false;
+        }
+    });
+}
+
+function mostrarProductoHTML(producto) {
+    console.log("productoooo", producto);
     const contenedorProductos = document.getElementById('contenedor_productos');
 
     // Crear elementos HTML para representar el producto
@@ -90,7 +140,7 @@ function mostrarProductoHtml(producto) {
     contenedorProductos.appendChild(divProducto);
 
     const imgProducto = document.createElement('img');
-    imgProducto.src = producto.imagenUrl;
+    imgProducto.src = producto.imagen;
     imgProducto.alt = producto.nombre;
     divProducto.appendChild(imgProducto);
 
@@ -110,75 +160,114 @@ function mostrarProductoHtml(producto) {
     divInfoProducto.appendChild(imgFavorito);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const contenedorProductos = document.querySelector('.contenedor_productos');
+document.addEventListener('DOMContentLoaded', function () {
 
-    let xInicial; 
-    let contenedorProducto; 
-
-    
+    const contenedorProductos = document.getElementById('contenedor_productos');
+    let xInicial;
+    let contenedorProducto;
     let eliminandoProducto = false;
-
-    
     let desplazamientoActual = 0;
-
-    
-    contenedorProductos.addEventListener('touchstart', function(event) {
-        
+    let touchStartY;
+    let touchStartTime;
+    let currentTouchMoveY;
+    let touchMoveStarted = false;
+    const contenedores = contenedorProductos.querySelectorAll('.producto');
+    let lista = [];
+    contenedores.forEach(contenedor => {
+        // Obtener el nombre del producto del contenedor actual
+        const nombreProducto = contenedor.querySelector('.nombre_producto').textContent;
+        lista.push(nombreProducto);
+        console.log('Nombre del producto:', nombreProducto);
+    });
+    contenedorProductos.addEventListener('touchstart', function (event) {
         if (eliminandoProducto) return;
-
-        
         xInicial = event.touches[0].clientX;
-
-        
-        contenedorProducto = event.target.closest('.producto1');
-
-        
+        contenedorProducto = event.target.closest('.producto');
         desplazamientoActual = 0;
+        touchStartY = event.touches[0].clientY;
+        touchStartTime = new Date().getTime();
+        currentTouchMoveY = touchStartY;
+        touchMoveStarted = false;
     });
-
-    
-    contenedorProductos.addEventListener('touchmove', function(event) {
-        
+    contenedorProductos.addEventListener('touchmove', function (event) {
         if (eliminandoProducto || !contenedorProducto) return;
-
-        
         const desplazamiento = event.touches[0].clientX - xInicial;
-
-       
         desplazamientoActual = desplazamiento;
-
-        
-        contenedorProducto.style.transition = 'none'; 
+        contenedorProducto.style.transition = 'none';
         contenedorProducto.style.transform = `translateX(${desplazamiento}px)`;
+        currentTouchMoveY = event.touches[0].clientY;
+        touchMoveStarted = true;
     });
-
-
-    contenedorProductos.addEventListener('touchend', function(event) {
-
+    contenedorProductos.addEventListener('touchend', function (event) {
+        const touchEndTime = new Date().getTime();
+        const touchDuration = touchEndTime - touchStartTime;
+        const touchDistance = currentTouchMoveY - touchStartY;
         if (eliminandoProducto || !contenedorProducto) return;
-
-        
+        const nombreProducto = contenedorProducto.querySelector('.nombre_producto').textContent;
+        if (touchDuration >= 3000 && touchMoveStarted) {
+            console.log("Mantenido pulsado durante 3 segundos");
+            const contenedorMovido = event.target.closest('.producto');
+            console.log(contenedorMovido);
+            const alturaContenedor = contenedorMovido.offsetHeight;
+            const direccionMovimiento = Math.round(touchDistance / alturaContenedor);
+            reordenarContenedores(lista, contenedorMovido, direccionMovimiento);
+        }
         if (desplazamientoActual < -50) {
-
             if (confirm("¿Seguro que deseas eliminar este producto?")) {
                 eliminandoProducto = true;
-                contenedorProducto.style.transition = 'transform 0.3s ease'; 
+                contenedorProducto.style.transition = 'transform 0.3s ease';
+                const nombreProducto = contenedorProducto.querySelector('.nombre_producto').textContent;
                 contenedorProducto.style.transform = 'translateX(-100%)';
-                contenedorProducto.addEventListener('transitionend', function() {                   
-                    contenedorProducto.remove();          
+                contenedorProducto.addEventListener('transitionend', function () {
+                    contenedorProducto.remove();
                     eliminandoProducto = false;
-                }, { once: true }); 
-            } else {
 
+                }, { once: true });
+                socket.emit('fav-carritoeliminar', nombreProducto);
+                socket.on('fav-eliminado', (carrito) => {
+                    // Aquí puedes manejar el carrito actualizado recibido desde el servidor
+                    console.log('Carrito actualizado recibido:', carrito);
+                    contenedorProductos.innerHTML = '';
+                    // Iterar sobre el array de productos y mostrar cada uno
+                    console.log(typeof (carrito));
+                    const carritoString = JSON.stringify(carrito);
+
+                    // Guardar 'carritoString' en localStorage con la clave 'producto'
+                    localStorage.setItem('favCarrito', carritoString);
+
+                    if (typeof carrito === 'object' && carrito !== null) {
+                        // Recorrer el objeto 'carrito' utilizando un bucle for...in
+                        total=0;
+                        for (const key in carrito) {
+                            if (carrito.hasOwnProperty(key)) {
+                                const producto = carrito[key];
+                                // Mostrar el producto en la consola
+                                console.log('Nombre del producto:', producto.nombre);
+                                console.log('Cantidad:', producto.cantidad);
+
+                                // Mostrar el producto en la interfaz de usuario
+                                mostrarProductoHTML(producto);
+                                eliminandoProducto = false;
+                            }
+
+                        }
+                        // Actualiza el contenido de la etiqueta span con la clase "total"
+                        document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+                        localStorage.setItem('total', total);
+                    } else {
+                        console.log('El carrito recibido no es un objeto válido.');
+                        eliminandoProducto = false;
+                    }
+                });
+            } else {
                 contenedorProducto.style.transition = 'transform 0.3s ease';
                 contenedorProducto.style.transform = 'translateX(0)';
+                eliminandoProducto = false;
             }
         } else {
-            
-            contenedorProducto.style.transition = 'transform 0.3s ease'; 
+            contenedorProducto.style.transition = 'transform 0.3s ease';
             contenedorProducto.style.transform = 'translateX(0)';
+            eliminandoProducto = false;
         }
     });
 });

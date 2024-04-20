@@ -1,6 +1,7 @@
 const socket = io();
 let total=0;
 
+
 document.addEventListener('DOMContentLoaded', function () {
     console.log("llamando a función");
     comprobarCarrito();

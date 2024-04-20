@@ -47,6 +47,8 @@ socket.on('producto-encontrado', function (producto) {
     console.log('Producto encontrado:', producto);
     // localStorage.setItem('productoEncontrado', JSON.stringify(producto));
     productoAnadido = producto;
+    productoAnadido.NFC = 1;
+    console.log('Producto añadido:', productoAnadido);
     mostrarProductoEnHTML(producto);
 });
 // Escuchar evento 'producto-encontrado' del servidor
@@ -68,7 +70,7 @@ function generarEstrellas(valoracion) {
 
 function mostrarProductoEnHTML(producto) {
     console.log('Producto', producto)
-    nombre = producto;
+    nombre = producto.nombre;
     const contenedorProducto = document.getElementById('tarjeta');
     console.log(typeof producto.tipo);
     console.log(producto.tipo);
@@ -366,13 +368,14 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log('¡Movimiento detectado!');
             // Redireccionar a la página deseada
             console.log("nombrreee", nombre);
-            socket.emit('favoritos-anadir', nombre);
-            socket.on('favorito-carrito', function (carrito){
+            socket.emit('favorito', nombre);
+            socket.on('favorito-producto', function (carrito){
+                console.log('Producto encontrado:', carrito);
                 const productoString = JSON.stringify(carrito);
                 // Guardar el producto en el localStorage
                 localStorage.setItem('favoritos', productoString);
+                window.location.href = 'addFavorito.html';
             });
-            window.location.href = 'addFavorito.html';
         }
     }
 

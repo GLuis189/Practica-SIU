@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>El Corte Ingles: Home Page</title>
-    <link rel="stylesheet" href="../css/addFavorito.css">
+    <title>El Corte Ingles: plano</title>
+    <link rel="stylesheet" href="../css/mapa_almacen.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script> 
@@ -23,11 +23,10 @@
                 </a>
             </div> 
             <div class="contenedor-menu">
-                <button id="abrir" class="abrir" title="menu">
+                <button class="abrir" id="abrir" title="abrir">
                     <ion-icon name="menu-outline"></ion-icon>
                 </button>
             </div>
-            
         </div>
         <div class="contenedor-buscador" style="display: none;">
             <div class="busqueda">
@@ -47,44 +46,38 @@
             <li><a href="./favoritos.html">Favoritos</a></li>
             <li><a href="./home.html">Inicio</a></li>
             <li><a href="./plano.html">Plano</a></li>
-            <li><a href="./carrito.html">Carrito</a></li>
-            <li><a href="./producto.html">Escanear</a></li>
-            <li><a href="./addFavorito.html">addFavorito</a></li>
+            <li><a href="./nfc.html">Escanear</a></li>
         </ul>
     </div>
-    <section id="producto"></section>
-    <div class="botones">
-        <button class="boton-no">No</button>
-        <button id="boton-si">Si</button>
-    </div>
-    
-    <section id="qr" style="display: none;">
-        <div id="qrCodeContainer" class="qr-container"></div>
-        <h3>Para confirmar el pago de tus productos acercate a una caja de pago y escanea este QR</h3>
+    <div id="posicion"></div>
+    <section class="zona_plano">
+        <h2>Plano</h2>
+        <div class="linea"></div>
+        <div id="contenedor-plano">
+            <img id="plano" src="../../imgs/plano_tienda.png" alt="plano">
+            <div class="contenedor-img">
+                <div id="usuario"><img src="../../imgs/localizacion.png" alt="Usuario"></div>
+                <img id="producto1" src="../../imgs/marcador-de-posicion.png" alt="calcetines de colores" style="display: none;">
+                <img id="producto2" src="../../imgs/marcador-de-posicion.png" alt="consola" style="display: none;">
+                <img id="producto3" src="../../imgs/marcador-de-posicion.png" alt="velas" style="display: none;">
+                <img id="producto4" src="../../imgs/marcador-de-posicion.png" alt="camisa hombre" style="display: none;">
+                <div id="popup" class="popup" style="display: none;">
+                    <span id="nombreProducto"></span>
+                </div>
+            </div>
+        </div>
+        <div class="linea"></div> 
     </section>
-    <footer>
-        <div class="footer-icons">
-            <div>
-                <span class="pagar">Pagar</span>
-                
-                <img id="boton-pagar" src="../../imgs/blanco1.png" alt="pagar">
-            </div>
 
-            <div>
-                <a href="nfc.html">
-                    <img id="escaneo" src="../../imgs/blanco2.png" alt="escaneo">
-                </a>
-            </div>
-            
-            <div>
-                <span class="total">Total</span>
-                <span>0.00€</span>
-            </div>
-            
+    <footer>
+        <div id="footer-imgs">
+        <a href="home.html">
+            <img id="procesado" src="" alt="completado">
+        </a>
         </div>
     </footer>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="../js/addFavorito.js"></script>
+    <script src="../js/mapa_almacen.js"></script>
 </body>
 </html>

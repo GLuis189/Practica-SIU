@@ -103,6 +103,65 @@ io.on('connection', (socket) => {
             });
         });
     });
+
+    socket.on('lista-nombres-fav', (lista) => {
+        // Leer el archivo tasks.json
+        fs.readFile('favoritos.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error('Error al leer el archivo tasks.json:', err);
+                // Enviar una respuesta al cliente indicando el error
+                socket.emit('respuesta-servidor', 'error');
+                return;
+            }
+
+            const tasks = JSON.parse(data);
+            const tasksOrdenados = [];
+            lista.forEach(nombre => {
+                const task = tasks.find(t => t.nombre === nombre);
+                if (task) {
+                    tasksOrdenados.push(task);
+                }
+            });
+    
+            // Escribir el archivo tasks.json con el nuevo orden
+            fs.writeFile('favoritos.json', JSON.stringify(tasksOrdenados, null, 2), 'utf8', err => {
+                if (err) {
+                    console.error('Error al escribir el archivo tasks.json:', err);
+                    // Enviar una respuesta al cliente indicando el error
+                    socket.emit('respuesta-servidor', 'error');
+                    return;
+                }
+                fs.readFile('favoritos.json', 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
+    
+                    // Parsear el contenido del archivo JSON
+                    const carrito = JSON.parse(data);
+                    const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
+    
+                    console.log("Enviandooo");
+                    // Emitir el carrito como un array a través del socket
+                    socket.emit('carrito-ordenado-fav', carritoArray);
+                    });
+            });
+        });
+    });
+
+    socket.on('favorito', (favorito)=> {
+        const producto = almacen.find(item => item.nombre === favorito);
+        if (producto) {
+            // Si se encontró el producto, enviar toda su información de vuelta al cliente
+            //socket.emit('producto-encontrado', producto);
+            console.log('Producto enviado al cliente:', producto);
+            socket.emit('favorito-producto', producto);
+        } else {
+            // Si no se encuentra el producto, enviar un mensaje de error al cliente
+            //socket.emit('producto-no-encontrado', `No se encontró ningún producto con el ID: ${id}`);
+            console.log('Producto no encontrado para el ID:', product);
+        }
+    });
     
     
     socket.on('producto-plano', (product) => {
@@ -169,6 +228,51 @@ io.on('connection', (socket) => {
             });
         });
     });
+
+    socket.on('fav-carritoeliminar', (nombreProducto) => {
+        // Leer el contenido actual del archivo tasks.json
+        fs.readFile('favoritos.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            let carritoExistente = [];
+            if (data) {
+                carritoExistente = JSON.parse(data);
+            }
+    
+            // Buscar el producto en el carrito por su nombre
+            const productoIndex = carritoExistente.findIndex(producto => producto.nombre === nombreProducto);
+            if (productoIndex !== -1) {
+                    // Si la cantidad del producto es igual a 1, eliminar el producto del carrito
+                    carritoExistente.splice(productoIndex, 1);
+            }
+    
+            console.log('Carrito actualizado:', carritoExistente);
+    
+            // Guardar el contenido del carrito actualizado en el archivo tasks.json
+            fs.writeFile('favoritos.json', JSON.stringify(carritoExistente), (err) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+            fs.readFile('favoritos.json', 'utf8', (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+
+                // Parsear el contenido del archivo JSON
+                const carrito = JSON.parse(data);
+                const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
+
+                console.log("Enviandooo");
+                // Emitir el carrito como un array a través del socket
+                socket.emit('fav-eliminado', carritoArray);
+                });
+            });
+        });
+    });
     
     socket.on('anadir-cantidad', (nombre)=> {
         fs.readFile('tasks.json', 'utf8', (err, data) => {
@@ -210,7 +314,7 @@ io.on('connection', (socket) => {
         });
     });
     });
-    socket.on('favoritos-anadir', (nuevoCarrito) => {
+    socket.on('favoritos-anadir-producto', (nuevoCarrito) => {
         // Leer el contenido actual del archivo tasks.json
         console.log("holaaa");
         console.log(nuevoCarrito);
@@ -242,7 +346,7 @@ io.on('connection', (socket) => {
                     carritoExistente.push(nuevoCarrito);
                 }
             } 
-            console.log('Carrito actualizado:', carritoExistente);
+            console.log('Carrito actualizado favvvv:', carritoExistente);
             // Guardar el contenido del carrito actualizado en el archivo tasks.json
             fs.writeFile('favoritos.json', JSON.stringify(carritoExistente), (err) => {
                 if (err) {
@@ -258,9 +362,9 @@ io.on('connection', (socket) => {
     
                     // Parsear el contenido del archivo JSON
                     const carrito = JSON.parse(data);
-                    console.log("Enviandooo");
+                    console.log("Enviandooo favvvv");
                     // Enviar el contenido del carrito a través del socket
-                    socket.emit('favorito-carrito', carrito);
+                    socket.emit('favoritos-carrito', carrito);
                 });
             });
         });

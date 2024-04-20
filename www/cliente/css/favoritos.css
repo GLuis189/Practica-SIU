@@ -36,12 +36,17 @@ h2 {
     margin: 10px 0;
 }
 
-.producto1 {
+.producto {
     display: flex;
     align-items: center;
 }
 
-.producto1 img {
+.favorito{
+    height: 30px;
+    width: 30px;
+}
+
+.producto img {
     height: 70px;
     width: 70px;
     margin-left: 10px;

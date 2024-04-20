@@ -135,10 +135,8 @@ footer {
     font-weight: bolder;
 }
 
-#pagar {
-    width: 70px;
-    height: 70px;
-    padding: 0px;
+.cargando-pago{
+    width: 50%;
 }
 
 
