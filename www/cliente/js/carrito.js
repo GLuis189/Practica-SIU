@@ -114,6 +114,80 @@ function mostrarProductoEnHTML(producto) {
     botonMenos.classList.add("boton-menos");
     botonMenos.textContent = "-";
 
+    // Agregar event listener al botón más
+    botonMas.addEventListener('touchstart', function() {
+        // Aquí podrías incrementar la cantidad del producto
+        console.log("Producto añadido");
+        socket.emit("anadir-cantidad", producto.nombre);
+        socket.on('producto-masuno',  (carrito) => {
+            // Aquí puedes manejar el carrito actualizado recibido desde el servidor
+            console.log('Carrito actualizado recibido:', carrito);
+            contenedorProductos.innerHTML = '';
+            // Iterar sobre el array de productos y mostrar cada uno
+            console.log(typeof (carrito));
+            const carritoString = JSON.stringify(carrito);
+
+            // Guardar 'carritoString' en localStorage con la clave 'producto'
+            localStorage.setItem('producto', carritoString);
+
+            if (typeof carrito === 'object' && carrito !== null) {
+                // Recorrer el objeto 'carrito' utilizando un bucle for...in
+                for (const key in carrito) {
+                    if (carrito.hasOwnProperty(key)) {
+                        const producto = carrito[key];
+                        // Mostrar el producto en la consola
+                        console.log('Nombre del producto:', producto.nombre);
+                        console.log('Cantidad:', producto.cantidad);
+
+                        // Mostrar el producto en la interfaz de usuario
+                        mostrarProductoEnHTML(producto);
+                        eliminandoProducto = false;
+                    }
+
+                }
+            }
+        });
+    });
+
+    // Agregar event listener al botón menos
+    botonMenos.addEventListener('touchstart', function() {
+        // Aquí podrías disminuir la cantidad del producto
+        console.log("Producto eliminado");
+        socket.emit('eliminar-carrito', producto.nombre);
+        socket.on('producto-eliminado', (carrito) => {
+            // Aquí puedes manejar el carrito actualizado recibido desde el servidor
+            console.log('Carrito actualizado recibido:', carrito);
+            contenedorProductos.innerHTML = '';
+            // Iterar sobre el array de productos y mostrar cada uno
+            console.log(typeof (carrito));
+            const carritoString = JSON.stringify(carrito);
+
+            // Guardar 'carritoString' en localStorage con la clave 'producto'
+            localStorage.setItem('producto', carritoString);
+
+            if (typeof carrito === 'object' && carrito !== null) {
+                // Recorrer el objeto 'carrito' utilizando un bucle for...in
+                for (const key in carrito) {
+                    if (carrito.hasOwnProperty(key)) {
+                        const producto = carrito[key];
+                        // Mostrar el producto en la consola
+                        console.log('Nombre del producto:', producto.nombre);
+                        console.log('Cantidad:', producto.cantidad);
+
+                        // Mostrar el producto en la interfaz de usuario
+                        mostrarProductoEnHTML(producto);
+                        eliminandoProducto = false;
+                    }
+
+                }
+            } else {
+                console.log('El carrito recibido no es un objeto válido.');
+                eliminandoProducto = false;
+            }
+        });
+    });
+
+
     // Agregar los elementos creados al DOM
     cantidadContenedor.appendChild(cantidadSpan);
     cantidadContenedor.appendChild(cantidadProducto);

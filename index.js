@@ -170,6 +170,46 @@ io.on('connection', (socket) => {
         });
     });
     
+    socket.on('anadir-cantidad', (nombre)=> {
+        fs.readFile('tasks.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            let carritoExistente = [];
+            if (data) {
+                carritoExistente = JSON.parse(data);
+            }
+    
+            // Buscar el producto en el carrito por su nombre
+            const productoIndex = carritoExistente.findIndex(producto => producto.nombre === nombre);
+            if (productoIndex !== -1) {
+                if (carritoExistente[productoIndex].cantidad >= 1) {
+                    carritoExistente[productoIndex].cantidad++;
+            }
+        }
+        fs.writeFile('tasks.json', JSON.stringify(carritoExistente), (err) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+        fs.readFile('tasks.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            // Parsear el contenido del archivo JSON
+            const carrito = JSON.parse(data);
+            const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
+
+            console.log("Enviandooo");
+            // Emitir el carrito como un array a través del socket
+            socket.emit('producto-masuno', carritoArray);
+            });
+        });
+    });
+    });
 
     socket.on('guardar-carrito', (nuevoCarrito) => {
         // Leer el contenido actual del archivo tasks.json
