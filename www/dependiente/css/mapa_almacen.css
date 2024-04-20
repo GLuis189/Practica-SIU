@@ -85,7 +85,7 @@ h2{
 #plano {
     margin-left: 30%;
     /* height: 70%; */
-    width: 38%;
+    width: 55%;
 }
 #contenedor-plano {
     position: relative;
@@ -114,6 +114,9 @@ h2{
     width: 20px; /* Ajusta el tamaño de la imagen */
     height: auto; /* Mantiene la proporción de la imagen */
 }
+#productos_almacen{
+    height: 30px;
+}
 
 footer {
     background-color: #44b159; 
@@ -121,7 +124,7 @@ footer {
     padding: 10px;
     text-align: center; 
     bottom: 0;
-    width: 94.5%;
+    width: 100%;
     position: absolute; 
     text-align: center;
     z-index: 1; 
