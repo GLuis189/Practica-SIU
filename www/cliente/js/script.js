@@ -2,7 +2,9 @@ const socket = io();
 
 socket.on('vibrar', (message) => {
     console.log("Vibrando...");
-    navigator.vibrate([200, 100, 200]);
+    if(navigator.vibrate){
+        navigator.vibrate([200, 100, 200]);
+    }
 });
 
 addEventListener("load", function(){
