@@ -64,7 +64,6 @@ h2{
 
 
 
-
 .contenedor-buscador {
     display: flex;
     align-items: center;
@@ -134,7 +133,12 @@ footer {
     color: black;
     font-weight: bolder;
 }
+#centro{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
 
-.cargando-pago{
+.pago-listo{
     width: 50%;
 }
