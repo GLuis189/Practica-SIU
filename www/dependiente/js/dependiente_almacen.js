@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="linea"></div>
             `;
             // Asegúrate de que 'productosContainer' esté definido en tu código
-            productosContainer.innerHTML += productoHTML;
+            pedidos.innerHTML += productoHTML;
         });
     }
 });

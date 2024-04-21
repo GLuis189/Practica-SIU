@@ -463,13 +463,6 @@ io.on('connection', (socket) => {
     // Emitir el carrito al cliente cuando se conecte
     socket.emit('carrito-ordenado', carrito);
     });
-
-    socket.on('carrito-ordenado', (receivedCarrito) => {
-    // Maneja el carrito recibido (por ejemplo, muestra los productos en la interfaz)
-    console.log(receivedCarrito);
-    // También puedes actualizar el DOM con los datos recibidos
-    });
-
     });
     
     
