@@ -296,7 +296,7 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
     console.log(indexTarget);
     console.log(indexMovido);
 
-    
+    // Se reordena la lista
     lista.splice(indexMovido, 1);
     lista.splice(indexTarget, 0, nombreProductoMovido);
     console.log("Lista de nombres reordenada:", lista);
@@ -322,9 +322,7 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
                     console.log('Cantidad:', producto.cantidad);
                     mostrarProductoEnHTML(producto);
                 }
-
-            }
-           
+            } 
             // Actualizar el precio total
             document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
             localStorage.setItem('total', total);
@@ -335,8 +333,6 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
         }
     });
 }
-
-
 
 document.addEventListener('DOMContentLoaded', function () {
 

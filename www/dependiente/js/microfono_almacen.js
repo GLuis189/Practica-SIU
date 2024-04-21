@@ -15,7 +15,6 @@ cerrar.addEventListener("click", () => {
 })
 
 
-
 document.addEventListener('DOMContentLoaded', function() {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
