@@ -450,7 +450,7 @@ io.on('connection', (socket) => {
 
     
 
-    socket.on('carrito-almacen', (nuevoCarrito) => {
+    socket.on('carrito-almacen', () => {
     const fs = require('fs');
     const path = require('path');
 
