@@ -1,5 +1,6 @@
 const socket = io();
 let numero_prod = 0;
+let tics;
 const contenedorProducto = document.getElementById('productos-container');
 document.addEventListener('DOMContentLoaded', function() {
     // Emitir un evento para solicitar el carrito desde el servidor
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Filtrar los productos que tienen el atributo NFC
         const productosSinNFC = carritoGuardado.filter(producto => !producto.hasOwnProperty('NFC'));
         console.log(productosSinNFC);
-        // Generar el HTML para los productos con NFC
+        // Generar el HTML para los productos sin NFC
         productosSinNFC.forEach((producto, index) => {
             numero_prod = numero_prod + 1;
             console.log('numero-prod', numero_prod);
@@ -39,16 +40,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="linea"></div>
             `;
-            // Asegúrate de que 'productosContainer' esté definido en tu código
+            // Creamos la lista dentro del HTML
             contenedorProducto.innerHTML += productoHTML;
         });
     }
 });
 
-let tics;
+//funcion que se encarga de actualizar la lista con los clicks del usuario y comprabar si está preparado
 document.addEventListener('DOMContentLoaded', function () {
-    // Supongamos que tienes varias imágenes con IDs basados en el índice
-    const totalImagenes = numero_prod; // Cambia esto al número total de imágenes
+    // total de imagenes en la lista
+    const totalImagenes = numero_prod; 
 
     for (let index = 0; index < totalImagenes; index++) {
         const imagen = document.getElementById(`imagenX_${index}`);
@@ -62,9 +63,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 console.log('tics', tics);
                 if (numero_prod === tics) {
+                    // pedido preparado, vaciado y envio de vibración al usuario
                     console.log('mas tics', tics);
-                    socket.emit('listo', 'listo');
                     localStorage.removeItem('carrito_dep');
+                    socket.emit('listo', 'listo');
                     window.location.href = '../html/pedido_procesado_almacen.html';
                 }
             } else {

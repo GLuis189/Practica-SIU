@@ -87,13 +87,13 @@ h2{
 
 
 .busqueda span {
-    margin-left: 5px; /* Margen a la izquierda del texto "Buscar..." */
+    margin-left: 5px; 
 }
 
 .icono-microfono {
-    width: 30px; /* Ancho de la imagen */
-    height: auto; /* Altura automática */
-    margin-left: 10px; /* Margen a la izquierda de la imagen del micrófono */
+    width: 30px; 
+    height: auto; 
+    margin-left: 10px; 
 }
 
 

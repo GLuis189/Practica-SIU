@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>El Corte Ingles: Home Page</title>
-    <link rel="stylesheet" href="../css/nfc.css">
+    <title>El Corte Ingles: plano</title>
+    <link rel="stylesheet" href="../css/qr.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script> 
@@ -50,13 +50,11 @@
             <li><a href="./carrito.html">Carrito</a></li>
         </ul>
     </div>
-    <section id="contenedor">
-        <h2>Acerca tu movil al producto</h2>
-        <button  id="btn-nfc" title="nfc">
-            <img id="escaneando" src="../../imgs/nfc_gris.png" alt="">
-            <img id="escaneado" src="../../imgs/nfc_verde.png" alt="">
-        </button>
+    <section id="qr">
+        <div id="qrCodeContainer" class="qr-container"></div>
+        <h3>Para confirmar el pago de tus productos acercate a una caja de pago y escanea este QR</h3>
     </section>
+
     <footer>
         <div class="footer-icons">
             <div>
@@ -77,9 +75,10 @@
             </div>
             
         </div>
+        
     </footer>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="../js/nfc.js"></script>
+    <script src="../js/qr.js"></script>
 </body>
 </html>

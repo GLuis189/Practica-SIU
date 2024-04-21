@@ -1,4 +1,5 @@
 const socket = io();
+
 let total = localStorage.getItem('total');
 
     if (total !== null) {
@@ -113,45 +114,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Función para generar el código QR
-    function generarCodigoQR() {
-        var productos = document.querySelectorAll('.producto');
-        var productosQR = [];
-
-        productos.forEach(function (producto) {
-            var nombre = producto.querySelector('.nombre_producto').textContent;
-            var cantidad = producto.querySelector('.cantidad').textContent.replace('Cantidad: ', '');
-            var imagen = producto.querySelector('img').getAttribute('src');
-
-            productosQR.push({ nombre: nombre, cantidad: cantidad, imagen: imagen });
-        });
-
-        // Convertir los productos a formato de texto
-        let textoProductos = JSON.stringify(productosQR);
-
-        // Generar el código QR
-        let qr = qrcode(0, 'L');
-        qr.addData(textoProductos);
-        qr.make();
-        let qrSection = document.getElementById('qr');
-        let carritoSection = document.getElementById('fav');
-        qrSection.style.display = 'block';
-        carritoSection.style.display = 'none';
-
-        let qrCodeContainer = document.getElementById('qrCodeContainer');
-
-        // Eliminar cualquier código QR anterior
-        qrCodeContainer.innerHTML = '';
-
-        // Insertar el código QR en el contenedor
-        let qrImg = document.createElement('img');
-        qrImg.src = qr.createDataURL(10); 
-        qrCodeContainer.appendChild(qrImg);
-    }
-
     document.getElementById('boton-pagar').addEventListener('touchstart', function (event) {
         event.preventDefault();
-        generarCodigoQR(); 
+        window.location.href = '../html/qr.html'; 
+         
     });
 });
 

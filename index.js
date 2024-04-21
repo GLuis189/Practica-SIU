@@ -18,7 +18,6 @@ let pago = false;
 let listo = false;
 
 function vibrarCliente() {
-    console.log('Vibrando...');
     if (pago && listo) {
         io.emit('vibrar', 'vibrar');
         pago = false;

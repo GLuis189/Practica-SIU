@@ -1,11 +1,3 @@
-const socket = io();
-
-socket.on('vibrar', (message) => {
-    console.log("Vibrando...");
-    if(navigator.vibrate){
-        navigator.vibrate([200, 100, 200]);
-    }
-});
 
 addEventListener("load", function(){
     const inicio = localStorage.getItem("cliente");
