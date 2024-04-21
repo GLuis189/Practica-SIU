@@ -21,7 +21,7 @@ cerrar.addEventListener("click", () => {
 let total = localStorage.getItem('total');
 
 if (total !== null) {
-    document.querySelector('.total').nextElementSibling.textContent = parseFloat(total) + '€';
+    document.querySelector('.total').nextElementSibling.textContent = parseFloat(total).toFixed(2) + '€';
 } else {
     console.log('No se encontró ningún total en el localStorage.');
 }

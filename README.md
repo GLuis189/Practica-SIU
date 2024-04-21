@@ -7,7 +7,7 @@ Siguiendo las expecificaciones establecidas en el diseño la estructura de nuest
 Tras seleccionar cliente tenemos las 4 siguientes opciones:
 #Para regresar a la página principal de cliente pulsar el icono de Corte Inglés.
 
--Mapa:En este podemos ver nuestra posición en la tienda con la localización de los diferentes productos, para ello hemos añadido un buscador manual y uno  de voz al tocar el icono de microfono. 
+-Mapa:En este podemos ver nuestra posición en la tienda con la localización de los diferentes productos, para ello hemos añadido un buscador y  de voz al tocar el icono de microfono. 
 Productos disponibles:
 *Calcetines de colores
 *Camisa hombre
@@ -29,7 +29,7 @@ Este está separado por dos tipos el dependiente que procede con el pago en caja
 
 -Dependiente en caja: (Móvil/Contraseña:2222): El dependiente tras escanear el Qr del pedido del cliente y el carrito del mismo se muestra por pantalla  y se puede proceder con el pago.
 
--Dependiente en almacen (Ordenador/Contraseña: 333): Tiene una lista con los productos a preparar del cliente, este los irá seleccionando cuando los vaya preparando. Del mismo modo tiene como ayuda un mapa dondé podrá ver la localización de los productos en el almacén. Cuando haya preparado todo el pedido y lo haya seleccionado permitirá al cliente recoger su pedido. 
+-Dependiente en almacen (Ordenador/Contraseña: 333): Tiene una lista con los productos a preparar del cliente, este los irá seleccionando cuando los vaya preparando. Del mismo modo tiene como ayuda un mapa dondé podrá ver la localización de los productos en el almacén. Cuando haya preparado todo el pedido y lo haya seleccionado permitirá al cliente recoger su pedido. (en caso de estar vacía y haber añadido por voz refrescar)
 
 # Navegación
 Para mayor fluidez en le manejo de la aplicación tenemos los siguientes atajos: 
