@@ -1,5 +1,11 @@
 const socket = io();
+let total = localStorage.getItem('total');
 
+    if (total !== null) {
+        document.querySelector('.total').nextElementSibling.textContent = parseFloat(total).toFixed(2) + '€';
+    } else {
+        console.log('No se encontró ningún total en el localStorage.');
+    }
 document.addEventListener('DOMContentLoaded', function () {
     console.log("llamando a función");
 
@@ -10,10 +16,13 @@ document.addEventListener('DOMContentLoaded', function () {
     mostrarHtml(producto_info);
 });
 
+
+
 // Función para mostrar los productos en el HTML
 function mostrarHtml(producto) {
     const contenedorProductos = document.getElementById('producto');
     const botonsi = document.getElementById('boton-si');
+    const botonno = document.getElementById('botonno');
 
     // Crear elementos HTML para representar el producto
     const h2Producto = document.createElement('h2');
@@ -51,6 +60,9 @@ function mostrarHtml(producto) {
             localStorage.setItem('favCarrito', productoString);
             window.location.href = 'favoritos.html'; 
         });
+    });
+    botonno.addEventListener('touchstart', function(){
+        window.location.href = 'favoritos.html';
     });
 }
 
@@ -122,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
         qr.addData(textoProductos);
         qr.make();
         let qrSection = document.getElementById('qr');
-        let carritoSection = document.getElementById('carrito');
+        let carritoSection = document.getElementById('fav');
         qrSection.style.display = 'block';
         carritoSection.style.display = 'none';
 

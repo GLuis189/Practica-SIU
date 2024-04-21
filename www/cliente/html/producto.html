@@ -8,6 +8,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script> 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -51,6 +52,10 @@
         </ul>
     </div>
     <section id="tarjeta"></section>
+    <section id="qr" style="display: none;">
+        <div id="qrCodeContainer" class="qr-container"></div>
+        <h3>Para confirmar el pago de tus productos acercate a una caja de pago y escanea este QR</h3>
+    </section>
     <div id="mensaje"></div>
     <footer>
         <div class="footer-icons">

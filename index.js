@@ -37,7 +37,6 @@ fs.readFile('almacen.json', 'utf8', (err, data) => {
 
 // Manejar la conexión del cliente
 io.on('connection', (socket) => {
-    console.log('Nuevo cliente conectado');
 
     socket.on('pago', (message) => {
         console.log('Pago:', message);

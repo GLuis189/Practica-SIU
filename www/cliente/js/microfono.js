@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const Lupa = document.getElementById('lupa-barra');
     const contenedorBuscador = document.querySelector('.contenedor-buscador');
     const logoLetras = document.querySelector('.logo_letras');
-    const logoMenu = document.querySelector('.logo_menu');
+    const logoMenu = document.querySelector('.contenedor-menu');
     
 
     contenedorLupa.addEventListener('touchstart', function (event) {

@@ -90,6 +90,33 @@ h2 {
     margin-top: 20px;
 }
 
+#qr {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.qr-container {
+    width: 250px;
+    height: 250px;
+    border: 10px solid #44b159;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 55px;
+    margin-top: 40px;
+}
+
+.qr-container img {
+    width: 100%;
+    height: 100%;
+}
+
 #plano {
     margin-left: 2.5%;
     width: 95%;

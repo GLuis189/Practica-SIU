@@ -224,18 +224,26 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para generar el código QR
     function generarCodigoQR() {
         // Obtener los productos del carrito
-        var productos = document.querySelectorAll('.producto');
         var productosQR = [];
+        var productosLocalStorage = JSON.parse(localStorage.getItem('producto'));
+        console.log("HOLAAA", productosLocalStorage);
 
-        productos.forEach(function (producto) {
-            console.log('P:',producto);
-            var nombre = producto.querySelector('.nombre_producto').textContent;
-            var cantidad = producto.querySelector('#cantidadProducto').textContent;
-            var imagen = producto.querySelector('img').getAttribute('src');
-            console.log('Cantidad:', cantidad);
-            console.log('precio', producto.precio);
-            productosQR.push({ nombre: nombre, cantidad: cantidad, imagen: imagen, total: total });
-        });
+        // Verificar si hay datos en el localStorage
+        if (productosLocalStorage) {
+            // Iterar sobre los productos almacenados en el localStorage
+            productosLocalStorage.forEach(function(producto) {
+                // Obtener los atributos necesarios de cada producto
+                var nombre = producto.nombre;
+                var cantidad = producto.cantidad;
+                var imagen = producto.imagen;
+                console.log('Nombre:', nombre);
+                console.log('Cantidad:', cantidad);
+                console.log('Imagen:', imagen);
+                productosQR.push({ nombre: nombre, cantidad: cantidad, imagen: imagen, total: total });
+            });
+        } else {
+            console.log('No hay productos en el carrito.');
+        }
 
         let textoProductos = JSON.stringify(productosQR);
 

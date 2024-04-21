@@ -11,7 +11,13 @@ let cerrar = document.querySelector("#cerrar");
 let puntoPartidaLatitud ; 
 let puntoPartidaLongitud; 
 let nombre;
+let total = localStorage.getItem('total');
 
+if (total !== null) {
+    document.querySelector('.total').nextElementSibling.textContent = parseFloat(total).toFixed(2) + '€';
+} else {
+    console.log('No se encontró ningún total en el localStorage.');
+}
 abrir.addEventListener("click", () => {
     nav.classList.add("visible");
 })
@@ -26,7 +32,58 @@ socket.on('producto-plano-encontrado', function(producto) {
 
     window.location.href = 'producto.html';
 });
+document.addEventListener('DOMContentLoaded', function () {
+    // Función para generar el código QR
+    function generarCodigoQR() {
+        // Obtener los productos del carrito
+        var productosQR = [];
+        var productosLocalStorage = JSON.parse(localStorage.getItem('producto'));
+        console.log("HOLAAA", productosLocalStorage);
 
+        // Verificar si hay datos en el localStorage
+        if (productosLocalStorage) {
+            // Iterar sobre los productos almacenados en el localStorage
+            productosLocalStorage.forEach(function(producto) {
+                // Obtener los atributos necesarios de cada producto
+                var nombre = producto.nombre;
+                var cantidad = producto.cantidad;
+                var imagen = producto.imagen;
+                console.log('Nombre:', nombre);
+                console.log('Cantidad:', cantidad);
+                console.log('Imagen:', imagen);
+                productosQR.push({ nombre: nombre, cantidad: cantidad, imagen: imagen, total: total });
+            });
+        } else {
+            console.log('No hay productos en el carrito.');
+        }
+
+        let textoProductos = JSON.stringify(productosQR);
+
+        // Generar el código QR
+        let qr = qrcode(0, 'L');
+        qr.addData(textoProductos);
+        qr.make();
+        let qrSection = document.getElementById('qr');
+        let carritoSection = document.getElementById('zona_plano');
+        qrSection.style.display = 'block';
+        carritoSection.style.display = 'none';
+        // Obtener el elemento contenedor del código QR
+        let qrCodeContainer = document.getElementById('qrCodeContainer');
+
+        // Eliminar cualquier código QR anterior
+        qrCodeContainer.innerHTML = '';
+
+        // Insertar el código QR en el contenedor
+        let qrImg = document.createElement('img');
+        qrImg.src = qr.createDataURL(10); 
+        qrCodeContainer.appendChild(qrImg);
+    }
+
+    document.getElementById('boton-pagar').addEventListener('touchstart', function (event) {
+        event.preventDefault();
+        generarCodigoQR(); 
+    });
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
@@ -34,14 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const contenedorBuscador = document.querySelector('.contenedor-buscador');
     const logoLetras = document.querySelector('.logo_letras');
     const logoMenu = document.querySelector('.contenedor-menu');
-    let totalRecuperado = localStorage.getItem('total');
-
-    if (totalRecuperado !== null) {
-        document.querySelector('.total').nextElementSibling.textContent = parseFloat(totalRecuperado).toFixed(2) + '€';
-    } else {
-        console.log('No se encontró ningún total en el localStorage.');
-    }
-
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
         if (contenedorBuscador.style.display === 'none') {
@@ -75,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     microfono.addEventListener('touchstart', function () {
         window.location.href = 'microfono.html'; 
+    });
 });
 
 
