@@ -134,6 +134,9 @@ align-items: center;
 .contenedor-buscador .busqueda {
     display: flex;
 }
+.tick{
+  padding-left: 80%;
+}
 
 
 .busqueda span {
@@ -145,6 +148,11 @@ align-items: center;
     height: auto;
     margin-left: 10px;
 }
+
+
+
+
+
 
 
 footer {
@@ -181,7 +189,16 @@ footer {
 }
 
 #mapa_almacen {
-  width: 125px;
-  height: 125px;
-  padding: 25px;
+  width: 75px;
+  height: 75px;
+  padding: 15px;
+}
+
+/* En tu archivo CSS */
+.imagen-x {
+  background-image: url('/imgs/x.png');
+}
+
+.imagen-tick {
+  background-image: url('/imgs/tick.png');
 }
