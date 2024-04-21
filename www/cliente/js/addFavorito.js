@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let producto_info = JSON.parse(localStorage.getItem('favoritos'));
     console.log(producto_info);
 
-    // Mostrar los productos favoritos en el HTML
     mostrarHtml(producto_info);
 });
 
@@ -49,7 +48,6 @@ function mostrarHtml(producto) {
             console.log(typeof producto );
             const productoString = JSON.stringify(producto);
 
-            // Guardar el producto en el localStorage
             localStorage.setItem('favCarrito', productoString);
             window.location.href = 'favoritos.html'; 
         });
@@ -64,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoLetras = document.querySelector('.logo_letras');
     const logoMenu = document.querySelector('.contenedor-menu');
 
-    // Mostrar/ocultar el buscador
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
         if (contenedorBuscador.style.display === 'none') {
@@ -80,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Mostrar/ocultar el buscador
     Lupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
         if (Lupa.style.display === 'block') {
@@ -107,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     // Función para generar el código QR
     function generarCodigoQR() {
-        // Obtener los productos del carrito
         var productos = document.querySelectorAll('.producto');
         var productosQR = [];
 
@@ -130,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let carritoSection = document.getElementById('carrito');
         qrSection.style.display = 'block';
         carritoSection.style.display = 'none';
-        // Obtener el elemento contenedor del código QR
+
         let qrCodeContainer = document.getElementById('qrCodeContainer');
 
         // Eliminar cualquier código QR anterior
@@ -144,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('boton-pagar').addEventListener('touchstart', function (event) {
         event.preventDefault();
-        generarCodigoQR(); // Llamar a la función para generar el código QR cuando se hace clic en el botón de pagar
+        generarCodigoQR(); 
     });
 });
 

@@ -86,7 +86,6 @@ window.onload = function()  {
     // Obtener todos los elementos img que representan marcadores de productos
     const marcadoresProductos = document.querySelectorAll('[id^="producto"]');
 
-    // Iterar sobre cada marcador de producto
     marcadoresProductos.forEach(function(marcador) {
         // Obtener el nombre del producto del atributo alt
         const nombreProducto = marcador.getAttribute('alt');
@@ -96,12 +95,10 @@ window.onload = function()  {
             // Mostrar el marcador correspondiente
             marcador.style.display = 'block';
             marcadorProductoEncontrado = marcador.id;
-            console.log(`Ancho del plano: ${marcadorProductoEncontrado}`);
-            // Eliminar el producto del localStorage después de mostrar el marcador
+            // console.log(`Ancho del plano: ${marcadorProductoEncontrado}`);
             localStorage.removeItem('productoEnPlano');
             marcadorProducto = 1;
 
-            // Salir del bucle forEach una vez que se encuentra el marcador correspondiente
             return;
         }
     });
@@ -121,13 +118,12 @@ window.onload = function()  {
         const altoUsuario = usuario.clientHeight;
 
         // Mostrar la información de ancho y alto en el div de posición
-        console.log( `Ancho del plano: ${anchoPlano}, Ancho del usuario: ${anchoUsuario}, Alto del plano: ${altoPlano}, Alto del usuario: ${altoUsuario}`);
+        // console.log( `Ancho del plano: ${anchoPlano}, Ancho del usuario: ${anchoUsuario}, Alto del plano: ${altoPlano}, Alto del usuario: ${altoUsuario}`);
 
         // Mostrar la ubicación inicial
         mostrarUbicacionInicial(anchoPlano, anchoUsuario);
         setInterval(function() {
             obtenerGeolocalizacion(function(position) {
-                // Pasar anchoPlano y altoPlano como parámetros adicionales
                 actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPlano, altoUsuario);
             });
         }, 1000); 
@@ -152,9 +148,9 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
     latitud = position.coords.latitude;
     longitud = position.coords.longitude;
 
-    // Definir el rango permitido en longitud y latitud
-    const rangoLongitud = 0.001; // 0.001 grados de longitud
-    const rangoLatitud = 0.001; // 0.001 grados de latitud
+    // Definir el rango permitido en longitud y latitud (grados)
+    const rangoLongitud = 0.001; 
+    const rangoLatitud = 0.001; 
 
     // Ajustar la longitud y latitud dentro del rango permitido
     longitud = Math.min(longitud + rangoLongitud, longitud); 

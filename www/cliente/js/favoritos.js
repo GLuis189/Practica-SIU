@@ -1,6 +1,5 @@
 const socket = io();
 
-// Buscador
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
@@ -17,13 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const productoString = localStorage.getItem('favCarrito');
 
     if (productoString) {
-        // Convertir la cadena JSON de vuelta a un objeto JavaScript
         const productos = JSON.parse(productoString);
         console.log("holaaa", productos);
         const contenedorProductos = document.getElementById('contenedor_productos');
         contenedorProductos.innerHTML = '';
         if (productos != null){
-            // Iterar sobre el array de productos y mostrar cada uno
+
             productos.forEach(producto => {
             mostrarProductoHTML(producto);
             });
@@ -31,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
-        // Mostrar/ocultar el buscador
+
         if (contenedorBuscador.style.display === 'none') {
             logoLetras.style.display = 'none';
             logoMenu.style.display = 'none';
@@ -46,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     Lupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
-        // Mostrar/ocultar el buscador
+
         if (Lupa.style.display === 'block') {
             logoLetras.style.display = 'block';
             logoMenu.style.display = 'block';
@@ -62,13 +60,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const microfono = document.getElementById('microfono');
 
-    // Al hacer click sobre el microfono te redirige a esa página para poder buscar el producto por voz
     microfono.addEventListener('touchstart', function () {
         window.location.href = '../html/microfono.html'; 
     });
 });
 
-// En lugar de simplemente agregar y quitar la clase "visible", ahora vamos a usar JavaScript para cambiar esa clase
 var nav = document.querySelector("#nav1");
 var abrir = document.querySelector("#abrir");
 var cerrar = document.querySelector("#cerrar");
@@ -99,24 +95,22 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
     console.log("Lista de nombres reordenada:", lista);
     socket.emit('lista-nombres-fav', lista);
     socket.on('carrito-ordenado-fav', (carrito) => {
-        console.log('Carrito actualizado recibido:', carrito);
+        // console.log('Carrito actualizado recibido:', carrito);
         contenedorProductos.innerHTML = '';
-        // Iterar sobre el array de productos y mostrar cada uno
-        console.log(typeof (carrito));
+
+        // console.log(typeof (carrito));
         const carritoString = JSON.stringify(carrito);
 
-        // Guardar 'carritoString' en localStorage con la clave 'producto'
         localStorage.setItem('favCarrito', carritoString);
 
         if (typeof carrito === 'object' && carrito !== null) {
-            // Recorrer el objeto 'carrito' utilizando un bucle for...in
             total = 0;
             for (const key in carrito) {
                 if (carrito.hasOwnProperty(key)) {
                     const producto = carrito[key];
-                    // Mostrar el producto en la consola
-                    console.log('Nombre del producto:', producto.nombre);
-                    console.log('Cantidad:', producto.cantidad);
+
+                    // console.log('Nombre del producto:', producto.nombre);
+                    // console.log('Cantidad:', producto.cantidad);
                     mostrarProductoHTML(producto);
                 }
 
@@ -130,7 +124,7 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
 }
 
 function mostrarProductoHTML(producto) {
-    console.log("productoooo", producto);
+    // console.log("productoooo", producto);
     const contenedorProductos = document.getElementById('contenedor_productos');
 
     // Crear elementos HTML para representar el producto
@@ -181,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Obtener el nombre del producto del contenedor actual
         const nombreProducto = contenedor.querySelector('.nombre_producto').textContent;
         lista.push(nombreProducto);
-        console.log('Nombre del producto:', nombreProducto);
+        // console.log('Nombre del producto:', nombreProducto);
     });
     contenedorProductos.addEventListener('touchstart', function (event) {
         if (eliminandoProducto) return;
@@ -209,9 +203,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (eliminandoProducto || !contenedorProducto) return;
         const nombreProducto = contenedorProducto.querySelector('.nombre_producto').textContent;
         if (touchDuration >= 3000 && touchMoveStarted) {
-            console.log("Mantenido pulsado durante 3 segundos");
+            // console.log("Mantenido pulsado durante 3 segundos");
             const contenedorMovido = event.target.closest('.producto');
-            console.log(contenedorMovido);
+            // console.log(contenedorMovido);
             const alturaContenedor = contenedorMovido.offsetHeight;
             const direccionMovimiento = Math.round(touchDistance / alturaContenedor);
             reordenarContenedores(lista, contenedorMovido, direccionMovimiento);
@@ -229,37 +223,30 @@ document.addEventListener('DOMContentLoaded', function () {
                 }, { once: true });
                 socket.emit('fav-carritoeliminar', nombreProducto);
                 socket.on('fav-eliminado', (carrito) => {
-                    // Aquí puedes manejar el carrito actualizado recibido desde el servidor
-                    console.log('Carrito actualizado recibido:', carrito);
+                    // console.log('Carrito actualizado recibido:', carrito);
                     contenedorProductos.innerHTML = '';
-                    // Iterar sobre el array de productos y mostrar cada uno
-                    console.log(typeof (carrito));
+                    // console.log(typeof (carrito));
                     const carritoString = JSON.stringify(carrito);
 
-                    // Guardar 'carritoString' en localStorage con la clave 'producto'
                     localStorage.setItem('favCarrito', carritoString);
 
                     if (typeof carrito === 'object' && carrito !== null) {
-                        // Recorrer el objeto 'carrito' utilizando un bucle for...in
                         total=0;
                         for (const key in carrito) {
                             if (carrito.hasOwnProperty(key)) {
                                 const producto = carrito[key];
-                                // Mostrar el producto en la consola
-                                console.log('Nombre del producto:', producto.nombre);
-                                console.log('Cantidad:', producto.cantidad);
+                                // console.log('Nombre del producto:', producto.nombre);
+                                // console.log('Cantidad:', producto.cantidad);
 
-                                // Mostrar el producto en la interfaz de usuario
                                 mostrarProductoHTML(producto);
                                 eliminandoProducto = false;
                             }
 
                         }
-                        // Actualiza el contenido de la etiqueta span con la clase "total"
                         document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
                         localStorage.setItem('total', total);
                     } else {
-                        console.log('El carrito recibido no es un objeto válido.');
+                        // console.log('El carrito recibido no es un objeto válido.');
                         eliminandoProducto = false;
                     }
                 });

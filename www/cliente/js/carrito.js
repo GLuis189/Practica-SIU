@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
 
-        // Mostrar/ocultar el buscador
         if (contenedorBuscador.style.display === 'none') {
             logoLetras.style.display = 'none';
             logoMenu.style.display = 'none';
@@ -34,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     Lupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
-        // Mostrar/ocultar el buscador
+
         if (Lupa.style.display === 'block') {
             logoLetras.style.display = 'block';
             logoMenu.style.display = 'block';
@@ -50,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const microfono = document.getElementById('microfono');
 
-    // Al hacer click sobre el microfono te redirige a esa página para poder buscar el producto por voz
     microfono.addEventListener('touchstart', function () {
         window.location.href = '../html/microfono.html'; 
     });
@@ -60,7 +58,7 @@ function comprobarCarrito() {
     const productoString = localStorage.getItem('producto');
 
     if (productoString) {
-        // Convertir la cadena JSON de vuelta a un objeto JavaScript
+
         const productos = JSON.parse(productoString);
         console.log("holaaa", productos);
         const contenedorProductos = document.getElementById('contenedor_productos');
@@ -69,12 +67,12 @@ function comprobarCarrito() {
         contenedorProductos.innerHTML = '';
         if (productos != null){
             total=0;
-            // Iterar sobre el array de productos y mostrar cada uno
+
             productos.forEach(producto => {
-            mostrarProductoEnHTML(producto);
-            // Actualizar el precio total
-            document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
-            localStorage.setItem('total', total);
+                mostrarProductoEnHTML(producto);
+                // Actualizar el precio total
+                document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+                localStorage.setItem('total', total);
         });
         }
     } else {
@@ -126,7 +124,6 @@ function mostrarProductoEnHTML(producto) {
     botonMenos.classList.add("boton-menos");
     botonMenos.textContent = "-";
 
-    // Añadir mediante botón
     botonMas.addEventListener('touchstart', function() {
         
         console.log("Producto añadido");
@@ -240,7 +237,6 @@ document.addEventListener('DOMContentLoaded', function () {
             productosQR.push({ nombre: nombre, cantidad: cantidad, imagen: imagen, total: total });
         });
 
-        // Convertir los productos a formato de texto
         let textoProductos = JSON.stringify(productosQR);
 
         // Generar el código QR
@@ -263,10 +259,9 @@ document.addEventListener('DOMContentLoaded', function () {
         qrCodeContainer.appendChild(qrImg);
     }
 
-    // Escuchar el evento clic del botón de pagar
     document.getElementById('boton-pagar').addEventListener('touchstart', function (event) {
         event.preventDefault();
-        generarCodigoQR(); // Llamar a la función para generar el código QR cuando se hace clic en el botón de pagar
+        generarCodigoQR(); 
     });
 });
 
@@ -310,11 +305,10 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
     socket.on('carrito-ordenado', (carrito) => {
         console.log('Carrito actualizado recibido:', carrito);
         contenedorProductos.innerHTML = '';
-        // Iterar sobre el array de productos y mostrar cada uno
+
         console.log(typeof (carrito));
         const carritoString = JSON.stringify(carrito);
 
-        // Guardar producto en local storage
         localStorage.setItem('producto', carritoString);
 
         if (typeof carrito === 'object' && carrito !== null) {
@@ -323,9 +317,9 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
             for (const key in carrito) {
                 if (carrito.hasOwnProperty(key)) {
                     const producto = carrito[key];
-                    // Mostrar el producto en la consola
-                    console.log('Nombre del producto:', producto.nombre);
-                    console.log('Cantidad:', producto.cantidad);
+
+                    // console.log('Nombre del producto:', producto.nombre);
+                    // console.log('Cantidad:', producto.cantidad);
                     mostrarProductoEnHTML(producto);
                 }
             } 
@@ -385,9 +379,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (eliminandoProducto || !contenedorProducto) return;
         const nombreProducto = contenedorProducto.querySelector('.nombre_producto').textContent;
         if (touchDuration >= 3000 && touchMoveStarted) {
-            console.log("Mantenido pulsado durante 3 segundos");
+            // console.log("Mantenido pulsado durante 3 segundos");
             const contenedorMovido = event.target.closest('.producto');
-            console.log(contenedorMovido);
+            // console.log(contenedorMovido);
             const alturaContenedor = contenedorMovido.offsetHeight;
             const direccionMovimiento = Math.round(touchDistance / alturaContenedor);
             reordenarContenedores(lista, contenedorMovido, direccionMovimiento);
@@ -408,22 +402,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     
                     console.log('Carrito actualizado recibido:', carrito);
                     contenedorProductos.innerHTML = '';
-                    // Iterar sobre el array de productos y mostrar cada uno
                     console.log(typeof (carrito));
                     const carritoString = JSON.stringify(carrito);
 
-                    // Guardar en local storage
                     localStorage.setItem('producto', carritoString);
 
                     if (typeof carrito === 'object' && carrito !== null) {
-                        // Recorrer el objeto carrito
                         total=0;
                         for (const key in carrito) {
                             if (carrito.hasOwnProperty(key)) {
                                 const producto = carrito[key];
-                                // Mostrar el producto en la consola
-                                console.log('Nombre del producto:', producto.nombre);
-                                console.log('Cantidad:', producto.cantidad);
+                                // console.log('Nombre del producto:', producto.nombre);
+                                // console.log('Cantidad:', producto.cantidad);
 
                                 // Mostrar el producto en el HTML
                                 mostrarProductoEnHTML(producto);

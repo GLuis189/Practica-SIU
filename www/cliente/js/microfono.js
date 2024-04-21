@@ -63,12 +63,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('touchstart', function () {
-        window.location.href = 'microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = 'microfono.html';
     });
 
     // Event listener para el botón producto-info
     document.getElementById('producto-info').addEventListener('touchstart', function() {
-        console.log("Buscando información...");
+        // console.log("Buscando información...");
         if(producto){
         socket.emit('producto-anadir', producto);}
         else{
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     document.getElementById('plano-info').addEventListener('touchstart', function() {
-        console.log("Accediendo al plano...");
+        // console.log("Accediendo al plano...");
         if(producto){
             localStorage.setItem('productoEnPlano', producto);
         }
@@ -98,11 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
         'camisa hombre' : '../../imgs/camisa_copia.jpg',
         'consola':'../../imgs/play.jpg',
         'velas':'../../imgs/velas.js'
-        // Agregar más palabras clave y sus imágenes aquí
     };
 
     micIcon.addEventListener('touchstart', () => {
-        statusMessage.innerText = 'Escuchando...'; // Actualizar el mensaje de estado
+        statusMessage.innerText = 'Escuchando...'; 
         recognition.start();
     });
 
