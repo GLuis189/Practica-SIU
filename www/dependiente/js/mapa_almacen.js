@@ -1,10 +1,10 @@
 const socket = io();
 let marcadorProducto=0;
 let marcadorProductoEncontrado;
-let posicionInicial = null; // Almacena la posición inicial del usuario
-let ultimaLatitud = null; // Almacena la última latitud conocida
-let ultimaLongitud = null; // Almacena la última longitud conocida
-const factorPxPorMetro = 5; // Factor de conversión de metros a píxeles
+let posicionInicial = null;
+let ultimaLatitud = null;
+let ultimaLongitud = null; 
+const factorPxPorMetro = 5;
 let nav = document.querySelector("#nav1");
 let abrir = document.querySelector("#abrir");
 let cerrar = document.querySelector("#cerrar");
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('click', function () {
-        window.location.href = '../html/microfono_almacen.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono_almacen.html';
     });
 });
 
@@ -97,11 +97,10 @@ window.onload = function()  {
             marcador.style.display = 'block';
             marcadorProductoEncontrado = marcador.id;
             console.log(`Ancho del plano: ${marcadorProductoEncontrado}`);
-            // Eliminar el producto del localStorage después de mostrar el marcador
+
             localStorage.removeItem('productoEnPlano');
             marcadorProducto = 1;
 
-            // Salir del bucle forEach una vez que se encuentra el marcador correspondiente
             return;
         }
     });
@@ -127,7 +126,7 @@ window.onload = function()  {
         mostrarUbicacionInicial(anchoPlano, anchoUsuario);
         setInterval(function() {
             obtenerGeolocalizacion(function(position) {
-                // Pasar anchoPlano y altoPlano como parámetros adicionales
+
                 actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPlano, altoUsuario);
             });
         }, 1000); 
@@ -152,9 +151,9 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
     latitud = position.coords.latitude;
     longitud = position.coords.longitude;
 
-    // Definir el rango permitido en longitud y latitud
-    const rangoLongitud = 0.001; // 0.001 grados de longitud
-    const rangoLatitud = 0.001; // 0.001 grados de latitud
+    // Definir el rango permitido en longitud y latitud (grados)
+    const rangoLongitud = 0.001; 
+    const rangoLatitud = 0.001; 
 
     // Ajustar la longitud y latitud dentro del rango permitido
     longitud = Math.min(longitud + rangoLongitud, longitud); 
@@ -179,9 +178,9 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
     
         // Ajustar la posición horizontal para que esté dentro del rango permitido
         if (posicionHorizontal < 0) {
-            posicionHorizontal = 0; // Si está fuera del límite izquierdo, fijar en el borde izquierdo
+            posicionHorizontal = 0; 
         } else if (posicionHorizontal > anchoContenedor - 25) {
-            posicionHorizontal = anchoContenedor - 25; // Si está fuera del límite derecho, fijar en el borde derecho
+            posicionHorizontal = anchoContenedor - 25; 
         }
     
         // Calcular la posición vertical del marcador dentro del rango permitido
@@ -189,9 +188,9 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
     
         // Ajustar la posición vertical para que esté dentro del rango permitido
         if (posicionVertical < 0) {
-            posicionVertical = 0; // Si está fuera del límite inferior, fijar en el borde inferior
+            posicionVertical = 0; 
         } else if (posicionVertical > altoContenedor - 25) {
-            posicionVertical = altoContenedor - 25; // Si está fuera del límite superior, fijar en el borde superior
+            posicionVertical = altoContenedor - 25; 
         }
     
         const usuario = document.getElementById("usuario");
@@ -233,9 +232,9 @@ document.addEventListener('DOMContentLoaded', function () {
         let startTime; // Variable para almacenar el tiempo de inicio del toque
 
         producto.addEventListener('click', function(event) {
-            event.stopPropagation(); // Evitar que el toque se propague al contenedor padre
-            event.preventDefault(); // Evitar el menú contextual predeterminado
-            const nombreProducto = this.alt; // Obtener el nombre del producto del atributo alt
+            event.stopPropagation(); 
+            event.preventDefault(); 
+            const nombreProducto = this.alt; 
 
             const rect = this.getBoundingClientRect();
             const left = rect.left + window.scrollX;
@@ -305,7 +304,7 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                     
                     if (!producto) {
                         console.log(`Elemento "${idProducto}" no encontrado`);
-                        continue; // Saltar a la siguiente iteración si el elemento no se encuentra
+                        continue;
                     }
                     if ("producto1"===idProducto){
                         // Establecer los estilos del producto
@@ -324,14 +323,14 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                     if ("producto3"===idProducto){
                         // Establecer los estilos del producto
                         producto.style.left = `${posicionInicial + 425}px`; 
-                        producto.style.bottom = "490px";
+                        producto.style.bottom = "290px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
                         producto.style.width = "50px"; }
                     if ("producto4"===idProducto){
                         // Establecer los estilos del producto
                         producto.style.left = `${posicionInicial + 200}px`; 
-                        producto.style.bottom = "580px";
+                        producto.style.bottom = "380px";
                         producto.style.position = "absolute";
                         producto.style.display = 'block';
                         producto.style.width = "50px"; 
@@ -346,7 +345,7 @@ function mostrarUbicacionInicial(anchoPlano, anchoUsuario) {
                     
                     if (!producto) {
                         console.log(`Elemento "${idProducto}" no encontrado`);
-                        continue; // Saltar a la siguiente iteración si el elemento no se encuentra
+                        continue; 
                     }
                     console.log(`Ancho del plano: ${marcadorProductoEncontrado}`);
                     if (marcadorProductoEncontrado==="producto1"){

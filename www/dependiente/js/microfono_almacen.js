@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('click', function () {
-        window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono.html'; 
     });
 
     
@@ -83,11 +83,10 @@ document.addEventListener('DOMContentLoaded', function() {
         'camisa hombre' : '../../imgs/camisa_copia.jpg',
         'consola':'../../imgs/play.jpg',
         'velas':'../../imgs/velas.js'
-        // Agregar más palabras clave y sus imágenes aquí
     };
 
     micIcon.addEventListener('click', () => {
-        statusMessage.innerText = 'Escuchando...'; // Actualizar el mensaje de estado
+        statusMessage.innerText = 'Escuchando...';
         recognition.start();
     });
 

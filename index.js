@@ -15,12 +15,14 @@ app.use(express.urlencoded({ extended: true }));
 let almacen = [];
 
 let pago = false;
-let listo = true;
+let listo = false;
 
 function vibrarCliente() {
     console.log('Vibrando...');
     if (pago && listo) {
         io.emit('vibrar', 'vibrar');
+        pago = false;
+        listo = false;
     }
 }
 

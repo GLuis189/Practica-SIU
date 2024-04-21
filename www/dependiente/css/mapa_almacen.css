@@ -79,6 +79,7 @@ h2{
 .zona_plano {
     margin-top: 20px;
     align-items: center; 
+    padding-bottom: 20px;
     
     
 }
@@ -116,19 +117,20 @@ h2{
 }
 #carrito_almacen{
     height: 30px;
+    width: 30px;
+    margin-top: 10px;
 }
 
 footer {
-    background-color: #44b159; 
-    color: white; 
-    padding: 10px;
-    text-align: center; 
-    bottom: 0;
-    width: 100%;
-    position: absolute; 
+    background-color: #44b159;
+    color: white;
     text-align: center;
-    z-index: 1; 
-}
+    position: bottom;
+    width: 100%;
+    bottom: 0;
+    padding-top: 0px;
+    text-align: center;
+  }
 
 #posicion{
     display: none;
@@ -144,8 +146,9 @@ footer {
 }
 
 .footer-icons img {
-    width: 20px; 
-    height: 20px;
+    width: 30px; 
+    height: 30px;
+    padding-top: 10px;
 }
 
 .footer-icons span {

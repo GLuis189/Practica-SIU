@@ -1,10 +1,10 @@
 const socket = io();
 let marcadorProducto=0;
 let marcadorProductoEncontrado;
-let posicionInicial = null; // Almacena la posición inicial del usuario
-let ultimaLatitud = null; // Almacena la última latitud conocida
-let ultimaLongitud = null; // Almacena la última longitud conocida
-const factorPxPorMetro = 5; // Factor de conversión de metros a píxeles
+let posicionInicial = null; 
+let ultimaLatitud = null; 
+let ultimaLongitud = null; 
+const factorPxPorMetro = 5; 
 let nav = document.querySelector("#nav1");
 let abrir = document.querySelector("#abrir");
 let cerrar = document.querySelector("#cerrar");
@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let totalRecuperado = localStorage.getItem('total');
 
     if (totalRecuperado !== null) {
-        // Actualizar el contenido de la etiqueta span con la clase "total"
         document.querySelector('.total').nextElementSibling.textContent = parseFloat(totalRecuperado).toFixed(2) + '€';
     } else {
         console.log('No se encontró ningún total en el localStorage.');
@@ -75,8 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('touchstart', function () {
-        window.location.href = 'microfono.html'; // Redireccionar al usuario a microfono.html
-    });
+        window.location.href = 'microfono.html'; 
 });
 
 
@@ -87,7 +85,6 @@ window.onload = function()  {
     const marcadoresProductos = document.querySelectorAll('[id^="producto"]');
 
     marcadoresProductos.forEach(function(marcador) {
-        // Obtener el nombre del producto del atributo alt
         const nombreProducto = marcador.getAttribute('alt');
 
         // Verificar si el nombre del producto coincide con el nombre del producto almacenado en localStorage

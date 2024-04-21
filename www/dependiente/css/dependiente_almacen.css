@@ -17,7 +17,7 @@ width: 100%;
 .contenedor-header {
   background-color: #ffffff;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 10px 20px;
 }
@@ -189,9 +189,9 @@ footer {
 }
 
 #mapa_almacen {
-  width: 75px;
-  height: 75px;
-  padding: 15px;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
 }
 
 /* En tu archivo CSS */

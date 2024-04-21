@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('touchstart', function () {
-        window.location.href = '../../cliente/html/microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../../cliente/html/microfono.html';
     });
 });
 

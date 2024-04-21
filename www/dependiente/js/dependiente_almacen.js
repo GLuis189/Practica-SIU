@@ -63,8 +63,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('tics', tics);
                 if (numero_prod === tics) {
                     console.log('mas tics', tics);
-                    // Redirigir a la URL deseada (por ejemplo, http://localhost:3000/dependiente/html/mapa_almacen.html)
-                    window.location.href = '../html/mapa_almacen.html';
+                    socket.emit('listo', 'listo');
+                    localStorage.removeItem('carrito_dep');
+                    window.location.href = '../html/pedido_procesado_almacen.html';
                 }
             } else {
                 imagen.src = '/imgs/x.png';

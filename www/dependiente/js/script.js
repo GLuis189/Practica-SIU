@@ -39,7 +39,7 @@ async function openCamera() {
         const stream = await navigator.mediaDevices?.getUserMedia({ video: { facingMode: { exact: "environment" } } });
         if (stream) {
             video.srcObject = stream;
-            await new Promise(resolve => video.onloadedmetadata = resolve); // Esperar a que la cámara esté completamente cargada
+            await new Promise(resolve => video.onloadedmetadata = resolve); 
         } else {
             console.error("No se pudo obtener acceso a la cámara.");
         }
@@ -69,24 +69,16 @@ function iniciarEscaneoQR() {
             console.log("No se detectó ningún código QR.");
         }
 
-        requestAnimationFrame(escanearQR); // Continuar escaneando en tiempo real
+        requestAnimationFrame(escanearQR); 
     };
 
     escanearQR();
 }
-/*
-function mostrarInfoCarrito(data) {
-    // Aquí puedes cargar la información del carrito en la página actual para verificar que se esté leyendo correctamente
-    const carritoInfoHTML = `<h2>Información del carrito:</h2>
-                              <p>${data}</p>`;
-    document.body.innerHTML = carritoInfoHTML;
-}*/
+
 
 function mostrarInfoCarrito(data) {
-    // Guardar la información del carrito en el local storage para recuperarla en carrito_dependiente.js
     localStorage.setItem('carrito', JSON.stringify(data));
 
-    // Redirigir a carrito_dependiente.html
     window.location.href = '../html/carrito_dependiente.html';
 }
 
