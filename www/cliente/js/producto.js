@@ -33,7 +33,17 @@ addEventListener("load", function () {
     localStorage.removeItem("nfc");
 })
 
+var nav = document.querySelector("#nav1");
+var abrir = document.querySelector("#abrir");
+var cerrar = document.querySelector("#cerrar");
 
+abrir.addEventListener("click", () => {
+    nav.classList.add("visible");
+});
+
+cerrar.addEventListener("click", () => {
+    nav.classList.remove("visible");
+});
 
 function enviarIDAlServidor(id) {
     console.log('ID producto:', id);
@@ -245,7 +255,7 @@ function startDrag(event) {
                 actualCard.addEventListener('transitionend', () =>{
                 actualCard.remove()
                 ocultarDivs();
-                window.location.href = 'home.html';
+                window.location.href = 'carrito.html';
                 })
             }
             
@@ -264,8 +274,6 @@ function startDrag(event) {
             isAnimating = false
         })
     }
-
-
 
 }
 function enviarProductoAlServidor(productoAnadido){

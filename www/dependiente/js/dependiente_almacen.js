@@ -1,21 +1,20 @@
 const socket = io();
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Supongo que ya tienes configurado el objeto 'socket'
-
     // Emitir un evento para solicitar el carrito desde el servidor
     socket.emit('carrito-almacen');
 
     // Escuchar el evento 'carrito-ordenado' enviado por el servidor
-    socket.on('carrito-ordenado', (carrito) => {
+    socket.on('carrito-recivido', (carrito) => {
         // Guardar 'carrito' en localStorage con la clave 'carrito'
             localStorage.setItem('carrito', JSON.stringify(carrito));
         }
     );
 
     // Recuperar la información del carrito del localStorage
-    const carritoGuardado = JSON.parse(localStorage.getItem('carrito'));
+    let carritoGuardado = JSON.parse(localStorage.getItem('carrito'));
     if (carritoGuardado) {
+        carritoGuardado = JSON.parse(carrito);
         // Filtrar los productos que tienen el atributo NFC
         const productosConNFC = carritoGuardado.filter(producto => producto.hasOwnProperty('NFC'));
 
@@ -34,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="linea"></div>
             `;
             // Asegúrate de que 'productosContainer' esté definido en tu código
-            productosContainer.innerHTML += productoHTML;
+            contenedorProducto.innerHTML += productoHTML;
         });
     }
 });

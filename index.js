@@ -451,24 +451,17 @@ io.on('connection', (socket) => {
     
 
     socket.on('carrito-almacen', () => {
-    const fs = require('fs');
-    const path = require('path');
-
-    const filePath = path.join(__dirname, 'tasks.json'); // Ajusta la ruta según tu ubicación
-    const taskData = fs.readFileSync(filePath, 'utf8');
-    const carrito = JSON.parse(taskData);
-
-
-    io.on('connection', (socket) => {
-    // Emitir el carrito al cliente cuando se conecte
-    socket.emit('carrito-ordenado', carrito);
-    });
-
-    socket.on('carrito-ordenado', (receivedCarrito) => {
-    // Maneja el carrito recibido (por ejemplo, muestra los productos en la interfaz)
-    console.log(receivedCarrito);
-    // También puedes actualizar el DOM con los datos recibidos
-    });
+    fs.readFile('tasks.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        if (data) {
+            const carrito = JSON.parse(data);
+        }
+    // Enviar el carrito
+    console.log("Enviandooo");
+    socket.emit('carrito-recivido', carrito);
 
     });
     

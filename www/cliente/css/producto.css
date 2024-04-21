@@ -198,4 +198,82 @@ img{
     text-align: center;
 }
 
+.nav1 {
+    opacity: 0;
+    visibility: hidden;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: end;
+    gap: 1rem;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f0f0f0;
+    padding: 2rem;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .5);
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    transform: translateX(-100%);
+    /* Mueve el menú fuera de la pantalla por defecto */
+}
+
+.nav1.visible {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-list1 {
+    flex-direction: column;
+    align-items: end;
+}
+
+.nav-list1 li a {
+    display: block;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-family: 'Montserrat';
+    font-weight: bolder;
+}
+
+.nav-list1 {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+}
+
+
+.abrir,
+.cerrar {
+    display: block;
+    border: 0;
+    font-size: 40px;
+    background-color: transparent;
+    cursor: pointer;
+    color: black;
+
+    padding: 0px;
+}
+
+h3 {
+    margin-right: 10px;
+    margin-left: 25px;
+    font-size: 20px;
+    color: #000000;
+    margin-top: 35px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* Agrega una clase para aplicar la transición al deslizar hacia la izquierda */
+.eliminar-transicion {
+    transition: transform 0.3s ease;
+}
+
+/* Aplica la transformación para desplazar el producto hacia la izquierda */
+.eliminar-transicion.eliminado {
+    transform: translateX(-100%);
+}
 
