@@ -1,3 +1,7 @@
+Ana María Ortega Mateo            100472037
+Luis Gomez-Manzanilla Nieto    100472006
+Nathalia Moniz Cordova        100471979
+Carlos Seguí Cabrera            100472060
 # Practica
 Siguiendo las expecificaciones establecidas en el diseño la estructura de nuestra aplicación es la siguiente:
 -Cliente (Móvil): Se trata del funcionamiento general, donde el usuario puede hacer su compra.
