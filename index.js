@@ -447,7 +447,23 @@ io.on('connection', (socket) => {
             });
         });
     });
+
     
+
+    socket.on('carrito-almacen', () => {
+    const fs = require('fs');
+    const path = require('path');
+
+    const filePath = path.join(__dirname, 'tasks.json'); // Ajusta la ruta según tu ubicación
+    const taskData = fs.readFileSync(filePath, 'utf8');
+    const carrito = JSON.parse(taskData);
+
+
+    io.on('connection', (socket) => {
+    // Emitir el carrito al cliente cuando se conecte
+    socket.emit('carrito-ordenado', carrito);
+    });
+    });
     
     
   socket.on('nfcWritten', function (message) {
