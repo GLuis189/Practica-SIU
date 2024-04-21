@@ -4,7 +4,7 @@ body {
     font-family: 'Montserrat', serif;
     display: flex;
     flex-direction: column;
-    min-height: 80vh; /* Establecer la altura mínima del cuerpo para que ocupe todo el alto de la ventana */
+    min-height: 80vh; 
 }
 h2{
     margin-left: 20px;
@@ -62,13 +62,13 @@ h3{
 
 
 .busqueda span {
-    margin-left: 5px; /* Margen a la izquierda del texto "Buscar..." */
+    margin-left: 5px; 
 }
 
 .icono-microfono {
-    width: 30px; /* Ancho de la imagen */
-    height: auto; /* Altura automática */
-    margin-left: 10px; /* Margen a la izquierda de la imagen del micrófono */
+    width: 30px; 
+    height: auto; 
+    margin-left: 10px; 
 }
 .producto {
     display: flex;
@@ -215,7 +215,6 @@ img{
     box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .5);
     transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
     transform: translateX(-100%);
-    /* Mueve el menú fuera de la pantalla por defecto */
 }
 
 .nav1.visible {
@@ -267,12 +266,10 @@ h3 {
 
 }
 
-/* Agrega una clase para aplicar la transición al deslizar hacia la izquierda */
 .eliminar-transicion {
     transition: transform 0.3s ease;
 }
 
-/* Aplica la transformación para desplazar el producto hacia la izquierda */
 .eliminar-transicion.eliminado {
     transform: translateX(-100%);
 }

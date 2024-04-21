@@ -2,15 +2,20 @@ const socket = io();
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log("llamando a función");
+
+    // Obtener los productos del local storage
     let producto_info = JSON.parse(localStorage.getItem('favoritos'));
     console.log(producto_info);
+
+    // Mostrar los productos favoritos en el HTML
     mostrarHtml(producto_info);
-    // comprobarCarrito();
 });
 
+// Función para mostrar los productos en el HTML
 function mostrarHtml(producto) {
     const contenedorProductos = document.getElementById('producto');
     const botonsi = document.getElementById('boton-si');
+
     // Crear elementos HTML para representar el producto
     const h2Producto = document.createElement('h2');
     h2Producto.textContent = "Producto";
@@ -43,6 +48,7 @@ function mostrarHtml(producto) {
             console.log('Producto encontrado favvv:', producto);
             console.log(typeof producto );
             const productoString = JSON.stringify(producto);
+
             // Guardar el producto en el localStorage
             localStorage.setItem('favCarrito', productoString);
             window.location.href = 'favoritos.html'; 
@@ -50,6 +56,7 @@ function mostrarHtml(producto) {
     });
 }
 
+// Buscador
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
@@ -57,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const logoLetras = document.querySelector('.logo_letras');
     const logoMenu = document.querySelector('.contenedor-menu');
 
+    // Mostrar/ocultar el buscador
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
         if (contenedorBuscador.style.display === 'none') {
@@ -71,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function () {
             contenedorLupa.style.display = 'block';
         }
     });
+
+    // Mostrar/ocultar el buscador
     Lupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
         if (Lupa.style.display === 'block') {
@@ -88,8 +98,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const microfono = document.getElementById('microfono');
 
+    // Al hacer click sobre el microfono te redirige a esa página para poder buscar el producto por voz
     microfono.addEventListener('touchstart', function () {
-        window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono.html';
     });
 });
 
@@ -127,18 +138,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Insertar el código QR en el contenedor
         let qrImg = document.createElement('img');
-        qrImg.src = qr.createDataURL(10); // Cambia el tamaño del código QR según lo necesites
+        qrImg.src = qr.createDataURL(10); 
         qrCodeContainer.appendChild(qrImg);
     }
 
-    // Escuchar el evento clic del botón de pagar
     document.getElementById('boton-pagar').addEventListener('touchstart', function (event) {
         event.preventDefault();
         generarCodigoQR(); // Llamar a la función para generar el código QR cuando se hace clic en el botón de pagar
     });
 });
 
-// En lugar de simplemente agregar y quitar la clase "visible", ahora vamos a usar JavaScript para cambiar esa clase
+// Mostrar y ocultar el menu hamburguesa
 var nav = document.querySelector("#nav1");
 var abrir = document.querySelector("#abrir");
 var cerrar = document.querySelector("#cerrar");

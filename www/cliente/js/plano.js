@@ -255,7 +255,12 @@ document.addEventListener('DOMContentLoaded', function () {
             if (touchDuration >= 5000) {
                 console.log("Se mantuvo pulsado durante más de 5 segundos.");
                 const nombreProducto = producto.alt;
-                socket.emit('producto-plano', nombreProducto);
+                if (nombre){
+                    socket.emit('producto-plano', nombre);
+                }
+                else{
+                    socket.emit('producto-plano', nombreProducto);
+                }
             }
         });
     });

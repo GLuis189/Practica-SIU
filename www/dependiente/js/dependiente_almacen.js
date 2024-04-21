@@ -1,5 +1,5 @@
 const socket = io();
-
+const contenedorProducto = document.getElementById('productos-container');
 document.addEventListener('DOMContentLoaded', function() {
     // Emitir un evento para solicitar el carrito desde el servidor
     socket.emit('carrito-almacen');
@@ -7,19 +7,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Escuchar el evento 'carrito-ordenado' enviado por el servidor
     socket.on('carrito-recivido', (carrito) => {
         // Guardar 'carrito' en localStorage con la clave 'carrito'
-            localStorage.setItem('carrito', JSON.stringify(carrito));
+            localStorage.setItem('carrito_dep', JSON.stringify(carrito));
         }
     );
 
     // Recuperar la información del carrito del localStorage
-    let carritoGuardado = JSON.parse(localStorage.getItem('carrito'));
+    let carritoGuardado = localStorage.getItem('carrito_dep');
+    carritoGuardado = JSON.parse(carritoGuardado)
+    console.log(carritoGuardado);
     if (carritoGuardado) {
-        carritoGuardado = JSON.parse(carrito);
         // Filtrar los productos que tienen el atributo NFC
-        const productosConNFC = carritoGuardado.filter(producto => producto.hasOwnProperty('NFC'));
-
+        const productosSinNFC = carritoGuardado.filter(producto => !producto.hasOwnProperty('NFC'));
+        console.log(productosSinNFC);
         // Generar el HTML para los productos con NFC
-        productosConNFC.forEach(producto => {
+        productosSinNFC.forEach((producto, index) => {
             const productoHTML = `
                 <div class="producto1">                        
                     <img src="${producto.imagen}" alt="${producto.nombre}">
@@ -27,6 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <span class="nombre_producto">${producto.nombre}</span>
                         <div class="cantidad-contenedor">
                             <span class="cantidad">Cantidad: ${producto.cantidad}</span>
+                        </div>
+                        <div class ="tick">
+                            <img src="/imgs/x.png" alt="check" id="imagenX_${index}">
                         </div>
                     </div>
                 </div>
@@ -37,6 +41,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+function cambiarImagenX(id) {
+    const imagen = document.getElementById(id);
+    if (imagen.src.endsWith("/imgs/x.png")) {
+        imagen.src = "/imgs/tic.png"; 
+    } else {
+        imagen.src = "/imgs/x.png";
+    }
+}
+
 
     
 

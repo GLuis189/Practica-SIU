@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('click', function () {
-        window.location.href = 'microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono_almacen.html'; // Redireccionar al usuario a microfono.html
     });
 });
 

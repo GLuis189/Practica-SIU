@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
         pago = true;
         vibrarCliente();
     });
-    
+
     socket.on('listo', (message) => {
         console.log('Listo:', message);
         listo = true;
@@ -98,7 +98,7 @@ io.on('connection', (socket) => {
                     tasksOrdenados.push(task);
                 }
             });
-    
+
             // Escribir el archivo tasks.json con el nuevo orden
             fs.writeFile('tasks.json', JSON.stringify(tasksOrdenados, null, 2), 'utf8', err => {
                 if (err) {
@@ -113,15 +113,15 @@ io.on('connection', (socket) => {
                         console.error(err);
                         return;
                     }
-    
+
                     // Parsear el contenido del archivo JSON
                     const carrito = JSON.parse(data);
                     const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
-    
+
                     console.log("Enviandooo");
                     // Emitir el carrito como un array a través del socket
                     socket.emit('carrito-ordenado', carritoArray);
-                    });
+                });
             });
         });
     });
@@ -144,7 +144,7 @@ io.on('connection', (socket) => {
                     tasksOrdenados.push(task);
                 }
             });
-    
+
             // Escribir el archivo tasks.json con el nuevo orden
             fs.writeFile('favoritos.json', JSON.stringify(tasksOrdenados, null, 2), 'utf8', err => {
                 if (err) {
@@ -158,20 +158,20 @@ io.on('connection', (socket) => {
                         console.error(err);
                         return;
                     }
-    
+
                     // Parsear el contenido del archivo JSON
                     const carrito = JSON.parse(data);
                     const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
-    
+
                     console.log("Enviandooo");
                     // Emitir el carrito como un array a través del socket
                     socket.emit('carrito-ordenado-fav', carritoArray);
-                    });
+                });
             });
         });
     });
 
-    socket.on('favorito', (favorito)=> {
+    socket.on('favorito', (favorito) => {
         const producto = almacen.find(item => item.nombre === favorito);
         if (producto) {
             // Si se encontró el producto, enviar toda su información de vuelta al cliente
@@ -184,8 +184,8 @@ io.on('connection', (socket) => {
             console.log('Producto no encontrado para el ID:', product);
         }
     });
-    
-    
+
+
     socket.on('producto-plano', (product) => {
         console.log(typeof product);
         const producto = almacen.find(item => item.nombre === product);
@@ -212,7 +212,7 @@ io.on('connection', (socket) => {
             if (data) {
                 carritoExistente = JSON.parse(data);
             }
-    
+
             // Buscar el producto en el carrito por su nombre
             const productoIndex = carritoExistente.findIndex(producto => producto.nombre === nombreProducto);
             if (productoIndex !== -1) {
@@ -224,28 +224,28 @@ io.on('connection', (socket) => {
                     carritoExistente.splice(productoIndex, 1);
                 }
             }
-    
+
             console.log('Carrito actualizado:', carritoExistente);
-    
+
             // Guardar el contenido del carrito actualizado en el archivo tasks.json
             fs.writeFile('tasks.json', JSON.stringify(carritoExistente), (err) => {
                 if (err) {
                     console.error(err);
                     return;
                 }
-            fs.readFile('tasks.json', 'utf8', (err, data) => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
+                fs.readFile('tasks.json', 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
 
-                // Parsear el contenido del archivo JSON
-                const carrito = JSON.parse(data);
-                const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
+                    // Parsear el contenido del archivo JSON
+                    const carrito = JSON.parse(data);
+                    const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
 
-                console.log("Enviandooo");
-                // Emitir el carrito como un array a través del socket
-                socket.emit('producto-eliminado', carritoArray);
+                    console.log("Enviandooo");
+                    // Emitir el carrito como un array a través del socket
+                    socket.emit('producto-eliminado', carritoArray);
                 });
             });
         });
@@ -262,41 +262,41 @@ io.on('connection', (socket) => {
             if (data) {
                 carritoExistente = JSON.parse(data);
             }
-    
+
             // Buscar el producto en el carrito por su nombre
             const productoIndex = carritoExistente.findIndex(producto => producto.nombre === nombreProducto);
             if (productoIndex !== -1) {
-                    // Si la cantidad del producto es igual a 1, eliminar el producto del carrito
-                    carritoExistente.splice(productoIndex, 1);
+                // Si la cantidad del producto es igual a 1, eliminar el producto del carrito
+                carritoExistente.splice(productoIndex, 1);
             }
-    
+
             console.log('Carrito actualizado:', carritoExistente);
-    
+
             // Guardar el contenido del carrito actualizado en el archivo tasks.json
             fs.writeFile('favoritos.json', JSON.stringify(carritoExistente), (err) => {
                 if (err) {
                     console.error(err);
                     return;
                 }
-            fs.readFile('favoritos.json', 'utf8', (err, data) => {
-                if (err) {
-                    console.error(err);
-                    return;
-                }
+                fs.readFile('favoritos.json', 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
 
-                // Parsear el contenido del archivo JSON
-                const carrito = JSON.parse(data);
-                const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
+                    // Parsear el contenido del archivo JSON
+                    const carrito = JSON.parse(data);
+                    const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
 
-                console.log("Enviandooo");
-                // Emitir el carrito como un array a través del socket
-                socket.emit('fav-eliminado', carritoArray);
+                    console.log("Enviandooo");
+                    // Emitir el carrito como un array a través del socket
+                    socket.emit('fav-eliminado', carritoArray);
                 });
             });
         });
     });
-    
-    socket.on('anadir-cantidad', (nombre)=> {
+
+    socket.on('anadir-cantidad', (nombre) => {
         fs.readFile('tasks.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
@@ -306,35 +306,35 @@ io.on('connection', (socket) => {
             if (data) {
                 carritoExistente = JSON.parse(data);
             }
-    
+
             // Buscar el producto en el carrito por su nombre
             const productoIndex = carritoExistente.findIndex(producto => producto.nombre === nombre);
             if (productoIndex !== -1) {
                 if (carritoExistente[productoIndex].cantidad >= 1) {
                     carritoExistente[productoIndex].cantidad++;
+                }
             }
-        }
-        fs.writeFile('tasks.json', JSON.stringify(carritoExistente), (err) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-        fs.readFile('tasks.json', 'utf8', (err, data) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
+            fs.writeFile('tasks.json', JSON.stringify(carritoExistente), (err) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                fs.readFile('tasks.json', 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        return;
+                    }
 
-            // Parsear el contenido del archivo JSON
-            const carrito = JSON.parse(data);
-            const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
+                    // Parsear el contenido del archivo JSON
+                    const carrito = JSON.parse(data);
+                    const carritoArray = Array.isArray(carrito) ? carrito : [carrito];
 
-            console.log("Enviandooo");
-            // Emitir el carrito como un array a través del socket
-            socket.emit('producto-masuno', carritoArray);
+                    console.log("Enviandooo");
+                    // Emitir el carrito como un array a través del socket
+                    socket.emit('producto-masuno', carritoArray);
+                });
             });
         });
-    });
     });
     socket.on('favoritos-anadir-producto', (nuevoCarrito) => {
         // Leer el contenido actual del archivo tasks.json
@@ -367,7 +367,7 @@ io.on('connection', (socket) => {
                     nuevoCarrito.cantidad = 1;
                     carritoExistente.push(nuevoCarrito);
                 }
-            } 
+            }
             console.log('Carrito actualizado favvvv:', carritoExistente);
             // Guardar el contenido del carrito actualizado en el archivo tasks.json
             fs.writeFile('favoritos.json', JSON.stringify(carritoExistente), (err) => {
@@ -381,7 +381,7 @@ io.on('connection', (socket) => {
                         console.error(err);
                         return;
                     }
-    
+
                     // Parsear el contenido del archivo JSON
                     const carrito = JSON.parse(data);
                     console.log("Enviandooo favvvv");
@@ -391,7 +391,7 @@ io.on('connection', (socket) => {
             });
         });
     });
-    
+
 
     socket.on('guardar-carrito', (nuevoCarrito) => {
         // Leer el contenido actual del archivo tasks.json
@@ -423,7 +423,7 @@ io.on('connection', (socket) => {
                     nuevoCarrito.cantidad = 1;
                     carritoExistente.push(nuevoCarrito);
                 }
-            } 
+            }
             console.log('Carrito actualizado:', carritoExistente);
             // Guardar el contenido del carrito actualizado en el archivo tasks.json
             fs.writeFile('tasks.json', JSON.stringify(carritoExistente), (err) => {
@@ -437,7 +437,7 @@ io.on('connection', (socket) => {
                         console.error(err);
                         return;
                     }
-    
+
                     // Parsear el contenido del archivo JSON
                     const carrito = JSON.parse(data);
                     console.log("Enviandooo");
@@ -448,38 +448,33 @@ io.on('connection', (socket) => {
         });
     });
 
-    
+
 
     socket.on('carrito-almacen', () => {
-    fs.readFile('tasks.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        if (data) {
-            const carrito = JSON.parse(data);
-        }
-    // Enviar el carrito
-    console.log("Enviandooo");
-    socket.emit('carrito-recivido', carrito);
+        fs.readFile('tasks.json', 'utf8', (err, data) => {
+            let carrito_dep = JSON.parse(data);
+    
+            // Enviar el carrito
+            console.log("Enviandooo");
+            socket.emit('carrito-recivido', carrito_dep);
+
+        });
+
+       });     
+        socket.on('nfcWritten', function (message) {
+            console.log(message);
+        });
+
+
+        socket.on('nfcRead', function (data) {
+            console.log('Datos leídos de la tarjeta NFC:', data);
+        });
+
+        socket.on('nfcError', function (error) {
+            console.error(error);
+        });
 
     });
-    
-    
-  socket.on('nfcWritten', function (message) {
-    console.log(message);
-});
 
-
-socket.on('nfcRead', function(data) {
-    console.log('Datos leídos de la tarjeta NFC:', data);
-});
-
-socket.on('nfcError', function (error) {
-    console.error(error);
-});
-
-});
-    
-app.use(express.static('www'));
-server.listen(3000, () => console.log('Servidor iniciado en el puerto 3000'));
+    app.use(express.static('www'));
+    server.listen(3000, () => console.log('Servidor iniciado en el puerto 3000'));

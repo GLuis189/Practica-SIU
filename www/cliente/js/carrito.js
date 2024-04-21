@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("llamando a función");
     comprobarCarrito();
 });
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
@@ -45,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const microfono = document.getElementById('microfono');
 
     microfono.addEventListener('touchstart', function () {
-        window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono.html'; 
     });
 });
 
@@ -65,7 +67,7 @@ function comprobarCarrito() {
             // Iterar sobre el array de productos y mostrar cada uno
             productos.forEach(producto => {
             mostrarProductoEnHTML(producto);
-            // Actualiza el contenido de la etiqueta span con la clase "total"
+            // Actualizar el precio total
             document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
             localStorage.setItem('total', total);
         });
@@ -78,35 +80,32 @@ function comprobarCarrito() {
 function mostrarProductoEnHTML(producto) {
     const contenedorProductos = document.getElementById('contenedor_productos');
 
-    // Crear un nuevo elemento div para el producto
+    // Crear un div para el producto
     const nuevoProducto = document.createElement('div');
     nuevoProducto.id = "producto" + producto.id;
     nuevoProducto.classList.add("producto");
 
-    // Crear el elemento img y establecer su src y alt
+    // Crear el elemento para la imagen del producto
     const imagenProducto = document.createElement('img');
     imagenProducto.src = producto.imagen;
     imagenProducto.alt = "Producto " + producto.id;
 
-    // Crear el div para la información del producto
+    // Crear un div para la información del producto
     const infoProducto = document.createElement('div');
     infoProducto.classList.add("info-producto");
 
-    // Crear el span para el nombre del producto
     const nombreProducto = document.createElement('span');
     nombreProducto.classList.add("nombre_producto");
     nombreProducto.textContent = producto.nombre;
 
-    // Crear el div para la cantidad del producto
+    
     const cantidadContenedor = document.createElement('div');
     cantidadContenedor.classList.add("cantidad-contenedor");
 
-    // Crear el span para mostrar la cantidad del producto
     const cantidadSpan = document.createElement('span');
     cantidadSpan.classList.add("cantidad");
     cantidadSpan.textContent = "Cantidad: ";
 
-    // Crear el span para la cantidad específica del producto
     const cantidadProducto = document.createElement('span');
     cantidadProducto.id = "cantidadProducto";
     cantidadProducto.textContent = producto.cantidad;
@@ -122,25 +121,25 @@ function mostrarProductoEnHTML(producto) {
     botonMenos.classList.add("boton-menos");
     botonMenos.textContent = "-";
 
-    // Agregar event listener al botón más
+    // Añadir mediante botón
     botonMas.addEventListener('touchstart', function() {
-        // Aquí podrías incrementar la cantidad del producto
+        
         console.log("Producto añadido");
         socket.emit("anadir-cantidad", producto.nombre);
         socket.on('producto-masuno',  (carrito) => {
-            // Aquí puedes manejar el carrito actualizado recibido desde el servidor
+            
             console.log('Carrito actualizado recibido:', carrito);
             contenedorProductos.innerHTML = '';
-            // Iterar sobre el array de productos y mostrar cada uno
+            
             console.log(typeof (carrito));
             const carritoString = JSON.stringify(carrito);
 
-            // Guardar 'carritoString' en localStorage con la clave 'producto'
+            // Guardar en local storage
             localStorage.setItem('producto', carritoString);
 
             if (typeof carrito === 'object' && carrito !== null) {
                 total = 0;
-                // Recorrer el objeto 'carrito' utilizando un bucle for...in
+                // Recorrer el carrito
                 for (const key in carrito) {
                     if (carrito.hasOwnProperty(key)) {
                         const producto = carrito[key];
@@ -148,38 +147,37 @@ function mostrarProductoEnHTML(producto) {
                         console.log('Nombre del producto:', producto.nombre);
                         console.log('Cantidad:', producto.cantidad);
 
-                        // Mostrar el producto en la interfaz de usuario
+                        // Mostrar el producto en HTML
                         mostrarProductoEnHTML(producto);
                         eliminandoProducto = false;
                     }
-
                 }
-                // Actualiza el contenido de la etiqueta span con la clase "total"
+                // Actualiza el precio total
                 document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
                 localStorage.setItem('total', total);
             }
         });
     });
 
-    // Agregar event listener al botón menos
+    // Eliminar mediante botón
     botonMenos.addEventListener('touchstart', function() {
-        // Aquí podrías disminuir la cantidad del producto
+        // Disminuir la cantidad del producto
         console.log("Producto eliminado");
         socket.emit('eliminar-carrito', producto.nombre);
         socket.on('producto-eliminado', (carrito) => {
-            // Aquí puedes manejar el carrito actualizado recibido desde el servidor
+            
             console.log('Carrito actualizado recibido:', carrito);
             contenedorProductos.innerHTML = '';
-            // Iterar sobre el array de productos y mostrar cada uno
+            
             console.log(typeof (carrito));
             const carritoString = JSON.stringify(carrito);
 
-            // Guardar 'carritoString' en localStorage con la clave 'producto'
+            // Guardar en local storage
             localStorage.setItem('producto', carritoString);
 
             if (typeof carrito === 'object' && carrito !== null) {
                 total=0;
-                // Recorrer el objeto 'carrito' utilizando un bucle for...in
+                // Recorrer el carrito
                 for (const key in carrito) {
                     if (carrito.hasOwnProperty(key)) {
                         const producto = carrito[key];
@@ -187,13 +185,13 @@ function mostrarProductoEnHTML(producto) {
                         console.log('Nombre del producto:', producto.nombre);
                         console.log('Cantidad:', producto.cantidad);
 
-                        // Mostrar el producto en la interfaz de usuario
+                        // Mostrar el producto en HTML
                         mostrarProductoEnHTML(producto);
                         eliminandoProducto = false;
                     }
 
                 }
-                // Actualiza el contenido de la etiqueta span con la clase "total"
+                // Actualiza el precio total
                 document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
                 localStorage.setItem('total', total);
 
@@ -255,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Insertar el código QR en el contenedor
         let qrImg = document.createElement('img');
-        qrImg.src = qr.createDataURL(10); // Cambia el tamaño del código QR según lo necesites
+        qrImg.src = qr.createDataURL(10); 
         qrCodeContainer.appendChild(qrImg);
     }
 
@@ -266,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// En lugar de simplemente agregar y quitar la clase "visible", ahora vamos a usar JavaScript para cambiar esa clase
+// Mostrar y ocultar menu hamburguesa
 var nav = document.querySelector("#nav1");
 var abrir = document.querySelector("#abrir");
 var cerrar = document.querySelector("#cerrar");
@@ -279,10 +277,15 @@ cerrar.addEventListener("click", () => {
     nav.classList.remove("visible");
 });
 
+// Ordenar el carrito
 function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
+
+    // Extraer el nombre del producto que se está moviendo 
     const contenedorProductos = document.getElementById('contenedor_productos');
     const nombreProductoMovido = contenedorMovido.querySelector('.nombre_producto').textContent;
     const indexMovido = lista.indexOf(nombreProductoMovido);
+
+    // Calcular indices para detectar movimiento
     let indexTarget = indexMovido + direccionMovimiento;
     if (indexTarget < 0) {
         indexTarget = 0;
@@ -292,6 +295,8 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
     }
     console.log(indexTarget);
     console.log(indexMovido);
+
+    
     lista.splice(indexMovido, 1);
     lista.splice(indexTarget, 0, nombreProductoMovido);
     console.log("Lista de nombres reordenada:", lista);
@@ -303,11 +308,11 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
         console.log(typeof (carrito));
         const carritoString = JSON.stringify(carrito);
 
-        // Guardar 'carritoString' en localStorage con la clave 'producto'
+        // Guardar producto en local storage
         localStorage.setItem('producto', carritoString);
 
         if (typeof carrito === 'object' && carrito !== null) {
-            // Recorrer el objeto 'carrito' utilizando un bucle for...in
+            
             total = 0;
             for (const key in carrito) {
                 if (carrito.hasOwnProperty(key)) {
@@ -320,7 +325,7 @@ function reordenarContenedores(lista, contenedorMovido, direccionMovimiento) {
 
             }
            
-            // Actualiza el contenido de la etiqueta span con la clase "total"
+            // Actualizar el precio total
             document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
             localStorage.setItem('total', total);
 

@@ -5,7 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 80vh;
-    /* Establecer la altura mínima del cuerpo para que ocupe todo el alto de la ventana */
+   
 }
 
 .contenedor-header {
@@ -248,12 +248,11 @@ h3 {
 
 }
 
-/* Agrega una clase para aplicar la transición al deslizar hacia la izquierda */
+
 .eliminar-transicion {
     transition: transform 0.3s ease;
 }
 
-/* Aplica la transformación para desplazar el producto hacia la izquierda */
 .eliminar-transicion.eliminado {
     transform: translateX(-100%);
 }

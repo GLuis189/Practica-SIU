@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>El Corte Ingles: plano</title>
-    <link rel="stylesheet" href="../css/mapa_almacen.css">
+    <title>El Corte Ingles: Home Page</title>
+    <link rel="stylesheet" href="../css/microfono_almacen.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Didot&display=swap">
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.js"></script> 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -43,38 +42,21 @@
             <ion-icon name="close-outline"></ion-icon>    
         </button>
         <ul class="nav-list1">
-            <li><a href="dependiente_almacen.html">Productos</a></li>
+            <li><a href="./dependiente_almacen.html">Productos</a></li>
         </ul>
     </div>
-    <div id="posicion"></div>
-    <section class="zona_plano">
-        <h2>Plano</h2>
-        <div class="linea"></div>
-        <div id="contenedor-plano">
-            <img id="plano" src="../../imgs/plano_tienda.png" alt="plano">
-            <div class="contenedor-img">
-                <div id="usuario"><img src="../../imgs/localizacion.png" alt="Usuario"></div>
-                <img id="producto1" src="../../imgs/marcador-de-posicion.png" alt="calcetines de colores" style="display: none;">
-                <img id="producto2" src="../../imgs/marcador-de-posicion.png" alt="consola" style="display: none;">
-                <img id="producto3" src="../../imgs/marcador-de-posicion.png" alt="velas" style="display: none;">
-                <img id="producto4" src="../../imgs/marcador-de-posicion.png" alt="camisa hombre" style="display: none;">
-                <div id="popup" class="popup" style="display: none;">
-                    <span id="nombreProducto"></span>
-                </div>
-            </div>
+    <section id="micro">
+        <div id="contenedor-microfono">
+            <img id="icono-microfono" src="/imgs/microfono.png" alt="Micrófono">
         </div>
-        <div class="linea"></div> 
+        <div id="status-message"></div>
     </section>
-
-    <footer>
-        <div id="footer-imgs">
-        <a href="dependiente_almacen.html">
-            <img id="productos_almacen" src="../../imgs/productos_dependiente.png" alt="completado">
-        </a>
+    <section id="boton" style="display: none;" >
+        <div id="contenedor-botones" >
+            <button id="plano-info" title="Plano-Info">Plano producto</button>
         </div>
-    </footer>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    </section><script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="../js/mapa_almacen.js"></script>
+    <script src="../js/microfono_almacen.js"></script>
 </body>
 </html>
