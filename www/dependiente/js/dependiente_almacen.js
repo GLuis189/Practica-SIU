@@ -61,7 +61,22 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-    
 
+document.addEventListener('DOMContentLoaded', function() {
+    const imagenes = document.querySelectorAll('[id^="imagenX_"]'); // Selecciona todas las imágenes con IDs que comienzan con "imagenX_"
+    let todasTic = true;
+
+    for (const imagen of imagenes) {
+        if (!imagen.src.endsWith('/imgs/tic.png')) {
+            todasTic = false;
+            break; // Si encontramos una imagen que no es "tic", salimos del bucle
+        }
+    }
+
+    if (todasTic) {
+        // Redirigir a la URL deseada (por ejemplo, http://localhost:3000/dependiente/html/mapa_almacen.html)
+        window.location.href = 'http://localhost:3000/dependiente/html/mapa_almacen.html';
+    }
+});
 
 
