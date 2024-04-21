@@ -1,3 +1,5 @@
+const productosContainer = document.getElementById('productosContainer');
+
 document.addEventListener('DOMContentLoaded', function() {
     // Recuperar la información del carrito del local storage
     let carrito = JSON.parse(localStorage.getItem('carrito'));

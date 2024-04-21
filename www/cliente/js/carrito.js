@@ -228,10 +228,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var productosQR = [];
 
         productos.forEach(function (producto) {
+            console.log('P:',producto);
             var nombre = producto.querySelector('.nombre_producto').textContent;
-            var cantidad = producto.querySelector('.cantidad').textContent.replace('Cantidad: ', '');
+            var cantidad = producto.querySelector('#cantidadProducto').textContent;
             var imagen = producto.querySelector('img').getAttribute('src');
-
+            console.log('Cantidad:', cantidad);
             productosQR.push({ nombre: nombre, cantidad: cantidad, imagen: imagen });
         });
 
