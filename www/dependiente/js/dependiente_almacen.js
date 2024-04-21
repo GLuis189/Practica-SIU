@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="cantidad-contenedor">
                             <span class="cantidad">Cantidad: ${producto.cantidad}</span>
                         </div>
-                        <div class ="tick">
+                    </div>
+                    <div class ="tick">
                             <img src="/imgs/x.png" alt="check" id="imagenX_${index}">
-                        </div>
                     </div>
                 </div>
                 <div class="linea"></div>
@@ -43,17 +43,40 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function cambiarImagenX(id) {
-    const imagen = document.getElementById(id);
-    if (imagen.src.endsWith("/imgs/x.png")) {
-        imagen.src = "/imgs/tic.png"; 
-    } else {
-        imagen.src = "/imgs/x.png";
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Supongamos que tienes varias imágenes con IDs basados en el índice
+    const totalImagenes = 4; // Cambia esto al número total de imágenes
+
+    for (let index = 0; index < totalImagenes; index++) {
+        const imagen = document.getElementById(`imagenX_${index}`);
+        imagen.addEventListener('click', function () {
+            if (imagen.src.endsWith('/imgs/x.png')) {
+                imagen.src = '/imgs/tic.png'; 
+            } else {
+                imagen.src = '/imgs/x.png';
+            }
+        });
     }
-}
+});
 
+document.addEventListener('DOMContentLoaded', function() {
+    const imagenes = document.querySelectorAll('[id^="imagenX_"]'); // Selecciona todas las imágenes con IDs que comienzan con "imagenX_"
+    let todasTic = true;
 
-    
+    for (const imagen of imagenes) {
+        if (!imagen.src.endsWith('/imgs/tic.png')) {
+            todasTic = false;
+            break; // Si encontramos una imagen que no es "tic", salimos del bucle
+        }
+    }
 
+    if (todasTic) {
+        // Redirigir a la URL deseada (por ejemplo, http://localhost:3000/dependiente/html/mapa_almacen.html)
+        window.location.href = 'http://localhost:3000/dependiente/html/mapa_almacen.html';
+    }
+});
 
 
