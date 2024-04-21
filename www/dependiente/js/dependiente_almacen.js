@@ -1,4 +1,5 @@
 const socket = io();
+let numero_prod = 0;
 const contenedorProducto = document.getElementById('productos-container');
 document.addEventListener('DOMContentLoaded', function() {
     // Emitir un evento para solicitar el carrito desde el servidor
@@ -21,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(productosSinNFC);
         // Generar el HTML para los productos con NFC
         productosSinNFC.forEach((producto, index) => {
+            numero_prod = numero_prod + 1;
+            console.log('numero-prod', numero_prod);
             const productoHTML = `
                 <div class="producto1">                        
                     <img src="${producto.imagen}" alt="${producto.nombre}">
@@ -42,41 +45,42 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-
-
-
-
+let tics;
 document.addEventListener('DOMContentLoaded', function () {
     // Supongamos que tienes varias imágenes con IDs basados en el índice
-    const totalImagenes = 4; // Cambia esto al número total de imágenes
+    const totalImagenes = numero_prod; // Cambia esto al número total de imágenes
 
     for (let index = 0; index < totalImagenes; index++) {
         const imagen = document.getElementById(`imagenX_${index}`);
         imagen.addEventListener('click', function () {
             if (imagen.src.endsWith('/imgs/x.png')) {
-                imagen.src = '/imgs/tic.png'; 
+                imagen.src = '/imgs/tic.png';
+                if (tics){
+                    tics = tics + 1;
+                }else{
+                    tics = 1;
+                }
+                console.log('tics', tics);
+                if (numero_prod === tics) {
+                    console.log('mas tics', tics);
+                    // Redirigir a la URL deseada (por ejemplo, http://localhost:3000/dependiente/html/mapa_almacen.html)
+                    window.location.href = '../html/mapa_almacen.html';
+                }
             } else {
                 imagen.src = '/imgs/x.png';
+                if (tics <= 1){
+                    tics = 0;
+                }else{
+                    tics = tics - 1;
+                }
+                console.log('tics', tics);
             }
         });
     }
+
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const imagenes = document.querySelectorAll('[id^="imagenX_"]'); // Selecciona todas las imágenes con IDs que comienzan con "imagenX_"
-    let todasTic = true;
 
-    for (const imagen of imagenes) {
-        if (!imagen.src.endsWith('/imgs/tic.png')) {
-            todasTic = false;
-            break; // Si encontramos una imagen que no es "tic", salimos del bucle
-        }
-    }
 
-    if (todasTic) {
-        // Redirigir a la URL deseada (por ejemplo, http://localhost:3000/dependiente/html/mapa_almacen.html)
-        window.location.href = 'http://localhost:3000/dependiente/html/mapa_almacen.html';
-    }
-});
 
 
