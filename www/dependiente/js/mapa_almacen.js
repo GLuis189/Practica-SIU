@@ -195,19 +195,22 @@ function actualizarPosicionConstante(position, anchoPlano, anchoUsuario, altoPla
         }
     
         const usuario = document.getElementById("usuario");
-        usuario.style.left = `${posicionHorizontal + 738}px`;
-        usuario.style.bottom = `${posicionVertical + 540}px`;
+        usuario.style.left = `${posicionHorizontal + 650}px`;
+        usuario.style.bottom = `${posicionVertical + 390}px`;
     }    
 }
     
        
     
 document.addEventListener('DOMContentLoaded', function () {
+
+    
     // Obtener referencias a los marcadores de productos
     const productos = document.querySelectorAll('[id^="producto"]');
 
     // Función para mostrar el popup durante 5 segundos
     function mostrarPopup(nombreProducto, left, top) {
+        console.log('mostrandopopup');
         const popup = document.getElementById('popup');
         const nombreProductoSpan = document.getElementById('nombreProducto');
         if (nombre){
@@ -229,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function () {
     productos.forEach(function(producto) {
         let startTime; // Variable para almacenar el tiempo de inicio del toque
 
-        producto.addEventListener('touchstart', function(event) {
+        producto.addEventListener('click', function(event) {
             event.stopPropagation(); // Evitar que el toque se propague al contenedor padre
             event.preventDefault(); // Evitar el menú contextual predeterminado
             const nombreProducto = this.alt; // Obtener el nombre del producto del atributo alt

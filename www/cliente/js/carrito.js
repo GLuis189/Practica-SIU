@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
+
+        // Mostrar/ocultar el buscador
         if (contenedorBuscador.style.display === 'none') {
             logoLetras.style.display = 'none';
             logoMenu.style.display = 'none';
@@ -29,8 +31,10 @@ document.addEventListener('DOMContentLoaded', function () {
             contenedorLupa.style.display = 'block';
         }
     });
+
     Lupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
+        // Mostrar/ocultar el buscador
         if (Lupa.style.display === 'block') {
             logoLetras.style.display = 'block';
             logoMenu.style.display = 'block';
@@ -46,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const microfono = document.getElementById('microfono');
 
+    // Al hacer click sobre el microfono te redirige a esa página para poder buscar el producto por voz
     microfono.addEventListener('touchstart', function () {
         window.location.href = '../html/microfono.html'; 
     });
@@ -231,7 +236,8 @@ document.addEventListener('DOMContentLoaded', function () {
             var cantidad = producto.querySelector('#cantidadProducto').textContent;
             var imagen = producto.querySelector('img').getAttribute('src');
             console.log('Cantidad:', cantidad);
-            productosQR.push({ nombre: nombre, cantidad: cantidad, imagen: imagen });
+            console.log('precio', producto.precio);
+            productosQR.push({ nombre: nombre, cantidad: cantidad, imagen: imagen, total: total });
         });
 
         // Convertir los productos a formato de texto
@@ -399,18 +405,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 }, { once: true });
                 socket.emit('eliminar-carrito', nombreProducto);
                 socket.on('producto-eliminado', (carrito) => {
-                    // Aquí puedes manejar el carrito actualizado recibido desde el servidor
+                    
                     console.log('Carrito actualizado recibido:', carrito);
                     contenedorProductos.innerHTML = '';
                     // Iterar sobre el array de productos y mostrar cada uno
                     console.log(typeof (carrito));
                     const carritoString = JSON.stringify(carrito);
 
-                    // Guardar 'carritoString' en localStorage con la clave 'producto'
+                    // Guardar en local storage
                     localStorage.setItem('producto', carritoString);
 
                     if (typeof carrito === 'object' && carrito !== null) {
-                        // Recorrer el objeto 'carrito' utilizando un bucle for...in
+                        // Recorrer el objeto carrito
                         total=0;
                         for (const key in carrito) {
                             if (carrito.hasOwnProperty(key)) {
@@ -419,13 +425,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 console.log('Nombre del producto:', producto.nombre);
                                 console.log('Cantidad:', producto.cantidad);
 
-                                // Mostrar el producto en la interfaz de usuario
+                                // Mostrar el producto en el HTML
                                 mostrarProductoEnHTML(producto);
                                 eliminandoProducto = false;
                             }
 
                         }
-                        // Actualiza el contenido de la etiqueta span con la clase "total"
+                        // Actualiza el precio total
                         document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
                         localStorage.setItem('total', total);
                     } else {

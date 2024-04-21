@@ -1,4 +1,5 @@
 const productosContainer = document.getElementById('productosContainer');
+let total = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
     // Recuperar la información del carrito del local storage
@@ -9,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Tipo de dato:', typeof carrito);
         carrito = JSON.parse(carrito);
         carrito.forEach(producto => {
+            console.log('producto-precio', producto.precio)
+            total = producto.total;
             const productoHTML = `
                 <div class="producto1">                        
                     <img src="${producto.imagen}" alt="${producto.nombre}">
@@ -61,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
             contenedorLupa.style.display = 'none';
         }
     });
+    document.querySelector('.total').nextElementSibling.textContent = total.toFixed(2) + '€';
+    localStorage.setItem('total', total);
 
     const microfono = document.getElementById('microfono');
 

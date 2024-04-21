@@ -1,6 +1,6 @@
 const socket = io();
 
-
+// Buscador
 document.addEventListener('DOMContentLoaded', function () {
     const contenedorLupa = document.getElementById('contenedor-lupa');
     const Lupa = document.getElementById('lupa-barra');
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     contenedorLupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
+        // Mostrar/ocultar el buscador
         if (contenedorBuscador.style.display === 'none') {
             logoLetras.style.display = 'none';
             logoMenu.style.display = 'none';
@@ -45,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     Lupa.addEventListener('touchstart', function (event) {
         event.preventDefault();
+        // Mostrar/ocultar el buscador
         if (Lupa.style.display === 'block') {
             logoLetras.style.display = 'block';
             logoMenu.style.display = 'block';
@@ -60,10 +62,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const microfono = document.getElementById('microfono');
 
+    // Al hacer click sobre el microfono te redirige a esa página para poder buscar el producto por voz
     microfono.addEventListener('touchstart', function () {
-        window.location.href = '../html/microfono.html'; // Redireccionar al usuario a microfono.html
+        window.location.href = '../html/microfono.html'; 
     });
 });
+
 // En lugar de simplemente agregar y quitar la clase "visible", ahora vamos a usar JavaScript para cambiar esa clase
 var nav = document.querySelector("#nav1");
 var abrir = document.querySelector("#abrir");

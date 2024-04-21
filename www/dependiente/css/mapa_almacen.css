@@ -79,12 +79,12 @@ h2{
 .zona_plano {
     margin-top: 20px;
     align-items: center; 
-    /* display: flex; */
+    
     
 }
 #plano {
     margin-left: 30%;
-    /* height: 70%; */
+    
     width: 55%;
 }
 #contenedor-plano {
@@ -92,7 +92,7 @@ h2{
 }
 .contenedor-img {
     position: relative;
-    width: 100%; /* Ajusta el ancho según tus necesidades */
+    width: 100%; 
     height: 100%;
 }
 .popup {
@@ -107,14 +107,14 @@ h2{
 
 }
 #usuario img {
-    width: 40px; /* Ajusta el tamaño de la imagen */
-    height: auto; /* Mantiene la proporción de la imagen */
+    width: 40px; 
+    height: auto; 
 }
 #usuario {
-    width: 20px; /* Ajusta el tamaño de la imagen */
-    height: auto; /* Mantiene la proporción de la imagen */
+    width: 20px; 
+    height: auto; 
 }
-#productos_almacen{
+#carrito_almacen{
     height: 30px;
 }
 
